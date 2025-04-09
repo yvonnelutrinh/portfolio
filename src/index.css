@@ -1,42 +1,323 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap');
 
-* {
-  margin: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    interpolate-size: allow-keywords;
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 3%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 3%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.9%;
+
+    --radius: 0.5rem;
   }
 }
 
-body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }
 
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
+.text-glitch {
+  position: relative;
+  display: inline-block;
 }
 
-input, button, textarea, select {
-  font: inherit;
+.text-glitch::before,
+.text-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
+.text-glitch::before {
+  left: 2px;
+  text-shadow: -1px 0 #ff00c1;
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
 }
 
-p {
-  text-wrap: pretty;
-}
-h1, h2, h3, h4, h5, h6 {
-  text-wrap: balance;
+.text-glitch::after {
+  left: -2px;
+  text-shadow: 2px 0 #00fff9;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
 }
 
-#root, #__next {
-  isolation: isolate;
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: inset(20% 0 80% 0);
+  }
+  20% {
+    clip-path: inset(60% 0 1% 0);
+  }
+  40% {
+    clip-path: inset(25% 0 58% 0);
+  }
+  60% {
+    clip-path: inset(94% 0 2% 0);
+  }
+  80% {
+    clip-path: inset(58% 0 5% 0);
+  }
+  100% {
+    clip-path: inset(10% 0 85% 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(69% 0 10% 0);
+  }
+  20% {
+    clip-path: inset(28% 0 40% 0);
+  }
+  40% {
+    clip-path: inset(16% 0 36% 0);
+  }
+  60% {
+    clip-path: inset(83% 0 1% 0);
+  }
+  80% {
+    clip-path: inset(23% 0 44% 0);
+  }
+  100% {
+    clip-path: inset(96% 0 1% 0);
+  }
+}
+
+.marquee {
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.custom-cursor.hover {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.text-distort:hover {
+  animation: distort 0.5s ease-in-out;
+}
+
+@keyframes distort {
+  0% {
+    transform: skew(0deg, 0deg);
+  }
+  25% {
+    transform: skew(5deg, 5deg);
+  }
+  50% {
+    transform: skew(-5deg, -5deg);
+  }
+  75% {
+    transform: skew(5deg, -5deg);
+  }
+  100% {
+    transform: skew(0deg, 0deg);
+  }
+}
+
+.cinematic-fade-in {
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: 0.15em solid white;
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+}
+
+.flicker {
+  animation: flicker 2s linear infinite;
+}
+
+@keyframes flicker {
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  21.999%,
+  63%,
+  63.999%,
+  65%,
+  69.999% {
+    opacity: 0.5;
+  }
+}
+
+.parallax-text {
+  transform: translateY(var(--parallax-y, 0));
+}
+
+.terminal-text {
+  font-family: var(--font-space-mono);
+  color: #00ff00;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 1rem;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.terminal-text::before {
+  content: "> ";
+}
+
+.film-grain {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200vh;
+  background: transparent url("/noise.png") repeat 0 0;
+  background-repeat: repeat;
+  animation: grain 8s steps(10) infinite;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+@keyframes grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  20% {
+    transform: translate(-15%, 5%);
+  }
+  30% {
+    transform: translate(7%, -25%);
+  }
+  40% {
+    transform: translate(-5%, 25%);
+  }
+  50% {
+    transform: translate(-15%, 10%);
+  }
+  60% {
+    transform: translate(15%, 0%);
+  }
+  70% {
+    transform: translate(0%, 15%);
+  }
+  80% {
+    transform: translate(3%, 35%);
+  }
+  90% {
+    transform: translate(-10%, 10%);
+  }
 }
