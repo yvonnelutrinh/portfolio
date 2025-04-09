@@ -43,7 +43,7 @@ export default function Home() {
           {/* scrolling text section */}
           <section className="py-16 md:py-32">
             <TextBanner
-              text="YVONNE LU TRINH · DEVELOPER · DESIGNER · CREATIVE · YVONNE LU TRINH"
+              text="DEVELOPER · DESIGNER · CREATIVE"
               className="text-4xl md:text-6xl font-display tracking-wider"
               speed={15}
             />

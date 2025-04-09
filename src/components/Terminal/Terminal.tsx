@@ -5,7 +5,6 @@ export default function Terminal() {
     const [activeLine, setActiveLine] = useState(0);
     const [typewriterComplete, setTypewriterComplete] = useState(false);
 
-    // Mock terminal lines
     const terminalLines = [
         "$ initiating development_process.sh",
         "$ loading creative_philosophy.module",
@@ -22,7 +21,7 @@ export default function Terminal() {
             setLoaded(true);
         }, 300);
 
-        // Simulate typewriter effect for terminal
+        // simulate typewriter effect for terminal
         let lineIndex = 0;
         const interval = setInterval(() => {
             if (lineIndex < terminalLines.length) {
@@ -50,7 +49,7 @@ export default function Terminal() {
                         <div className="h-3 w-3 rounded-full bg-red-500 opacity-70"></div>
                         <div className="h-3 w-3 rounded-full bg-yellow-500 opacity-70"></div>
                         <div className="h-3 w-3 rounded-full bg-green-500 opacity-70"></div>
-                        <div className="font-mono text-xs text-brutalist/50 ml-2">design_process.terminal</div>
+                        <div className="font-mono text-xs text-brutalist/50 ml-2">development_process.terminal</div>
                     </div>
 
                     <div className="font-mono text-sm space-y-2 p-2">
