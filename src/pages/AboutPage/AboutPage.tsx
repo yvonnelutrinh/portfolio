@@ -1,11 +1,13 @@
 import { motion } from "motion/react"
-import Navigation from "../../components/Navigation/Navigation"
+import { HeaderNav } from "../../components/Navigation/Navigation"
 import TextDistortion from "../../components/TextDistortion/TextDistortion"
+import Process from "../../components/Process/Process"
+import Skills from "../../components/Skills/Skills"
 
 export default function About() {
     return (
         <div className="min-h-screen bg-black text-white">
-            <Navigation />
+            <HeaderNav />
 
             <main className="container mx-auto px-4 pt-32 pb-16">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -36,39 +38,8 @@ export default function About() {
                     </motion.div>
                 </div>
 
-                {/* skills section */}
-                <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-16">
-                    <div>
-                        <div>
-                            <h2 className="font-display text-2xl mb-4">DEVELOPMENT</h2>
-                            <ul className="space-y-2 text-gray-400">
-                                <li>Full Stack Development</li>
-                                <li>Javascript / React / SCSS</li>
-                                <li>Node / Express / SQL</li>
-                                <li>Jest, ViTest</li>
-                                <li>Heroku, Netlify</li>
-                            </ul>
-                        </div>
-
-                        <h2 className="font-display text-2xl mb-4">DESIGN</h2>
-                        <ul className="space-y-2 text-gray-400">
-                            <li>Typography</li>
-                            <li>Art Direction</li>
-                            <li>Motion Design</li>
-                            <li>UI/UX</li>
-                            <li>Brand Identity</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h2 className="font-display text-2xl mb-4">TOOLS</h2>
-                        <ul className="space-y-2 text-gray-400">
-                            <li>Figma</li>
-                            <li>Adobe Creative Suite</li>
-                            <li>DAWs</li>
-                        </ul>
-                    </div>
-                </div>
+                <Skills />
+                <Process />
             </main>
         </div>
     )

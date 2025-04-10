@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { motion } from "motion/react"
-import Navigation from "../../components/Navigation/Navigation"
-import TextBanner from '../../components/TextBanner/TextBanner'
+import { HeaderNav, HomePageNav } from "../../components/Navigation/Navigation"
 import TextDistortion from '../../components/TextDistortion/TextDistortion'
+import Footer from "../../components/Footer/Footer"
+import ScrollToAnchor from "../../components/ScrollToAnchor/ScrollToAnchor"
 
 export default function Home() {
   const [mounted, setMounted] = useState(false)
@@ -15,8 +16,9 @@ export default function Home() {
 
   return (
     <>
+      <ScrollToAnchor />
       <div className="min-h-screen bg-black text-white overflow-hidden">
-        <Navigation />
+        <HeaderNav />
 
         <main className="relative">
           {/* hero section */}
@@ -27,7 +29,7 @@ export default function Home() {
               transition={{ duration: 2 }}
               className="relative z-10 max-w-5xl mx-auto"
             >
-              <TextDistortion text="YVONNE LU TRINH" className="text-center mb-8" tag="h1"/>
+              <TextDistortion text="YVONNE LU TRINH" className="text-center mb-8" tag="h1" />
 
               <motion.p
                 className="text-xl md:text-2xl text-center max-w-2xl mx-auto typewriter"
@@ -37,19 +39,13 @@ export default function Home() {
               >
                 Creative Developer & Designer
               </motion.p>
+              <HomePageNav />
             </motion.div>
-          </section>
-
-          {/* scrolling text section */}
-          <section className="py-16 md:py-32">
-            <TextBanner
-              text="DEVELOPER · DESIGNER · CREATIVE"
-              className="text-4xl md:text-6xl font-display tracking-wider"
-              speed={15}
-            />
           </section>
         </main>
       </div>
+      
+      <Footer />
     </>
   )
 }

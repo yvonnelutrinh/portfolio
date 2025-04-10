@@ -1,13 +1,13 @@
 import { useRef, useEffect } from "react"
 
-interface BannerTextProps {
+interface TextBannerProps {
   text: string
   className?: string
   speed?: number
   repeat?: number
 }
 
-export default function TextBanner({ text, className = "", speed = 20, repeat = 4 }: BannerTextProps) {
+export default function TextBanner({ text, className = "", speed = 20, repeat = 4 }: TextBannerProps) {
   const marqueeRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 

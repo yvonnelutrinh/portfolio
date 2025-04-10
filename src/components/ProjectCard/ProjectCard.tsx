@@ -2,13 +2,13 @@ import { useState } from "react"
 import { motion } from "motion/react"
 import { Link } from "react-router-dom"
 
-interface ProjectCardProps {
+interface NavCardProps {
   title: string
   slug: string
   index: number
 }
 
-export default function ProjectCard({ title, slug, index }: ProjectCardProps) {
+export default function NavigationCards({ title, slug, index }: NavCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (

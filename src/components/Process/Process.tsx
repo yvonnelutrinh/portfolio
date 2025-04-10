@@ -1,11 +1,9 @@
 import { motion } from "motion/react"
-import Navigation from "../../components/Navigation/Navigation"
-import Terminal from "../../components/Terminal/Terminal"
+import Terminal from "../Terminal/Terminal"
 
 export default function Process() {
   return (
     <div className="min-h-screen bg-black text-white">
-      <Navigation />
 
       <main className="container mx-auto px-4 pt-32 pb-16">
         <motion.h1
