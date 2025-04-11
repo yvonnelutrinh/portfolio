@@ -1,7 +1,7 @@
 import { motion } from "motion/react"
-import { HeaderNav } from "../../components/Navigation/Navigation"
 import NavigationCards from "../../components/ProjectCard/ProjectCard"
 import Footer from "../../components/Footer/Footer"
+import Header from "../../components/Header/Header"
 
 const projects = [
   { id: 1, title: "WANDER", slug: "wander" },
@@ -15,12 +15,11 @@ const projects = [
 export default function Work() {
   return (
     <>
+    <Header />
       <div className="min-h-screen bg-black text-white">
-        <HeaderNav />
-
         <main className="container mx-auto px-4 pt-32 pb-16">
           <motion.h1
-            className="font-display text-6xl md:text-9xl mb-16 md:mb-32"
+            className="font-display text-6xl lg:text-8xl mb-16 md:mb-32 lg:mb-12"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -28,7 +27,7 @@ export default function Work() {
             WORK
           </motion.h1>
 
-          <div className="grid grid-cols-1 gap-8">
+          <div className="grid grid-cols-1 gap-4 font-mono">
             {projects.map((project, index) => (
               <NavigationCards key={project.id} title={project.title} slug={project.slug} index={index} />
             ))}

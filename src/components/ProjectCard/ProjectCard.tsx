@@ -16,7 +16,7 @@ export default function NavigationCards({ title, slug, index }: NavCardProps) {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="relative mb-8 md:mb-16"
+      className="relative mb-4 md:mb-8"
     >
       <Link to={`/work/${slug}`}>
         <motion.div
@@ -26,7 +26,7 @@ export default function NavigationCards({ title, slug, index }: NavCardProps) {
           data-cursor-hover
         >
           <motion.h2
-            className="font-display text-5xl md:text-8xl tracking-wider"
+            className="text-md tracking-wider"
             animate={{
               skew: isHovered ? [0, -5, 5, 0] : 0,
               scale: isHovered ? 1.05 : 1,

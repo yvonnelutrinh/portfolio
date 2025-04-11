@@ -5,9 +5,9 @@ export default function Process() {
   return (
     <div className="min-h-screen bg-black text-white">
 
-      <main className="container mx-auto px-4 pt-32 pb-16">
+      <main className="container mx-auto pt-32 pb-16">
         <motion.h1
-          className="font-display text-6xl md:text-9xl mb-16 md:mb-32"
+          className="font-display text-6xl lg:text-8xl mb-16 md:mb-32"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}

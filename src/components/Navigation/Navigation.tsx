@@ -18,14 +18,14 @@ function HeaderNav() {
   return (
     <>
       <motion.button
-        className="fixed top-8 right-8 z-50 p-2"
+        className="fixed top-8 right-8 z-50"
         onClick={toggleMenu}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.5 }}
         data-cursor-hover
       >
-        {isOpen ? <X className="h-8 w-8 text-white" /> : <Menu className="h-8 w-8 text-white" />}
+        {isOpen ? <X className="h-8 w-8 text-white hover:text-gray-400" /> : <Menu className="h-8 w-8 text-white hover:text-gray-400" />}
       </motion.button>
 
       <AnimatePresence>

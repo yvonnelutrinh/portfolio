@@ -1,9 +1,9 @@
 export default function Skills() {
-    return (<div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-16">
+    return (<div className="font-mono mt-32 grid grid-cols-1 md:grid-cols-3 gap-16 text-sm">
             <div>
-                <h2 className="font-display text-2xl mb-4">SOFTWARE DEVELOPMENT</h2>
-                <ul className="space-y-2 text-gray-400">
-                    <li>Full Stack Development</li>
+                <h2 className="text-white mb-1">SOFTWARE DEVELOPMENT</h2>
+                <ul className="text-gray-400">
+                    <li><p>Full Stack Development</p></li>
                     <li>Responsive Front-End Development</li>
                     <li>Back-End Development</li>
                     <li>JavaScript | TypeScript</li>
@@ -16,8 +16,8 @@ export default function Skills() {
                 </ul>
             </div>
             <div>
-                <h2 className="font-display text-2xl mb-4">DESIGN</h2>
-                <ul className="space-y-2 text-gray-400">
+                <h2 className="text-white mb-1">DESIGN</h2>
+                <ul className="text-gray-400">
                     <li>User Interface (UI) Design</li>
                     <li>User Experience (UX) Design</li>
                     <li>Brand Identity</li>
@@ -29,8 +29,8 @@ export default function Skills() {
                 </ul>
             </div>
             <div>
-                <h2 className="font-display text-2xl mb-4">PROJECT MANAGEMENT</h2>
-                <ul className="space-y-2 text-gray-400">
+                <h2 className="text-white mb-1">PROJECT MANAGEMENT</h2>
+                <ul className="text-gray-400">
                     <li>Agile</li>
                     <li>Scrum</li>
                     <li>Waterfall</li>

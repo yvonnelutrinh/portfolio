@@ -17,9 +17,8 @@ export default function Home() {
   return (
     <>
       <ScrollToAnchor />
+      <HeaderNav />
       <div className="min-h-screen bg-black text-white overflow-hidden">
-        <HeaderNav />
-
         <main className="relative">
           {/* hero section */}
           <section className="h-screen flex flex-col justify-center items-center px-4">
@@ -44,7 +43,7 @@ export default function Home() {
           </section>
         </main>
       </div>
-      
+
       <Footer />
     </>
   )

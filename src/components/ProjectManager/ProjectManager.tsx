@@ -1,75 +1,75 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { motion } from "framer-motion"
-import { HeaderNav } from "../Navigation/Navigation"
-import { ArrowLeft } from "lucide-react"
-import { Link } from "react-router-dom"
 import Footer from "../Footer/Footer"
 import TitleScroll from "../TitleScroll/TitleScroll"
+import Header from "../Header/Header"
 
 // project data
 const projectsData = {
     "wander": {
         title: "WANDER",
         description:
-            "Wander is a wellness app designed to combat digital fatigue and unlock imagination through sound and a series of exercises.",
+            "Wander is a wellness app designed to combat digital fatigue and unlock imagination through immersive sound and guided exercises.",
         year: "2025",
         role: "UX/UI Design, Audio, Animation, Development",
         client: "BrainStation | Capstone",
-        details: {subheader: "process", process: "talk about the wander process", impact: "talk about the impact of wander"},
+        details: { subheader: "process", process: "Extensive research process, collecting design references throughout the process. Proposal with data, libraries, and basic interactive prototype to demonstrate animation. Learned numerous new technologies and architected integrations to create a smooth, unified user experience. Back-end server uses SQL database to handle anonymized user ids, storing user customization preferences for theme and colour palettes.", impact: "Wander offers users a chance to reset, restore, and reimagine through generative sound, calming animations, and a word comparison exercise. Utilizing Gemini API, the user receives a custom proverb to their submitted insights." },
         url: "https://yvonnelutrinh.github.io/wander/",
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL", "Gemini API", "Motion", "Tone", "Howler", "Chroma", "Color", "Random-words", "Mobx", "Figma"]
     },
     "creative-world": {
         title: "CREATIVE WORLD",
-        description: "A responsive e-commerce website for Corex Creative's brand expansion project, revealing a less commonly seen side of the brand. Managed entire project lifecycle from user research to Figma prototyping and final implementation in Webflow.",
+        description: "A responsive e-commerce website for Corex Creative's brand expansion project, revealing a less commonly seen side of the brand.",
         year: "2024",
         role: "UX/UI Design, No-Code Development",
         client: "Corex Creative",
         tech: ["Figma", "Webflow", "HTML", "CSS"],
-        details: {subheader: "process", process: "talk about the process", impact: "talk about the impact"}
+        details: { subheader: "process", process: "Managed entire project lifecycle from user research to Figma prototyping and final implementation in Webflow. Supported client through design process and developing Creative World's brand identity.", impact: "The clean, modern design balances negative space with bright visuals to showcase the brand's bold offerings. The final result is sleek yet community-grounded, tailored to the preferences of the brand's target audience." }
     },
     "biz-bot": {
         title: "BIZBOT",
         description:
-            "BizBot.AI provides AI adoption recommendations tailored to small business needs, leveraging Gemini to help businesses automate tasks, optimize operations, and make smarter decisions. Built during a 24-hour hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Alexandria Nancoo-Balkaran, Brigid Corey, Toshi Biswas, Quynh Do, and Vivian Cao",
+            "BizBot provides AI adoption recommendations tailored to small business needs, leveraging Gemini to help businesses automate tasks, optimize operations, and make smarter decisions.",
         year: "2025",
         role: "Development, Design",
         client: "Microsoft | BrainStation",
         url: "https://yvonnelutrinh.github.io/microsoft-hackathon-bizbot/",
         tech: ["React", "Javascript", "Gemini API", "Figma"],
-        details: {subheader: "process", process: "talk about the process", impact: "talk about the impact"}
+        credit: "Built during a 24-hour hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Alexandria Nancoo-Balkaran, Brigid Corey, Toshi Biswas, Quynh Do, and Vivian Cao.",
+        details: { subheader: "process", process: "Set up FigJam board to manage the brainstorming and collaboration process between seven developers. Pitched the final idea for BizBot, and developed initial form functionality with LLM response to demonstrate feasibility to team. Collaborated with another developer to refine prompting and report format through specific formatting injected in Gemini response. Created wireframes and mockups for team to parallelize tasks, flushing out functionality and basic design.", impact: "Presented consistent working demo to panel of Microsoft judges, successfully responding to technical inquiries." }
     },
     "poke-valentine": {
         title: "POKÉMON VALENTINE",
         description:
-            "A simple web app that generates custom downloadable Pokémon Valentine's cards. Built during a 24-hour hackathon by Jiin Park, Zuya Abro, and Yvonne Lu Trinh",
+            "A simple responsive web app that generates custom downloadable Pokémon Valentine's cards.",
         year: "2025",
         role: "Development, Responsive Styling",
         client: "BrainStation",
         tech: ["Javascript", "HTML", "SCSS", "PokéAPI", "html2canvas"],
+        credit: "Built during a 24-hour hackathon by Jiin Park, Zuya Abro, and Yvonne Lu Trinh.",
         url: "https://yvonnelutrinh.github.io/pokemon-valentine/",
-        details: {subheader: "process", process: "talk about the process", impact: "talk about the impact"}
+        details: { subheader: "process", process: "Brainstorming in Excalidraw, then each developer worked in parallel to design and implement functionality, managing scope effectively to ship in under 24 hours.", impact: "Delivered project on time, providing users with Valentines cards to share with loved ones on February 14." }
     },
     "development": {
         title: "RESPONSIVE DEVELOPMENT",
         description:
-            "Responsive websites developed from provided designer style guides and mockups.",
+            "Responsive websites developed to mirror designer-provided style guides and mockups.",
         year: "2025",
         role: "Development",
         client: "BrainStation | Projects",
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL"],
-        details: {subheader: "process", process: "talk about the process", impact: "talk about the impact"}
+        details: { subheader: "process", process: "Developed in 1-week sprints, drawing out site-map diagrams to prepare development processes. Utilized mobile-first design, BEM methodology to prioritize DRY, performant code.", impact: "Responsive, accessible web applications with functional API calls, back-end server implementation, and comprehensive error handling." }
     },
     "ux": {
         title: "SPORIFY/UX",
         description:
-            "Sporify is an all-in-one learning platform designed to guide users through the art and science of safe mushroom foraging. Sporify addresses real user needs, transforming user research derived pain points into comprehensive functionality within intuitive user experience.",
+            "Sporify is an all-in-one learning platform designed to guide users through the art and science of safe mushroom foraging.",
         year: "2024",
         role: "UI/UX Design, Prototyping",
         client: "OCAD | Projects",
-        tech: ["Figma", "Adobe", "Canva", "Photoshop"],
-        details: {subheader: "process", process: "talk about the process", impact: "talk about the impact"}
+        tech: ["Figma", "Canva"],
+        details: { subheader: "process", process: "Created a research plan including competitive analysis, user interviews, and user personas. How might we? Began design process by strategically creating a user flow and information architecture. Quickly generated ideas using crazy 8s -> drafted wireframes. Lo-fi mockups, hi-fi mockups and clickable prototypes with a style guide/UI toolkit in Figma. Finalized development-ready prototype after usability testing.", impact: "Sporify addresses real user needs, transforming user research derived pain points into comprehensive functionality within intuitive user experience." }
     },
 }
 
@@ -88,18 +88,8 @@ export default function ProjectPage() {
 
     return (
         <>
+        <Header />
             {project && (<div className="min-h-screen bg-black text-white">
-                <header>
-                    <HeaderNav />
-                    <Link
-                        to="/work"
-                        className="fixed top-8 left-8 z-30 flex items-center text-sm font-mono hover:text-gray-400 transition-colors"
-                        data-cursor-hover
-                    >
-                        <ArrowLeft className="mr-2 h-4 w-4" />
-                        BACK TO WORK
-                    </Link>
-                </header>
                 <main>
                     {/* hero section */}
                     <section className="h-screen flex flex-col justify-center relative overflow-hidden">
@@ -115,7 +105,7 @@ export default function ProjectPage() {
                         />
                     </section>
 
-                    {/* Project Details */}
+                    {/* project details */}
                     <section className="container mx-auto px-4 py-16 md:py-32">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                             <div>
@@ -135,12 +125,16 @@ export default function ProjectPage() {
                                         <p>{project.client}</p>
                                     </div>
 
-                                    {project.tech && (<div>
+                                    <div>
                                         <h2 className="text-gray-500 mb-1">TECH STACK</h2>
                                         <div className="grid grid-cols-2 gap-x-4">
-                                            {project.tech.map((item: string) => (<p className=" text-nowrap">{item}</p>))
+                                            {project.tech.map((item: string, key: number) => (<p className=" text-nowrap" key={key} >{item}</p>))
                                             }
                                         </div>
+                                    </div>
+                                    {project.credit && (<div>
+                                        <h2 className="text-gray-500 mb-1 width-[200%]">CREDIT</h2>
+                                        <p>{project.credit}</p>
                                     </div>)}
                                 </div>
                             </div>
@@ -151,12 +145,12 @@ export default function ProjectPage() {
                         </div>
                     </section>
 
-                    {/* Full Width Image Section */}
+                    {/* full width image section */}
                     <section className="h-[80vh] bg-gray-900 flex items-center justify-center my-16">
                         <p className="font-mono text-sm text-gray-500">Full width project visual would appear here</p>
                     </section>
 
-                    {/* Additional Content */}
+                    {/* project process details section */}
                     <section className="container mx-auto px-4 py-16 md:py-32">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                             <div className="h-[40vh] bg-gray-900 flex items-center justify-center">

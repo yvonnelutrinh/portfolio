@@ -9,7 +9,7 @@ export default function Footer() {
                 speed={15} />
             
             {/* contact section */}
-            <div id="contact" className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-1000 delay-600 translate-y-0 opacity-100">
+            <div id="contact" className="px-8 mt-24 grid grid-cols-1 md:flex md:justify-between gap-8 transition-all duration-1000 delay-600 translate-y-0 opacity-100">
                 <div>
                     <h3 className="text-xl mb-4">
                         EMAIL
