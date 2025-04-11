@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import Footer from "../Footer/Footer"
 import TitleScroll from "../TitleScroll/TitleScroll"
 import Header from "../Header/Header"
+import { ProjectEmbed } from "../ProjectEmbed/ProjectEmbed"
 
 // project data
 const projectsData = {
@@ -15,7 +16,12 @@ const projectsData = {
         role: "UX/UI Design, Audio, Animation, Development",
         client: "BrainStation | Capstone",
         details: { subheader: "process", process: "Extensive research process, collecting design references throughout the process. Proposal with data, libraries, and basic interactive prototype to demonstrate animation. Learned numerous new technologies and architected integrations to create a smooth, unified user experience. Back-end server uses SQL database to handle anonymized user ids, storing user customization preferences for theme and colour palettes.", impact: "Wander offers users a chance to reset, restore, and reimagine through generative sound, calming animations, and a word comparison exercise. Utilizing Gemini API, the user receives a custom proverb to their submitted insights." },
-        url: "https://yvonnelutrinh.github.io/wander/",
+        embed: {
+            url: "https://yvonnelutrinh.github.io/wander/",
+            width: 1024,
+            height: 768,
+            scale: 1,
+        },
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL", "Gemini API", "Motion", "Tone", "Howler", "Chroma", "Color", "Random-words", "Mobx", "Figma"]
     },
     "creative-world": {
@@ -25,6 +31,12 @@ const projectsData = {
         role: "UX/UI Design, No-Code Development",
         client: "Corex Creative",
         tech: ["Figma", "Webflow", "HTML", "CSS"],
+        embed: {
+            url: "https://yvonnelutrinh.github.io/wander/",
+            width: 1024,
+            height: 768,
+            scale: 1,
+        },
         details: { subheader: "process", process: "Managed entire project lifecycle from user research to Figma prototyping and final implementation in Webflow. Supported client through design process and developing Creative World's brand identity.", impact: "The clean, modern design balances negative space with bright visuals to showcase the brand's bold offerings. The final result is sleek yet community-grounded, tailored to the preferences of the brand's target audience." }
     },
     "biz-bot": {
@@ -48,7 +60,12 @@ const projectsData = {
         client: "BrainStation",
         tech: ["Javascript", "HTML", "SCSS", "PokéAPI", "html2canvas"],
         credit: "Built during a 24-hour hackathon by Jiin Park, Zuya Abro, and Yvonne Lu Trinh.",
-        url: "https://yvonnelutrinh.github.io/pokemon-valentine/",
+        embed: {
+            url: "https://yvonnelutrinh.github.io/pokemon-valentine/",
+            width: 1024,
+            height: 600,
+            scale: 1,
+        },
         details: { subheader: "process", process: "Brainstorming in Excalidraw, then each developer worked in parallel to design and implement functionality, managing scope effectively to ship in under 24 hours.", impact: "Delivered project on time, providing users with Valentines cards to share with loved ones on February 14." }
     },
     "development": {
@@ -88,7 +105,7 @@ export default function ProjectPage() {
 
     return (
         <>
-        <Header />
+            <Header />
             {project && (<div className="min-h-screen bg-black text-white">
                 <main>
                     {/* hero section */}
@@ -147,7 +164,12 @@ export default function ProjectPage() {
 
                     {/* full width image section */}
                     <section className="h-[80vh] bg-gray-900 flex items-center justify-center my-16">
-                        <p className="font-mono text-sm text-gray-500">Full width project visual would appear here</p>
+                        <ProjectEmbed
+                            title={project.title}
+                            url={project.embed.url}
+                            width={project.embed.width}
+                            height={project.embed.height}
+                            scale={project.embed.scale} />
                     </section>
 
                     {/* project process details section */}

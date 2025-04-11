@@ -2,7 +2,7 @@ from PIL import Image
 import numpy as np
 import json
 
-img = Image.open("./src/assets/extract_dots/point-portrait.png").convert("RGB")
+img = Image.open("./tools/pointillism/point-portrait.png").convert("RGB")
 img = img.resize((512, 512))
 
 spacing = 6
