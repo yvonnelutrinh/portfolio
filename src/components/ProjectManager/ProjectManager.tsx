@@ -32,7 +32,7 @@ const projectsData = {
         client: "Corex Creative",
         tech: ["Figma", "Webflow", "HTML", "CSS"],
         embed: {
-            url: "https://yvonnelutrinh.github.io/wander/",
+            url: "https://creativebrand-03418785d76-0172a98a78099.webflow.io",
             width: 1024,
             height: 768,
             scale: 1,
@@ -46,7 +46,12 @@ const projectsData = {
         year: "2025",
         role: "Development, Design",
         client: "Microsoft | BrainStation",
-        url: "https://yvonnelutrinh.github.io/microsoft-hackathon-bizbot/",
+        embed: {
+            url: "https://yvonnelutrinh.github.io/microsoft-hackathon-bizbot/",
+            width: 1024,
+            height: 768,
+            scale: 1,
+        },
         tech: ["React", "Javascript", "Gemini API", "Figma"],
         credit: "Built during a 24-hour hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Alexandria Nancoo-Balkaran, Brigid Corey, Toshi Biswas, Quynh Do, and Vivian Cao.",
         details: { subheader: "process", process: "Set up FigJam board to manage the brainstorming and collaboration process between seven developers. Pitched the final idea for BizBot, and developed initial form functionality with LLM response to demonstrate feasibility to team. Collaborated with another developer to refine prompting and report format through specific formatting injected in Gemini response. Created wireframes and mockups for team to parallelize tasks, flushing out functionality and basic design.", impact: "Presented consistent working demo to panel of Microsoft judges, successfully responding to technical inquiries." }
@@ -164,12 +169,14 @@ export default function ProjectPage() {
 
                     {/* full width image section */}
                     <section className="h-[80vh] bg-gray-900 flex items-center justify-center my-16">
-                        <ProjectEmbed
-                            title={project.title}
-                            url={project.embed.url}
-                            width={project.embed.width}
-                            height={project.embed.height}
-                            scale={project.embed.scale} />
+                        {project.embed ? (
+                            <ProjectEmbed
+                                title={project.title}
+                                url={project.embed.url}
+                                width={project.embed.width}
+                                height={project.embed.height}
+                                scale={project.embed.scale} />)
+                            : (<p className="font-mono text-sm text-gray-500">Full width project visual would appear here</p>)}
                     </section>
 
                     {/* project process details section */}
