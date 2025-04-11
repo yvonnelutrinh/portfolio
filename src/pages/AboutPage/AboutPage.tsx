@@ -3,6 +3,7 @@ import Process from "../../components/Process/Process"
 import Skills from "../../components/Skills/Skills"
 import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
+import PointillismPortrait from "../../components/PointillismPortait/PointillismPortrait"
 
 export default function About() {
     return (
@@ -18,7 +19,7 @@ export default function About() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                DEVELOPER DESIGNER MANAGER
+                                END-TO-END PROJECT BUILDER
                             </motion.h1>
 
                             <div className="h-px w-full bg-white mb-8" />
@@ -38,7 +39,7 @@ export default function About() {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
-                            <p className="font-mono text-sm text-gray-500">self portrait</p>
+                            <PointillismPortrait />
                         </motion.div>
                     </div>
 
