@@ -4,7 +4,7 @@ export default function Footer() {
     return (
         <footer className="bg-black text-white py-16 md:py-32">
             <TextBanner
-                text="DEVELOPER · DESIGNER · CREATIVE"
+                text="SOFTWARE DEVELOPMENT · UI/UX DESIGN · PROJECT MANAGEMENT"
                 className="text-4xl md:text-6xl font-display tracking-wider"
                 speed={15} />
             
