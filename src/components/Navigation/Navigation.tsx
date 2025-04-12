@@ -2,21 +2,24 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
+import ScrollToAnchor from "../ScrollToAnchor/ScrollToAnchor";
 
 function HeaderNav() {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const pathname = location.pathname;
   const routes = [
     { path: "/", label: "HOME" },
     { path: "/work", label: "WORK" },
     { path: "/about", label: "ABOUT" },
+    { path: `${pathname}#contact`, label: "CONTACT" }
   ];
-  const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
-  const pathname = location.pathname;
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <>
+    <ScrollToAnchor />
       <motion.button
         className="fixed top-8 right-8 z-50"
         onClick={toggleMenu}
