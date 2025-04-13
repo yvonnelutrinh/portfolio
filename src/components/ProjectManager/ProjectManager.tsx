@@ -5,6 +5,7 @@ import Footer from "../Footer/Footer"
 import TitleScroll from "../TitleScroll/TitleScroll"
 import Header from "../Header/Header"
 import { ProjectEmbed } from "../ProjectEmbed/ProjectEmbed"
+import ImageCollage from "../ImageCollage/ImageCollage"
 
 // project data
 const projectsData = {
@@ -25,7 +26,7 @@ const projectsData = {
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL", "Gemini API", "Motion", "Tone", "Howler", "Chroma", "Color", "Random-words", "Mobx", "Figma"],
         images: {
             feature: {src: "/wander-breathe.png", alt:"Wander app's breathe page with wave animations, narration text, and volume controls."},
-            process: { src:"/wander-process.png", alt:"Wander Process"}
+            process: [{ src:"/process-test.png", alt:"Wander Process"}, { src:"/process-test2.png", alt:"Wander Process"}, { src:"/process-test3.png", alt:"Wander Process"}, { src:"/process-test4.png", alt:"Wander Process"}]
         }
     },
     "creative-world": {
@@ -186,9 +187,12 @@ export default function ProjectPage() {
                     {/* project process details section */}
                     <section className="container mx-auto px-4 py-16 md:py-32">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                            <div className="h-[40vh] flex items-center justify-center">
-                                <img src={project.images.process.src} alt={project.images.process.alt} />
-                                {/* <p className="font-mono text-sm text-gray-500">Additional project visual</p> */}
+                            <div className="h-[40vh] relative flex items-center justify-center">
+                                {project.images && project.images.process ? (
+                                    <ImageCollage images={project.images.process} maxImages={4} />
+                                ) : (
+                                    <div className="font-mono text-sm text-gray-500">Process visuals would appear here</div>
+                                )}
                             </div>
 
                             <div>
