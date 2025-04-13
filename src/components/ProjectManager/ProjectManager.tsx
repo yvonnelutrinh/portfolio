@@ -48,7 +48,7 @@ const projectsData = {
             process: [{ src: "/creative-world-process.png", alt: "Creative World process" }, { src: "/creative-world-process-2.png", alt: "Creative World process" }]
         }
     },
-    "biz-bot": {
+    "bizbot": {
         title: "BIZBOT",
         description:
             "BizBot provides AI adoption recommendations tailored to small business needs, leveraging Gemini to help businesses automate tasks, optimize operations, and make smarter decisions.",
@@ -63,7 +63,11 @@ const projectsData = {
         },
         tech: ["React", "Javascript", "Gemini API", "Figma"],
         credit: "Built during a 24-hour hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Alexandria Nancoo-Balkaran, Brigid Corey, Toshi Biswas, Quynh Do, and Vivian Cao.",
-        details: { subheader: "process", process: "Set up FigJam board to manage the brainstorming and collaboration process between seven developers. Pitched the final idea for BizBot, and developed initial form functionality with LLM response to demonstrate feasibility to team. Collaborated with another developer to refine prompting and report format through specific formatting injected in Gemini response. Created wireframes and mockups for team to parallelize tasks, flushing out functionality and basic design.", impact: "Presented consistent working demo to panel of Microsoft judges, successfully responding to technical inquiries." }
+        details: { subheader: "process", process: "Set up FigJam board to manage the brainstorming and collaboration process between seven developers. Pitched the final idea for BizBot, and developed initial form functionality with LLM response to demonstrate feasibility to team. Collaborated with another developer to refine prompting and report format through specific formatting injected in Gemini response. Created wireframes and mockups for team to parallelize tasks, flushing out functionality and basic design.", impact: "Presented consistent working demo to panel of Microsoft judges, successfully responding to technical inquiries." },
+        images: {
+            feature: { src: "/bizbot-feature.png", alt: "BizBot app homepage to generate custom AI adoption recommendations for small businesses." },
+            process: [{ src: "/bizbot-process.png", alt: "BizBot process" }, { src: "/bizbot-process-2.png", alt: "BizBot process" }, { src: "/bizbot-process-3.png", alt: "BizBot process" }, { src: "/bizbot-process-4.png", alt: "BizBot process" }, { src: "/bizbot-process-5.png", alt: "BizBot process" }, {src: "/bizbot-process-6.png", alt: "BizBot process"}]
+        }
     },
     "pokemon-valentine": {
         title: "POKÉMON VALENTINE",
@@ -197,7 +201,7 @@ export default function ProjectPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                             <div className="h-[40vh] relative flex items-center justify-center">
                                 {project.images && project.images.process ? (
-                                    <ImageCollage images={project.images.process} maxImages={4} />
+                                    <ImageCollage images={project.images.process} maxImages={project.images.process.length} />
                                 ) : (
                                     <div className="font-mono text-sm text-gray-500">Process visuals would appear here</div>
                                 )}

@@ -6,7 +6,7 @@ import Header from "../../components/Header/Header"
 const projects = [
   { id: 1, title: "WANDER", slug: "wander" },
   { id: 2, title: "CREATIVE WORLD", slug: "creative-world" },
-  { id: 3, title: "BIZBOT", slug: "biz-bot" },
+  { id: 3, title: "BIZBOT", slug: "bizbot" },
   { id: 4, title: "POKÉMON VALENTINE", slug: "pokemon-valentine" },
   { id: 5, title: "RESPONSIVE DEVELOPMENT", slug: "development" },
   { id: 6, title: "SPORIFY/UX", slug: "ux" },

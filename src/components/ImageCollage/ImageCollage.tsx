@@ -14,10 +14,10 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images, maxImages = 5 }) =>
   // track currently hovered image index
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   
-  // Add a key to force recalculation on component mount
+  // add a key to force recalculation on component mount
   const [refreshKey, setRefreshKey] = useState(Date.now());
   
-  // Force refresh on mount
+  // force refresh on mount
   useEffect(() => {
     setRefreshKey(Date.now());
   }, []);
@@ -55,7 +55,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images, maxImages = 5 }) =>
         // distribute horizontally with emphasis on left side
         baseX = 5 + (index * 60) / (totalPositions > 1 ? totalPositions : 1);
         
-        // Center images vertically within the container
+        // center images vertically within the container
         baseY = index % 2 === 0 ? 
           10 + (Math.random() * 12) :  // Top row: 10-22%
           30 + (Math.random() * 12);   // Bottom row: 30-42%
@@ -67,25 +67,24 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images, maxImages = 5 }) =>
         baseX += randomX;
         baseY += randomY;
         
-        // ensure positions stay within bounds
+        // ensure positions stay somewhat within bounds
         baseX = Math.max(5, Math.min(60, baseX));
-        baseY = Math.max(5, Math.min(50, baseY)); // Reduced max to keep images centered
+        baseY = Math.max(5, Math.min(50, baseY));
         
         attempts++;
       } while (isPositionTooClose(baseX, baseY) && attempts < 10);
       
-      // store the used position
       usedPositions.push({ x: baseX, y: baseY });
       
       positions.push({
         left: `${baseX}%`,
         top: `${baseY}%`,
-        zIndex: index + 1, // default z-index based on array position
+        zIndex: index + 1,
       });
     });
     
     return positions;
-  }, [limitedImages.length, refreshKey]); // Add refreshKey as dependency to recalculate on mount
+  }, [limitedImages.length, refreshKey]);
   
   // get z-index for an image - highest for hovered image
   const getZIndex = (index: number): number => {
