@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 
 interface ImageData {
   src: string;
@@ -13,6 +13,14 @@ interface ImageCollageProps {
 const ImageCollage: React.FC<ImageCollageProps> = ({ images, maxImages = 5 }) => {
   // track currently hovered image index
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  
+  // Add a key to force recalculation on component mount
+  const [refreshKey, setRefreshKey] = useState(Date.now());
+  
+  // Force refresh on mount
+  useEffect(() => {
+    setRefreshKey(Date.now());
+  }, []);
   
   // handle case when images is a single object (not an array)
   const imageArray = Array.isArray(images) ? images : [images];
@@ -46,19 +54,22 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images, maxImages = 5 }) =>
       do {
         // distribute horizontally with emphasis on left side
         baseX = 5 + (index * 60) / (totalPositions > 1 ? totalPositions : 1);
-        // alternate between upper and lower half for better distribution
-        baseY = index % 2 === 0 ? 25 + (Math.random() * 15) : 50 + (Math.random() * 15);
+        
+        // Center images vertically within the container
+        baseY = index % 2 === 0 ? 
+          10 + (Math.random() * 12) :  // Top row: 10-22%
+          30 + (Math.random() * 12);   // Bottom row: 30-42%
         
         // add slight randomness
         const randomX = Math.random() * 10 - 5; // -5 to 5
-        const randomY = Math.random() * 15 - 7.5; // -7.5 to 7.5
+        const randomY = Math.random() * 10 - 5; // -5 to 5
         
         baseX += randomX;
         baseY += randomY;
         
         // ensure positions stay within bounds
         baseX = Math.max(5, Math.min(60, baseX));
-        baseY = Math.max(10, Math.min(75, baseY));
+        baseY = Math.max(5, Math.min(50, baseY)); // Reduced max to keep images centered
         
         attempts++;
       } while (isPositionTooClose(baseX, baseY) && attempts < 10);
@@ -74,8 +85,8 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images, maxImages = 5 }) =>
     });
     
     return positions;
-  }, [limitedImages.length]);
-
+  }, [limitedImages.length, refreshKey]); // Add refreshKey as dependency to recalculate on mount
+  
   // get z-index for an image - highest for hovered image
   const getZIndex = (index: number): number => {
     // base z-index is the position in the array + 1
@@ -94,7 +105,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images, maxImages = 5 }) =>
     <div className="relative w-full h-full">
       {limitedImages.map((image, index) => (
         <div
-          key={index}
+          key={`${refreshKey}-${index}`} // Use refreshKey in key to ensure full re-render
           className="absolute shadow-md transition-all duration-300 hover:shadow-xl"
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -102,7 +113,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images, maxImages = 5 }) =>
             left: imagePositions[index].left,
             top: imagePositions[index].top,
             zIndex: getZIndex(index),
-            width: `${Math.max(30, 60 - limitedImages.length * 5)}%`, // images get smaller as there are more of them
+            width: `${Math.max(25, 55 - limitedImages.length * 5)}%`, // Make images slightly smaller
           }}
         >
           <img

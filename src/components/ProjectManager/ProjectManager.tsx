@@ -25,8 +25,8 @@ const projectsData = {
         },
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL", "Gemini API", "Motion", "Tone", "Howler", "Chroma", "Color", "Random-words", "Mobx", "Figma"],
         images: {
-            feature: {src: "/wander-breathe.png", alt:"Wander app's breathe page with wave animations, narration text, and volume controls."},
-            process: [{ src:"/process-test.png", alt:"Wander Process"}, { src:"/process-test2.png", alt:"Wander Process"}, { src:"/process-test3.png", alt:"Wander Process"}, { src:"/process-test4.png", alt:"Wander Process"}]
+            feature: { src: "/wander-breathe.png", alt: "Wander app's breathe page with wave animations, narration text, and volume controls." },
+            process: [{ src: "/wander-process.png", alt: "Wander process" }, { src: "/wander-process-2.png", alt: "Wander process" }, { src: "/wander-process-3.png", alt: "Wander process" }, { src: "/wander-process-4.png", alt: "Wander process" }]
         }
     },
     "creative-world": {
@@ -42,7 +42,11 @@ const projectsData = {
             height: 768,
             scale: 1,
         },
-        details: { subheader: "process", process: "Managed entire project lifecycle from user research to Figma prototyping and final implementation in Webflow. Supported client through design process and developing Creative World's brand identity.", impact: "The clean, modern design balances negative space with bright visuals to showcase the brand's bold offerings. The final result is sleek yet community-grounded, tailored to the preferences of the brand's target audience." }
+        details: { subheader: "process", process: "Managed entire project lifecycle from user research to Figma prototyping and final implementation in Webflow. Supported client through design process and developing Creative World's brand identity.", impact: "The clean, modern design balances negative space with bright visuals to showcase the brand's bold offerings. The final result is sleek yet community-grounded, tailored to the preferences of the brand's target audience." },
+        images: {
+            feature: { src: "/creative-world-feature.png", alt: "Creative world website's product page with product details and images." },
+            process: [{ src: "/creative-world-process.png", alt: "Creative World process" }, { src: "/creative-world-process-2.png", alt: "Creative World process" }]
+        }
     },
     "biz-bot": {
         title: "BIZBOT",
@@ -61,7 +65,7 @@ const projectsData = {
         credit: "Built during a 24-hour hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Alexandria Nancoo-Balkaran, Brigid Corey, Toshi Biswas, Quynh Do, and Vivian Cao.",
         details: { subheader: "process", process: "Set up FigJam board to manage the brainstorming and collaboration process between seven developers. Pitched the final idea for BizBot, and developed initial form functionality with LLM response to demonstrate feasibility to team. Collaborated with another developer to refine prompting and report format through specific formatting injected in Gemini response. Created wireframes and mockups for team to parallelize tasks, flushing out functionality and basic design.", impact: "Presented consistent working demo to panel of Microsoft judges, successfully responding to technical inquiries." }
     },
-    "poke-valentine": {
+    "pokemon-valentine": {
         title: "POKÉMON VALENTINE",
         description:
             "A simple responsive web app that generates custom downloadable Pokémon Valentine's cards.",
@@ -76,7 +80,11 @@ const projectsData = {
             height: 600,
             scale: 1,
         },
-        details: { subheader: "process", process: "Brainstorming in Excalidraw, then each developer worked in parallel to design and implement functionality, managing scope effectively to ship in under 24 hours.", impact: "Delivered project on time, providing users with Valentines cards to share with loved ones on February 14." }
+        details: { subheader: "process", process: "Brainstorming in Excalidraw, then each developer worked in parallel to design and implement functionality, managing scope effectively to ship in under 24 hours.", impact: "Delivered project on time, providing users with Valentines cards to share with loved ones on February 14." },
+        images: {
+            feature: { src: "/pokemon-valentine-feature.png", alt: "Pokemon Valentine app homepage to generate custom Valentine's cards." },
+            process: [{ src: "/pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
+        }
     },
     "development": {
         title: "RESPONSIVE DEVELOPMENT",

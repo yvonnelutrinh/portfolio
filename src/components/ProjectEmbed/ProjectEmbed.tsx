@@ -23,7 +23,7 @@ export const ProjectEmbed = ({
 
                 <div className="w-full overflow-auto bg-black flex justify-center">
                     <div
-                        className="border border-gray-300"
+                        className="border border-gray-300max-w-[100vw]"
                         style={{
                             width,
                             height,
@@ -36,7 +36,7 @@ export const ProjectEmbed = ({
                             title={title}
                             sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
                             loading="lazy"
-                            className="w-full h-full border-0"
+                            className="w-full h-full border-0 max-w-[100vw]"
                             style={{ backgroundColor: "white" }}
                         />
                     </div>
