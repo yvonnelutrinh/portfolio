@@ -22,7 +22,11 @@ const projectsData = {
             height: 768,
             scale: 1,
         },
-        tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL", "Gemini API", "Motion", "Tone", "Howler", "Chroma", "Color", "Random-words", "Mobx", "Figma"]
+        tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL", "Gemini API", "Motion", "Tone", "Howler", "Chroma", "Color", "Random-words", "Mobx", "Figma"],
+        images: {
+            feature: {src: "/wander-breathe.png", alt:"Wander app's breathe page with wave animations, narration text, and volume controls."},
+            process: { src:"/wander-process.png", alt:"Wander Process"}
+        }
     },
     "creative-world": {
         title: "CREATIVE WORLD",
@@ -32,7 +36,7 @@ const projectsData = {
         client: "Corex Creative",
         tech: ["Figma", "Webflow", "HTML", "CSS"],
         embed: {
-            url: "https://creativebrand-03418785d76-0172a98a78099.webflow.io",
+            url: "https://yvonnelutrinh.github.io/creative-world",
             width: 1024,
             height: 768,
             scale: 1,
@@ -161,8 +165,8 @@ export default function ProjectPage() {
                                 </div>
                             </div>
 
-                            <div className="h-[50vh] bg-gray-900 flex items-center justify-center">
-                                <p className="font-mono text-sm text-gray-500">Project visuals would appear here</p>
+                            <div className="h-[50vh] flex items-center justify-center">
+                                <img src={project.images.feature.src} alt={project.images.feature.alt} />
                             </div>
                         </div>
                     </section>
@@ -181,9 +185,10 @@ export default function ProjectPage() {
 
                     {/* project process details section */}
                     <section className="container mx-auto px-4 py-16 md:py-32">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-                            <div className="h-[40vh] bg-gray-900 flex items-center justify-center">
-                                <p className="font-mono text-sm text-gray-500">Additional project visual</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                            <div className="h-[40vh] flex items-center justify-center">
+                                <img src={project.images.process.src} alt={project.images.process.alt} />
+                                {/* <p className="font-mono text-sm text-gray-500">Additional project visual</p> */}
                             </div>
 
                             <div>

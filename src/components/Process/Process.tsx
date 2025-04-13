@@ -6,29 +6,25 @@ export default function Process() {
     <div className="min-h-screen bg-black text-white">
 
       <main className="container mx-auto pt-32 pb-16">
-        <motion.h1
+        <motion.h2
           className="font-display text-6xl lg:text-8xl mb-16 md:mb-32"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           PROCESS
-        </motion.h1>
+        </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <div>
-            <h2 className="font-display text-4xl mb-8">METHODOLOGY</h2>
             <p className="text-xl mb-8">
-              My process blends systematic design thinking with intentional development early in the process, creating a framework that
-              balances structure and creative freedom.
+              The process blends systematic design thinking and intentional development early on, creating a framework that balances structure and creative freedom.
             </p>
             <p className="text-xl mb-8">
-              Each project begins with deep research and conceptual development, establishing a strong foundation before
-              moving into visual exploration and functionality.
+              Each project begins with deep research and conceptual ideation, establishing a strong foundation before moving into visual exploration and functionality.
             </p>
             <p className="text-xl">
-              The final execution phase focuses on refining details and ensuring that every element serves both
-              aesthetic and functional purposes.
+              The final execution phase focuses on refining details, testing, and ensuring that every element serves both aesthetic and functional purposes.
             </p>
           </div>
 
