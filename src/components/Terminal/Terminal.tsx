@@ -7,7 +7,7 @@ export default function Terminal() {
     const [typewriterComplete, setTypewriterComplete] = useState(false);
     const terminalRef = useRef(null); // ref for intersection
     const hasStarted = useRef(false); // make sure effect runs only once
-    const title = "development_process.terminal";
+    const title = "process.terminal";
 
     const terminalLines = [
         "$ initiating development_process.sh",
@@ -17,7 +17,7 @@ export default function Terminal() {
         "$ testing user_experience.flow",
         "$ resolving conflicts...",
         "$ merging approaches...",
-        "$ process_complete: creating balanced applications that honor both creative rawness and technical skillsets"
+        "$ process_complete: balanced applications deployed"
     ];
 
     useEffect(() => {
@@ -58,7 +58,7 @@ export default function Terminal() {
     return (
         <section
             ref={terminalRef}
-            className={`mb-32 transition-opacity duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+            className={`transition-opacity duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         >
             <Window title={title}>
                 <div className="font-mono text-sm space-y-2 p-2">

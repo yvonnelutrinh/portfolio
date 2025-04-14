@@ -1,5 +1,5 @@
 import { motion } from "motion/react"
-import NavigationCards from "../../components/ProjectCard/ProjectCard"
+import ProjectCard from "../../components/ProjectCard/ProjectCard"
 import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
 
@@ -19,7 +19,7 @@ export default function Work() {
       <div className="min-h-screen bg-black text-white">
         <main className="container mx-auto px-4 pt-32 pb-16">
           <motion.h1
-            className="font-display text-6xl lg:text-8xl mb-16 md:mb-32 lg:mb-12"
+            className="font-display text-[min(15vw,8rem)] mb-16 md:mb-32 lg:mb-12"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -29,7 +29,7 @@ export default function Work() {
 
           <div className="grid grid-cols-1 gap-4 font-mono">
             {projects.map((project, index) => (
-              <NavigationCards key={project.id} title={project.title} slug={project.slug} index={index} />
+              <ProjectCard key={project.id} title={project.title} slug={project.slug} index={index} />
             ))}
           </div>
         </main>

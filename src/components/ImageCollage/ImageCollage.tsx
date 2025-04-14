@@ -8,9 +8,14 @@ interface ImageData {
 interface ImageCollageProps {
   images: ImageData | ImageData[];
   maxImages?: number;
+  alignTop?: boolean; // New prop to control vertical alignment
 }
 
-const ImageCollage: React.FC<ImageCollageProps> = ({ images, maxImages = 5 }) => {
+const ImageCollage: React.FC<ImageCollageProps> = ({ 
+  images, 
+  maxImages = 5,
+  alignTop = false 
+}) => {
   // track currently hovered image index
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   
@@ -27,98 +32,178 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images, maxImages = 5 }) =>
   
   // limit # images to maxImages
   const limitedImages = imageArray.slice(0, maxImages);
+
+  // For a single image, use a centered approach
+  if (limitedImages.length === 1) {
+    return (
+      <div 
+        className={`relative w-full ${alignTop ? 'h-auto' : 'h-[400px] md:h-[500px]'}`} 
+        style={{ 
+          minHeight: '350px',
+          maxHeight: alignTop ? '500px' : 'auto',
+        }}
+      >
+        <div
+          className="absolute shadow-md transition-all duration-300 hover:shadow-xl overflow-hidden"
+          style={{
+            left: '0%',
+            top: '0%',
+            width: '100%',
+            height: 'auto',
+            border: '2px solid #111'
+          }}
+        >
+          <img
+            src={limitedImages[0].src}
+            alt={limitedImages[0].alt}
+            className="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    );
+  }
   
-  // calculate positions to avoid excessive overlap
-  const imagePositions = useMemo(() => {
-    const positions: Array<{ left: string; top: string; zIndex: number }> = [];
-    const usedPositions: Array<{ x: number; y: number }> = [];
+  // For multiple images, create a collage with slightly overlapping images
+  const createCollagePositions = () => {
+    const positions: Array<{
+      left: string;
+      top: string;
+      width: string;
+      zIndex: number;
+    }> = [];
     
-    const isPositionTooClose = (x: number, y: number): boolean => {
-      // minimum distance between image centers (as percentage)
-      const minDistance = 25;
-      
-      return usedPositions.some(pos => {
-        const distance = Math.sqrt(Math.pow(pos.x - x, 2) + Math.pow(pos.y - y, 2));
-        return distance < minDistance;
-      });
-    };
+    const totalImages = limitedImages.length;
     
-    limitedImages.forEach((_, index) => {
-      // base positions are shifted more to the left
-      // limit right side to avoid overflow issues
-      const totalPositions = limitedImages.length;
-      let baseX: number, baseY: number;
-      let attempts = 0;
-      
-      // try to find a position that's not too close to others
-      do {
-        // distribute horizontally with emphasis on left side
-        baseX = 5 + (index * 60) / (totalPositions > 1 ? totalPositions : 1);
-        
-        // center images vertically within the container
-        baseY = index % 2 === 0 ? 
-          10 + (Math.random() * 12) :  // Top row: 10-22%
-          30 + (Math.random() * 12);   // Bottom row: 30-42%
-        
-        // add slight randomness
-        const randomX = Math.random() * 10 - 5; // -5 to 5
-        const randomY = Math.random() * 10 - 5; // -5 to 5
-        
-        baseX += randomX;
-        baseY += randomY;
-        
-        // ensure positions stay somewhat within bounds
-        baseX = Math.max(5, Math.min(60, baseX));
-        baseY = Math.max(5, Math.min(50, baseY));
-        
-        attempts++;
-      } while (isPositionTooClose(baseX, baseY) && attempts < 10);
-      
-      usedPositions.push({ x: baseX, y: baseY });
-      
+    // Position calculation based on number of images
+    if (totalImages === 2) {
+      // First image: Top-left (flush with top)
       positions.push({
-        left: `${baseX}%`,
-        top: `${baseY}%`,
-        zIndex: index + 1,
+        left: '0%',
+        top: '0%',
+        width: '75%',
+        zIndex: 2
       });
-    });
+      
+      // Second image: Bottom-right with slight overlap
+      positions.push({
+        left: '40%',
+        top: '30%',
+        width: '60%',
+        zIndex: 1
+      });
+    }
+    else if (totalImages === 3) {
+      // First image: Top-left (flush with top)
+      positions.push({
+        left: '0%',
+        top: '0%',
+        width: '60%',
+        zIndex: 3
+      });
+      
+      // Second image: Top-right with slight overlap
+      positions.push({
+        left: '45%',
+        top: '10%',
+        width: '55%',
+        zIndex: 2
+      });
+      
+      // Third image: Bottom with slight overlap
+      positions.push({
+        left: '20%',
+        top: '45%',
+        width: '60%',
+        zIndex: 1
+      });
+    }
+    else if (totalImages >= 4) {
+      // First image: Top-left (flush with top)
+      positions.push({
+        left: '0%',
+        top: '0%',
+        width: '50%',
+        zIndex: 4
+      });
+      
+      // Second image: Top-right with slight overlap
+      positions.push({
+        left: '45%',
+        top: '5%',
+        width: '55%',
+        zIndex: 3
+      });
+      
+      // Third image: Bottom-left with slight overlap
+      positions.push({
+        left: '10%',
+        top: '42%',
+        width: '45%',
+        zIndex: 2
+      });
+      
+      // Fourth image: Bottom-right with slight overlap
+      positions.push({
+        left: '50%',
+        top: '45%',
+        width: '50%',
+        zIndex: 1
+      });
+      
+      // Fifth image (if present)
+      if (totalImages >= 5) {
+        positions.push({
+          left: '30%',
+          top: '25%',
+          width: '40%',
+          zIndex: 5
+        });
+      }
+    }
     
     return positions;
-  }, [limitedImages.length, refreshKey]);
+  };
+
+  const positions = useMemo(() => createCollagePositions(), [limitedImages.length, refreshKey]);
   
   // get z-index for an image - highest for hovered image
   const getZIndex = (index: number): number => {
-    // base z-index is the position in the array + 1
-    const baseZIndex = index + 1;
-    
-    // if this is the hovered image, give it the highest z-index (100 + total images)
+    // If this is the hovered image, give it the highest z-index
     if (hoveredIndex === index) {
-      return 100 + limitedImages.length;
+      return 100;
     }
     
-    // otherwise return the default z-index
-    return baseZIndex;
+    // Otherwise use the position's z-index
+    return positions[index].zIndex;
   };
 
   return (
-    <div className="relative w-full h-full">
+    <div 
+      className={`relative w-full ${alignTop ? 'h-auto' : 'h-[400px] md:h-[500px]'}`} 
+      style={{ 
+        minHeight: '350px',
+        maxHeight: alignTop ? '500px' : 'auto'
+      }}
+    >
       {limitedImages.map((image, index) => (
         <div
-          key={`${refreshKey}-${index}`} // Use refreshKey in key to ensure full re-render
-          className="absolute shadow-md transition-all duration-300 hover:shadow-xl"
+          key={`${refreshKey}-${index}`}
+          className="absolute shadow-md transition-all duration-300 hover:shadow-xl overflow-hidden"
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
           style={{
-            left: imagePositions[index].left,
-            top: imagePositions[index].top,
+            left: positions[index].left,
+            top: positions[index].top,
+            width: positions[index].width,
             zIndex: getZIndex(index),
-            width: `${Math.max(25, 55 - limitedImages.length * 5)}%`, // Make images slightly smaller
+            border: '2px solid #111'
           }}
         >
           <img
             src={image.src}
             alt={image.alt}
-            className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+            className="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
             loading="lazy"
           />
         </div>

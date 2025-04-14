@@ -2,32 +2,32 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 
-interface NavCardProps {
+interface ProjectCardProps {
   title: string
   slug: string
   index: number
 }
 
-export default function NavigationCards({ title, slug, index }: NavCardProps) {
+export default function ProjectCard({ title, slug, index }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
 
-  // Handle animation sequence for touch devices
+  // handle animation sequence for touch devices
   const handleTouchStart = () => {
     setIsTouched(true);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // For touch devices, prevent navigation until animation completes
+    // for touch devices, prevent navigation until animation completes
     if (('ontouchstart' in window || navigator.maxTouchPoints > 0) && !isHovered) {
       e.preventDefault();
       setIsNavigating(true);
       
-      // Set a timeout to navigate after animation completes
+      // set a timeout to navigate after animation completes
       setTimeout(() => {
         window.location.href = `/work/${slug}`;
-      }, 600); // Slightly longer than animation duration
+      }, 600); // slightly longer than animation duration
     }
   };
 
@@ -44,13 +44,13 @@ export default function NavigationCards({ title, slug, index }: NavCardProps) {
         onTouchStart={handleTouchStart}
       >
         <motion.div
-          className="relative z-10 py-2 px-1" // Increased padding for better touch target
+          className="relative z-10 py-2 px-1" // increased padding for more accessible touch target
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           data-cursor-hover
         >
           <motion.h2
-            className="text-md tracking-wider"
+            className="text-xl md:text-2xl tracking-wider whitespace-nowrap overflow-hidden text-ellipsis max-w-100vw"
             animate={{ x: (isHovered || isTouched || isNavigating) ? 10 : 0 }}
             transition={{ duration: 0.5 }}
           >
@@ -64,20 +64,6 @@ export default function NavigationCards({ title, slug, index }: NavCardProps) {
               animate={{ width: (isHovered || isTouched || isNavigating) ? "100%" : 0 }}
               transition={{ duration: 0.5 }}
             />
-            
-            {/* Arrow at the end of the line */}
-            <motion.div
-              className="absolute -bottom-2 right-[-8px] text-white"
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: (isHovered || isTouched || isNavigating) ? 1 : 0,
-                x: (isHovered || isTouched || isNavigating) ? 0 : -10 
-              }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              style={{ fontSize: "14px", lineHeight: 1 }}
-            >
-              →
-            </motion.div>
           </div>
         </motion.div>
       </Link>

@@ -6,127 +6,116 @@ import { Link } from "react-router-dom";
 type ProjectEmbedProps = {
     title: string;
     url: string;
-    width?: number;
-    height?: number;
-    scale?: number;
+    width?: number; // Kept for backwards compatibility
+    height?: number; // Kept for backwards compatibility
+    scale?: number; // Kept for backwards compatibility
     slug?: string;
 };
 
 export const ProjectEmbed = ({
     title,
     url,
-    width = 1280,
-    height = 800,
-    scale = 0.75,
     slug
 }: ProjectEmbedProps) => {
     const [isMobile, setIsMobile] = useState(false);
     const [isTablet, setIsTablet] = useState(false);
-    const [embedScale, setEmbedScale] = useState(scale);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [viewportWidth, setViewportWidth] = useState(0);
+    const [viewportHeight, setViewportHeight] = useState(0);
+    const iframeRef = useRef<HTMLIFrameElement>(null);
 
-    // check screen size and adjust scaling
+    // Update viewport dimensions on mount and window resize
     useEffect(() => {
-        const checkScreenSize = () => {
+        const updateViewportDimensions = () => {
             const isSmallScreen = window.innerWidth < 640;
             const isMediumScreen = window.innerWidth >= 640 && window.innerWidth < 1024;
             
             setIsMobile(isSmallScreen);
             setIsTablet(isMediumScreen);
             
-            // adjust scale based on screen size
-            if (isSmallScreen) {
-                setEmbedScale(scale * 0.7); // reduce scale on mobile
-            } else if (isMediumScreen) {
-                setEmbedScale(scale * 0.85); // slightly reduce scale on tablet
-            } else {
-                setEmbedScale(scale);
+            // Calculate viewport aspect ratio
+            const windowAspectRatio = window.innerWidth / window.innerHeight;
+            
+            // Calculate available width (with padding)
+            const containerPadding = isSmallScreen ? 16 : isMediumScreen ? 32 : 48;
+            const availableWidth = window.innerWidth - (containerPadding * 2);
+            const maxWidth = Math.min(availableWidth, 1200); // Reasonable max width
+            
+            // Button space if needed
+            const buttonSpace = (isMobile || isTablet) && slug ? 48 : 0;
+            
+            // Calculate height based on aspect ratio
+            // Parent section is 80vh
+            const availableHeight = (window.innerHeight * 0.8) - buttonSpace - containerPadding;
+            
+            // Choose dimensions that fit within available space while maintaining aspect ratio
+            let finalWidth = maxWidth;
+            let finalHeight = finalWidth / windowAspectRatio;
+            
+            // If height exceeds available space, recalculate based on height
+            if (finalHeight > availableHeight) {
+                finalHeight = availableHeight;
+                finalWidth = finalHeight * windowAspectRatio;
             }
+            
+            setViewportWidth(finalWidth);
+            setViewportHeight(finalHeight);
         };
 
-        checkScreenSize();
-        window.addEventListener('resize', checkScreenSize);
-        return () => window.removeEventListener('resize', checkScreenSize);
-    }, [scale]);
-
-    // calculate dynamic window dimensions based on device
-    const getWindowDimensions = () => {
-        let maxWidth = '100%';
-        let maxHeight = '60vh';
-        
-        if (isMobile) {
-            maxWidth = '90vw';
-            maxHeight = '50vh';
-        } 
-        else if (isTablet) {
-            maxWidth = '80vw';
-            maxHeight = '60vh';
-        } 
-        else {
-            maxWidth = '70vw';
-        }
-        
-        return {
-            maxWidth,
-            maxHeight
-        };
-    };
-    
-    const windowDimensions = getWindowDimensions();
+        updateViewportDimensions();
+        window.addEventListener('resize', updateViewportDimensions);
+        return () => window.removeEventListener('resize', updateViewportDimensions);
+    }, [slug]);
 
     return (
-        <div className="w-full flex flex-col items-center py-4">
-            <div 
-                className="w-full px-4 md:px-8 lg:px-12"
-                ref={containerRef}
+        <div className="flex flex-col items-center justify-center w-full h-full">
+            <motion.div
+                whileHover={{ scale: 1.01 }}
+                className="overflow-visible mx-auto"
+                style={{
+                    width: `${viewportWidth}px`,
+                    maxWidth: '100%'
+                }}
             >
-                <motion.div
-                    whileHover={{ scale: 1.01 }}
-                    className="mx-auto overflow-visible origin-center"
-                    style={{ 
-                        maxWidth: windowDimensions.maxWidth
-                    }}
-                >
-                    <Window title={title}>
-                        <div className="overflow-auto bg-black flex justify-center" style={{ 
-                            maxHeight: `calc(${windowDimensions.maxHeight} - 3rem)`,
-                            height: 'auto'
-                        }}>
-                            <div
-                                className="border border-gray-300 max-w-full"
-                                style={{
-                                    width,
-                                    height,
-                                    transform: `scale(${embedScale})`,
-                                    transformOrigin: "top center",
+                <Window title={title}>
+                    <div 
+                        className="bg-black flex justify-center overflow-auto"
+                        style={{ 
+                            height: `${viewportHeight}px`,
+                            maxHeight: '65vh'
+                        }}
+                    >
+                        {viewportWidth > 0 && ( // Only render when dimensions are calculated
+                            <iframe
+                                ref={iframeRef}
+                                src={url}
+                                title={title}
+                                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
+                                loading="lazy"
+                                className="w-full h-full"
+                                style={{ 
+                                    width: '100%',
+                                    height: '100%',
+                                    border: 0,
+                                    backgroundColor: "white"
                                 }}
-                            >
-                                <iframe
-                                    src={url}
-                                    title={title}
-                                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
-                                    loading="lazy"
-                                    className="w-full h-full border-0 max-w-full"
-                                    style={{ backgroundColor: "white" }}
-                                />
-                            </div>
-                        </div>
-                    </Window>
-                </motion.div>
-                
-                {/* mobile/tablet process button - visible only on mobile/tablet */}
-                {(isMobile || isTablet) && slug && (
-                    <div className="flex justify-center mt-8 font-mono text-white">
-                        <Link 
-                            to={`#process`}
-                            className="hover:text-gray-300 transition-colors px-4"
-                            aria-label="view process"
-                        >
-                            ↓ PROCESS
-                        </Link>
+                            />
+                        )}
                     </div>
-                )}
-            </div>
+                </Window>
+            </motion.div>
+            
+            {/* mobile/tablet process button - visible only on mobile/tablet */}
+            {(isMobile || isTablet) && slug && (
+                <div className="flex justify-center mt-4 font-mono text-white">
+                    <Link 
+                        to={`#process`}
+                        className="hover:text-gray-300 transition-colors px-4"
+                        aria-label="view process"
+                    >
+                        ↓ PROCESS
+                    </Link>
+                </div>
+            )}
         </div>
     );
 };

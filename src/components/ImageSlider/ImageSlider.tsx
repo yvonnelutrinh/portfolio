@@ -132,12 +132,12 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         if (isTransitioning) return;
         
         if (touchStart - touchEnd > 50) {
-            // swipe left, go next
+            // swipe left, go next (consistent with natural direction)
             handleNext();
         }
 
         if (touchStart - touchEnd < -50) {
-            // swipe right, go prev
+            // swipe right, go prev (consistent with natural direction)
             handlePrev();
         }
     };
@@ -216,21 +216,35 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
     
     const windowDimensions = getWindowDimensions();
 
+    // calculate dynamic button spacing to match window
+    const getButtonSpacing = () => {
+        // Match the spacing to the parent container's padding
+        if (isMobile) {
+            return '1rem';
+        } else if (isTablet) {
+            return '2rem';
+        } else {
+            return '3rem';
+        }
+    };
+
+    const buttonSpacing = getButtonSpacing();
+    
     return (
         <div className="w-full flex flex-col items-center justify-center py-4">
             <div 
-                className="relative w-full px-4 md:px-8 lg:px-12"
+                ref={containerRef}
+                className="relative w-full"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
-                ref={containerRef}
             >
-                {/* desktop navigation buttons - visible only on desktop */}
+                {/* Desktop navigation buttons - visible only on desktop */}
                 {!isMobile && !isTablet && (
                     <>
                         <motion.div 
                             className="absolute top-1/2 z-10 transform -translate-y-1/2"
-                            style={{ left: 0 }}
+                            style={{ left: `-${buttonSpacing}` }}
                             transition={{ duration: 0.3, ease: 'easeInOut' }}
                         >
                             <button
@@ -245,7 +259,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
 
                         <motion.div 
                             className="absolute top-1/2 z-10 transform -translate-y-1/2"
-                            style={{ right: 0 }}
+                            style={{ right: `-${buttonSpacing}` }}
                             transition={{ duration: 0.3, ease: 'easeInOut' }}
                         >
                             <button

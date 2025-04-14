@@ -1,9 +1,8 @@
 import { motion } from "motion/react"
-import Process from "../../components/Process/Process"
 import Skills from "../../components/Skills/Skills"
 import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
-import PointillismPortrait from "../../components/PointillismPortait/PointillismPortrait"
+import PointillismPortrait from "../../components/PointillismPortrait/PointillismPortrait"
 
 export default function About() {
     return (
@@ -34,17 +33,18 @@ export default function About() {
 
                         {/* self portrait placeholder*/}
                         <motion.div
-                            className="h-[70vh] bg-gray-900 flex items-center justify-center"
+                            className="flex items-center justify-center"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
-                            <PointillismPortrait />
+                            <div className="relative border-2 border-gray-800 shadow-md transition-shadow duration-300 hover:shadow-xl overflow-hidden flex items-center justify-center bg-gray-900">
+                                <PointillismPortrait />
+                            </div>
                         </motion.div>
                     </div>
 
                     <Skills />
-                    <Process />
                 </main>
                 <Footer />
             </div>

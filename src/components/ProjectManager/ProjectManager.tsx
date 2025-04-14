@@ -17,7 +17,7 @@ const projectsData = {
         year: "2025",
         role: "UX/UI Design, Audio, Animation, Development",
         client: "BrainStation | Capstone",
-        details: { subheader: "process", process: "Extensive research process, collecting design references throughout the process. Proposal with data, libraries, and basic interactive prototype to demonstrate animation. Learned numerous new technologies and architected integrations to create a smooth, unified user experience. Back-end server uses SQL database to handle anonymized user ids, storing user customization preferences for theme and colour palettes.", impact: "Wander offers users a chance to reset, restore, and reimagine through generative sound, calming animations, and a word comparison exercise. Utilizing Gemini API, the user receives a custom proverb to their submitted insights." },
+        details: { subheader: "PROCESS", process: "Extensive research process, collecting design references throughout the process. Proposal with data, libraries, and basic interactive prototype to demonstrate animation. Learned numerous new technologies and architected integrations to create a smooth, unified user experience. Back-end server uses SQL database to handle anonymized user ids, storing user customization preferences for theme and colour palettes.", impact: "Wander offers users a chance to reset, restore, and reimagine through generative sound, calming animations, and a word comparison exercise. Utilizing Gemini API, the user receives a custom proverb to their submitted insights." },
         embed: {
             url: "https://yvonnelutrinh.github.io/wander/",
             width: 1024,
@@ -43,7 +43,7 @@ const projectsData = {
             height: 768,
             scale: 1,
         },
-        details: { subheader: "process", process: "Managed entire project lifecycle from user research to Figma prototyping and final implementation in Webflow. Supported client through design process and developing Creative World's brand identity.", impact: "The clean, modern design balances negative space with bright visuals to showcase the brand's bold offerings. The final result is sleek yet community-grounded, tailored to the preferences of the brand's target audience." },
+        details: { subheader: "PROCESS", process: "Managed entire project lifecycle from user research to Figma prototyping and final implementation in Webflow. Supported client through design process and developing Creative World's brand identity.", impact: "The clean, modern design balances negative space with bright visuals to showcase the brand's bold offerings. The final result is sleek yet community-grounded, tailored to the preferences of the brand's target audience." },
         images: {
             feature: { src: "/creative-world-feature.png", alt: "Creative world website's product page with product details and images." },
             process: [{ src: "/creative-world-process.png", alt: "Creative World process" }, { src: "/creative-world-process-2.png", alt: "Creative World process" }]
@@ -64,7 +64,7 @@ const projectsData = {
         },
         tech: ["React", "Javascript", "Gemini API", "Figma"],
         credit: "Built during a 24-hour hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Alexandria Nancoo-Balkaran, Brigid Corey, Toshi Biswas, Quynh Do, and Vivian Cao.",
-        details: { subheader: "process", process: "Set up FigJam board to manage the brainstorming and collaboration process between seven developers. Pitched the final idea for BizBot, and developed initial form functionality with LLM response to demonstrate feasibility to team. Collaborated with another developer to refine prompting and report format through specific formatting injected in Gemini response. Created wireframes and mockups for team to parallelize tasks, flushing out functionality and basic design.", impact: "Presented consistent working demo to panel of Microsoft judges, successfully responding to technical inquiries." },
+        details: { subheader: "PROCESS", process: "Set up FigJam board to manage the brainstorming and collaboration process between seven developers. Pitched the final idea for BizBot, and developed initial form functionality with LLM response to demonstrate feasibility to team. Collaborated with another developer to refine prompting and report format through specific formatting injected in Gemini response. Created wireframes and mockups for team to parallelize tasks, flushing out functionality and basic design.", impact: "Presented consistent working demo to panel of Microsoft judges, successfully responding to technical inquiries." },
         images: {
             feature: { src: "/bizbot-feature.png", alt: "BizBot app homepage to generate custom AI adoption recommendations for small businesses." },
             process: [{ src: "/bizbot-process.png", alt: "BizBot process" }, { src: "/bizbot-process-2.png", alt: "BizBot process" }, { src: "/bizbot-process-3.png", alt: "BizBot process" }, { src: "/bizbot-process-4.png", alt: "BizBot process" }, { src: "/bizbot-process-5.png", alt: "BizBot process" }, { src: "/bizbot-process-6.png", alt: "BizBot process" }]
@@ -85,7 +85,7 @@ const projectsData = {
             height: 600,
             scale: 1,
         },
-        details: { subheader: "process", process: "Brainstorming in Excalidraw, then each developer worked in parallel to design and implement functionality, managing scope effectively to ship in under 24 hours.", impact: "Delivered project on time, providing users with Valentines cards to share with loved ones on February 14." },
+        details: { subheader: "PROCESS", process: "Brainstorming in Excalidraw, then each developer worked in parallel to design and implement functionality, managing scope effectively to ship in under 24 hours.", impact: "Delivered project on time, providing users with Valentines cards to share with loved ones on February 14." },
         images: {
             feature: { src: "/pokemon-valentine-feature.png", alt: "Pokemon Valentine app homepage to generate custom Valentine's cards." },
             process: [{ src: "/pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
@@ -99,9 +99,9 @@ const projectsData = {
         role: "Development",
         client: "BrainStation | Projects",
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL"],
-        details: { subheader: "process", process: "Developed in 1-week sprints, drawing out site-map diagrams to prepare development processes. Utilized mobile-first design, BEM methodology to prioritize DRY, performant code.", impact: "Responsive, accessible web applications with functional API calls, back-end database implementation, and comprehensive error handling." },
+        details: { subheader: " ", process: "Developed in 1-week sprints, drawing out site-map diagrams to prepare development processes. Utilized mobile-first design, BEM methodology to prioritize DRY, performant code.", impact: "Responsive, accessible web applications with functional API calls, back-end database implementation, and comprehensive error handling." },
         images: {
-            feature: { src: "/pokemon-valentine-feature.png", alt: "Pokemon Valentine app homepage to generate custom Valentine's cards." },
+            feature: { src: "/snaps-feature.png", alt: "Feature responsive development image." },
             slider: [{ src: "/snaps-1.png", alt: "Snaps web application." }, { src: "/snaps-2.png", alt: "Snaps web application." }, { src: "/snaps-3.png", alt: "Snaps web application." }, { src: "/instock-1.png", alt: "InStock web application." }, { src: "/instock-2.png", alt: "InStock web application." }, { src: "/instock-3.png", alt: "InStock web application." }],
             process: [{ src: "/pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
         }
@@ -114,7 +114,7 @@ const projectsData = {
         role: "UI/UX Design, Prototyping",
         client: "OCAD | Projects",
         tech: ["Figma", "Canva"],
-        details: { subheader: "process", process: "Created a research plan including competitive analysis, user interviews, and user personas. How might we? Began design process by strategically creating a user flow and information architecture. Quickly generated ideas using crazy 8s -> drafted wireframes. Lo-fi mockups, hi-fi mockups and clickable prototypes with a style guide/UI toolkit in Figma. Finalized development-ready prototype after usability testing.", impact: "Sporify addresses real user needs, transforming user research derived pain points into comprehensive functionality within intuitive user experience." }
+        details: { subheader: "PROCESS", process: "Created a research plan including competitive analysis, user interviews, and user personas. How might we? Began design process by strategically creating a user flow and information architecture. Quickly generated ideas using crazy 8s -> drafted wireframes. Lo-fi mockups, hi-fi mockups and clickable prototypes with a style guide/UI toolkit in Figma. Finalized development-ready prototype after usability testing.", impact: "Sporify addresses real user needs, transforming user research derived pain points into comprehensive functionality within intuitive user experience." }
     },
 }
 
@@ -139,7 +139,7 @@ export default function ProjectPage() {
                     {/* hero section */}
                     <section className="h-screen flex flex-col justify-center relative overflow-hidden">
                         <TitleScroll >
-                            <h1 className="text-center font-display text-[10vw] sm:text-[8vw] md:text-[12rem] whitespace-normal sm:whitespace-nowrap px-4">{project.title}</h1>
+                            <h1 className="text-center font-display text-[min(14vw,12rem)] whitespace-normal word-break-normal break-normal hyphens-none leading-[0.9] px-4 py-8 w-full">{project.title}</h1>
                         </TitleScroll>
 
                         <motion.div
@@ -158,20 +158,20 @@ export default function ProjectPage() {
 
                                 <div className="grid grid-cols-2 gap-8 text-sm font-mono">
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">year</h2>
+                                        <h2 className="text-gray-500 mb-1">YEAR</h2>
                                         <p>{project.year}</p>
                                     </div>
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">role</h2>
+                                        <h2 className="text-gray-500 mb-1">ROLE</h2>
                                         <p>{project.role}</p>
                                     </div>
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">client</h2>
+                                        <h2 className="text-gray-500 mb-1">CLIENT</h2>
                                         <p>{project.client}</p>
                                     </div>
 
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">tech stack</h2>
+                                        <h2 className="text-gray-500 mb-1">TECH STACK</h2>
                                         <div className="grid grid-cols-2 gap-x-4">
                                             {project.tech.map((item: string, key: number) => (<p className=" text-nowrap" key={key} >{item}</p>))
                                             }
@@ -185,13 +185,31 @@ export default function ProjectPage() {
                             </div>
 
                             <div className="h-auto flex items-start justify-center md:justify-end">
-                                <img src={project.images.feature.src} alt={project.images.feature.alt} className="max-h-[50vh] w-auto object-contain" />
+                                <div 
+                                    className="relative border-2 border-gray-800 shadow-md transition-shadow duration-300 hover:shadow-xl overflow-visible group" 
+                                    style={{ maxHeight: '50vh' }}
+                                >
+                                    <img 
+                                        src={project.images.feature.src} 
+                                        alt={project.images.feature.alt} 
+                                        className="max-h-[50vh] w-auto object-contain transition-transform duration-300 group-hover:scale-110 cursor-pointer" 
+                                        onClick={(e) => {
+                                            // Toggle a class to keep the image zoomed until clicked again
+                                            const target = e.currentTarget;
+                                            if (target.classList.contains('scale-110')) {
+                                                target.classList.remove('scale-110');
+                                            } else {
+                                                target.classList.add('scale-110');
+                                            }
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </section>
 
                     {/* full width demo section */}
-                    <section className="h-[80vh] bg-gray-900 flex items-center justify-center my-8 md:my-16">
+                    <section className="h-[80vh] bg-gray-900 flex flex-col items-center justify-center my-8 md:my-16">
                         {project.embed ? (
                             <ProjectEmbed
                                 title={project.title}
@@ -211,10 +229,14 @@ export default function ProjectPage() {
 
                     {/* project process details section */}
                     <section id="process" className="container mx-auto px-4 py-12 md:py-24 lg:py-32">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                            <div className="h-[40vh] relative flex items-center justify-center">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+                            <div className="relative w-full h-auto">
                                 {project.images && project.images.process ? (
-                                    <ImageCollage images={project.images.process} maxImages={project.images.process.length} />
+                                    <ImageCollage 
+                                        images={project.images.process} 
+                                        maxImages={project.images.process.length}
+                                        alignTop={true}
+                                    />
                                 ) : (
                                     <div className="font-mono text-sm text-gray-500">process visuals would appear here</div>
                                 )}
