@@ -251,7 +251,7 @@ async function updateFileReferences(processedFiles: (ProcessedFile | null)[]): P
       const initialLength = fileContent.length;
       
       // Replace only the filename in places where it looks like a reference
-      fileContent = fileContent.replace(regex, (match, offset, string) => {
+      fileContent = fileContent.replace(regex, (match: string, offset: number, string: string) => {
         // Simple heuristic to prevent replacing text that happens to match the filename
         // Check that the match appears to be part of a path or URL
         const before = string.slice(Math.max(0, offset - 20), offset);

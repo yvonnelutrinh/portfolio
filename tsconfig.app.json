@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "tailwind.config.ts", "tools/favicon/favicon-animation.js", "tools/favicon/favicon-animation.d.ts"]
+  "include": ["src", "tailwind.config.ts", "tools/**/*.ts"]
 }

@@ -41,7 +41,8 @@ async function createNoiseTexture(): Promise<void> {
     })
     .jpeg({ 
       quality: 80,
-      grayscale: true
+      // grayscale is not a valid option in the TypeScript type definitions
+      // but using channels: 1 above already makes it grayscale
     })
     .toFile(outputPath);
     
@@ -51,5 +52,8 @@ async function createNoiseTexture(): Promise<void> {
   }
 }
 
-// Run the function
-createNoiseTexture();
+// Export the function for external use
+export { createNoiseTexture };
+
+// We can't automatically run this in TypeScript modules
+// If you need to generate the texture, import and call this function

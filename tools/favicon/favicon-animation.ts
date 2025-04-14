@@ -111,7 +111,7 @@ export function initFaviconAnimation(config: FaviconAnimationConfig = {}): Favic
       currentFaviconIndex = (currentFaviconIndex + 1) % favicons.length;
     }
     
-    const faviconLinkElements = document.querySelectorAll('link[rel="icon"]');
+    const faviconLinkElements = document.querySelectorAll<HTMLLinkElement>('link[rel="icon"]');
     
     if (faviconLinkElements.length > 0) {
       // Update existing favicon links
