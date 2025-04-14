@@ -6,6 +6,7 @@ import TitleScroll from "../TitleScroll/TitleScroll"
 import Header from "../Header/Header"
 import { ProjectEmbed } from "../ProjectEmbed/ProjectEmbed"
 import ImageCollage from "../ImageCollage/ImageCollage"
+import ImageSlider from "../ImageSlider/ImageSlider"
 
 // project data
 const projectsData = {
@@ -66,7 +67,7 @@ const projectsData = {
         details: { subheader: "process", process: "Set up FigJam board to manage the brainstorming and collaboration process between seven developers. Pitched the final idea for BizBot, and developed initial form functionality with LLM response to demonstrate feasibility to team. Collaborated with another developer to refine prompting and report format through specific formatting injected in Gemini response. Created wireframes and mockups for team to parallelize tasks, flushing out functionality and basic design.", impact: "Presented consistent working demo to panel of Microsoft judges, successfully responding to technical inquiries." },
         images: {
             feature: { src: "/bizbot-feature.png", alt: "BizBot app homepage to generate custom AI adoption recommendations for small businesses." },
-            process: [{ src: "/bizbot-process.png", alt: "BizBot process" }, { src: "/bizbot-process-2.png", alt: "BizBot process" }, { src: "/bizbot-process-3.png", alt: "BizBot process" }, { src: "/bizbot-process-4.png", alt: "BizBot process" }, { src: "/bizbot-process-5.png", alt: "BizBot process" }, {src: "/bizbot-process-6.png", alt: "BizBot process"}]
+            process: [{ src: "/bizbot-process.png", alt: "BizBot process" }, { src: "/bizbot-process-2.png", alt: "BizBot process" }, { src: "/bizbot-process-3.png", alt: "BizBot process" }, { src: "/bizbot-process-4.png", alt: "BizBot process" }, { src: "/bizbot-process-5.png", alt: "BizBot process" }, { src: "/bizbot-process-6.png", alt: "BizBot process" }]
         }
     },
     "pokemon-valentine": {
@@ -98,10 +99,15 @@ const projectsData = {
         role: "Development",
         client: "BrainStation | Projects",
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL"],
-        details: { subheader: "process", process: "Developed in 1-week sprints, drawing out site-map diagrams to prepare development processes. Utilized mobile-first design, BEM methodology to prioritize DRY, performant code.", impact: "Responsive, accessible web applications with functional API calls, back-end server implementation, and comprehensive error handling." }
+        details: { subheader: "process", process: "Developed in 1-week sprints, drawing out site-map diagrams to prepare development processes. Utilized mobile-first design, BEM methodology to prioritize DRY, performant code.", impact: "Responsive, accessible web applications with functional API calls, back-end database implementation, and comprehensive error handling." },
+        images: {
+            feature: { src: "/pokemon-valentine-feature.png", alt: "Pokemon Valentine app homepage to generate custom Valentine's cards." },
+            slider: [{ src: "/snaps-1.png", alt: "Snaps web application." }, { src: "/snaps-2.png", alt: "Snaps web application." }, { src: "/snaps-3.png", alt: "Snaps web application." }, { src: "/instock-1.png", alt: "InStock web application." }, { src: "/instock-2.png", alt: "InStock web application." }, { src: "/instock-3.png", alt: "InStock web application." }],
+            process: [{ src: "/pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
+        }
     },
     "ux": {
-        title: "SPORIFY/UX",
+        title: "UX/UI DESIGN",
         description:
             "Sporify is an all-in-one learning platform designed to guide users through the art and science of safe mushroom foraging.",
         year: "2024",
@@ -133,7 +139,7 @@ export default function ProjectPage() {
                     {/* hero section */}
                     <section className="h-screen flex flex-col justify-center relative overflow-hidden">
                         <TitleScroll >
-                            <h1 className="text-center font-display text-8xl md:text-[12rem] whitespace-nowrap">{project.title}</h1>
+                            <h1 className="text-center font-display text-[10vw] sm:text-[8vw] md:text-[12rem] whitespace-normal sm:whitespace-nowrap px-4">{project.title}</h1>
                         </TitleScroll>
 
                         <motion.div
@@ -152,58 +158,65 @@ export default function ProjectPage() {
 
                                 <div className="grid grid-cols-2 gap-8 text-sm font-mono">
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">YEAR</h2>
+                                        <h2 className="text-gray-500 mb-1">year</h2>
                                         <p>{project.year}</p>
                                     </div>
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">ROLE</h2>
+                                        <h2 className="text-gray-500 mb-1">role</h2>
                                         <p>{project.role}</p>
                                     </div>
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">CLIENT</h2>
+                                        <h2 className="text-gray-500 mb-1">client</h2>
                                         <p>{project.client}</p>
                                     </div>
 
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">TECH STACK</h2>
+                                        <h2 className="text-gray-500 mb-1">tech stack</h2>
                                         <div className="grid grid-cols-2 gap-x-4">
                                             {project.tech.map((item: string, key: number) => (<p className=" text-nowrap" key={key} >{item}</p>))
                                             }
                                         </div>
                                     </div>
                                     {project.credit && (<div>
-                                        <h2 className="text-gray-500 mb-1 width-[200%]">CREDIT</h2>
+                                        <h2 className="text-gray-500 mb-1 width-[200%]">credit</h2>
                                         <p>{project.credit}</p>
                                     </div>)}
                                 </div>
                             </div>
 
-                            <div className="h-[50vh] flex items-center justify-center">
-                                <img src={project.images.feature.src} alt={project.images.feature.alt} />
+                            <div className="h-auto flex items-start justify-center md:justify-end">
+                                <img src={project.images.feature.src} alt={project.images.feature.alt} className="max-h-[50vh] w-auto object-contain" />
                             </div>
                         </div>
                     </section>
 
-                    {/* full width image section */}
-                    <section className="h-[80vh] bg-gray-900 flex items-center justify-center my-16">
+                    {/* full width demo section */}
+                    <section className="h-[80vh] bg-gray-900 flex items-center justify-center my-8 md:my-16">
                         {project.embed ? (
                             <ProjectEmbed
                                 title={project.title}
                                 url={project.embed.url}
                                 width={project.embed.width}
                                 height={project.embed.height}
-                                scale={project.embed.scale} />)
-                            : (<p className="font-mono text-sm text-gray-500">Full width project visual would appear here</p>)}
+                                scale={project.embed.scale}
+                                slug={slug} />)
+                            : (<div className="w-full max-w-5xl">
+                                <ImageSlider 
+                                    projectTitle={project.title} 
+                                    images={project.images?.slider}
+                                    slug={slug}
+                                />
+                            </div>)}
                     </section>
 
                     {/* project process details section */}
-                    <section className="container mx-auto px-4 py-16 md:py-32">
+                    <section id="process" className="container mx-auto px-4 py-12 md:py-24 lg:py-32">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                             <div className="h-[40vh] relative flex items-center justify-center">
                                 {project.images && project.images.process ? (
                                     <ImageCollage images={project.images.process} maxImages={project.images.process.length} />
                                 ) : (
-                                    <div className="font-mono text-sm text-gray-500">Process visuals would appear here</div>
+                                    <div className="font-mono text-sm text-gray-500">process visuals would appear here</div>
                                 )}
                             </div>
 

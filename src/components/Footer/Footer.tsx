@@ -30,7 +30,7 @@ export default function Footer() {
 
                 <div>
                     <h3 className="text-xl mb-4">
-                        SOCIAL
+                        CONNECT
                     </h3>
                     <div className="space-y-2">
                         <a href="https://www.linkedin.com/in/yvonnelutrinh/"  className="block hover:text-gray-400 transition-colors duration-300 text-white" target="_blank" rel="noopener noreferrer">
