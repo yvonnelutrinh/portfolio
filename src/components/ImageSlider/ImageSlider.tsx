@@ -85,46 +85,42 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         });
     };
 
+    // navigation functions simplified to a single implementation
+    const navigateToIndex = (newIndex: number) => {
+        if (isTransitioning) return;
+        
+        // Calculate direction for animation
+        const direction = newIndex > currentIndex ? 1 : -1;
+        
+        // Handle wrap-around cases
+        if (newIndex >= sliderImages.length) newIndex = 0;
+        if (newIndex < 0) newIndex = sliderImages.length - 1;
+        
+        // Update all state at once
+        setIsTransitioning(true);
+        setDirection(direction);
+        setCurrentIndex(newIndex);
+        
+        // Prevent rapid clicking
+        setTimeout(() => {
+            setIsTransitioning(false);
+        }, 500);
+    };
+
+    // Convenience functions using the unified navigateToIndex
+    const goToPrev = () => navigateToIndex(currentIndex - 1);
+    const goToNext = () => navigateToIndex(currentIndex + 1);
+
     // auto-rotate slides
     useEffect(() => {
         const timer = setTimeout(() => {
-            handleNext();
+            navigateToIndex(currentIndex + 1);
         }, 15000); 
         
         return () => clearTimeout(timer);
     }, [currentIndex]);
 
-    // Completely separate navigation functions for desktop vs mobile/tablet
-    // to avoid any potential conflicts or interference
-    
-    // Desktop navigation functions
-    const handleDesktopPrev = () => {
-        if (isTransitioning) return;
-        setIsTransitioning(true);
-        setDirection(-1);
-        setCurrentIndex((prev) => (prev === 0 ? sliderImages.length - 1 : prev - 1));
-        
-        setTimeout(() => {
-            setIsTransitioning(false);
-        }, 500);
-    };
-
-    const handleDesktopNext = () => {
-        if (isTransitioning) return;
-        setIsTransitioning(true);
-        setDirection(1);
-        setCurrentIndex((prev) => (prev === sliderImages.length - 1 ? 0 : prev + 1));
-        
-        setTimeout(() => {
-            setIsTransitioning(false);
-        }, 500);
-    };
-    
-    // Original navigation functions preserved for other parts of the code
-    const handlePrev = handleDesktopPrev;
-    const handleNext = handleDesktopNext;
-
-    // swipe gestures for touch devices
+    // swipe gestures for touch devices - updated to use unified navigation
     const handleTouchStart = (e: React.TouchEvent) => {
         setTouchStart(e.targetTouches[0].clientX);
     };
@@ -138,12 +134,12 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         
         if (touchStart - touchEnd > 50) {
             // swipe left = next
-            handleNext();
+            navigateToIndex(currentIndex + 1);
         }
 
         if (touchStart - touchEnd < -50) {
             // swipe right = prev
-            handlePrev();
+            navigateToIndex(currentIndex - 1);
         }
     };
 
@@ -219,14 +215,14 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
     
     const windowDimensions = getWindowDimensions();
 
-    // space nav buttons evenly
+    // space nav buttons evenly - increased for wider spacing
     const getButtonSpacing = () => {
         if (isMobile) {
-            return '1rem';
+            return '2rem'; 
         } else if (isTablet) {
-            return '2rem';
+            return '3rem'; 
         } else {
-            return '3rem';
+            return '4rem'; 
         }
     };
 
@@ -234,137 +230,112 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
     
     return (
         <div className="w-full flex flex-col items-center justify-center py-4">
-            {/* Desktop navigation */}
+            {/* Desktop layout with side navigation */}
             {!isMobile && !isTablet && (
-                <div 
-                    ref={containerRef}
-                    className="relative w-full"
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                >
-                    <motion.div 
-                        className="absolute top-1/2 z-20 transform -translate-y-1/2"
-                        style={{ left: `-${buttonSpacing}` }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    >
-                        <button
-                            className="text-white font-mono hover:text-gray-300 transition-colors px-4"
-                            onClick={handleDesktopPrev}
-                            aria-label="previous sample"
-                            disabled={isTransitioning}
+                <div className="relative w-full">
+                    {/* Desktop navigation buttons */}
+                    <div className="w-full flex justify-between absolute top-1/2 z-30 transform -translate-y-1/2 pointer-events-none">
+                        <div 
+                            className="pointer-events-auto"
+                            style={{ marginLeft: `-${buttonSpacing}` }}
                         >
-                            ← PREV
-                        </button>
-                    </motion.div>
-
-                    <motion.div 
-                        className="absolute top-1/2 z-20 transform -translate-y-1/2"
-                        style={{ right: `-${buttonSpacing}` }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    >
-                        <button
-                            className="text-white font-mono hover:text-gray-300 transition-colors px-4"
-                            onClick={handleDesktopNext}
-                            aria-label="next sample"
-                            disabled={isTransitioning}
-                        >
-                            NEXT →
-                        </button>
-                    </motion.div>
-
-                    {/* image window */}
-                    <div 
-                        className="mx-auto transition-all duration-300 overflow-visible"
-                        style={{ 
-                            maxWidth: windowDimensions.maxWidth,
-                            width: windowDimensions.width,
-                            height: windowDimensions.height
-                        }}
-                    >
-                        <motion.div
-                            whileHover={{ scale: 1.01 }}
-                            className="origin-center overflow-visible"
-                        >
-                            <Window title={`SAMPLE ${currentIndex + 1}/${sliderImages.length}`}>
-                                <div className="overflow-y-auto bg-black" style={{ 
-                                        maxHeight: `calc(${windowDimensions.maxHeight} - 3rem)`, 
-                                        height: 'auto' 
-                                    }}>
-                                    <AnimatePresence custom={direction} initial={false} mode="wait">
-                                        <motion.div 
-                                            key={currentIndex}
-                                            className="relative bg-black w-full h-full"
-                                            custom={direction}
-                                            variants={variants}
-                                            initial="enter"
-                                            animate="center"
-                                            exit="exit"
-                                            transition={{
-                                                x: { type: "spring", stiffness: 300, damping: 30 }
-                                            }}
-                                            style={{
-                                                position: 'relative',
-                                                top: 0,
-                                                left: 0
-                                            }}
-                                        >
-                                            <img 
-                                                ref={imageRef}
-                                                src={sliderImages[currentIndex].src} 
-                                                alt={sliderImages[currentIndex].alt}
-                                                className="w-full h-auto object-contain" 
-                                                loading="lazy"
-                                                onLoad={(e) => {
-                                                    const img = e.target as HTMLImageElement;
-                                                    updateImageDetails(img.naturalWidth, img.naturalHeight);
-                                                }}
-                                            />
-                                        </motion.div>
-                                    </AnimatePresence>
-                                </div>
-                            </Window>
-                        </motion.div>
-                    </div>
-                </div>
-            )}
-
-            {/* Mobile/tablet layout - completely separate layout structure */}
-            {(isMobile || isTablet) && (
-                <div className="w-full flex flex-col items-center">
-                    {/* Navigation placed ABOVE the image */}
-                    <div className="flex justify-center gap-8 md:gap-12 mb-4 font-mono text-white z-20">
-                        <button
-                            className="hover:text-gray-300 transition-colors px-2 py-1 rounded"
-                            onClick={() => {
-                                // Direct approach without any state transitions or complex logic
-                                let newIndex = currentIndex - 1;
-                                if (newIndex < 0) newIndex = sliderImages.length - 1;
-                                setCurrentIndex(newIndex);
-                            }}
-                            aria-label="previous sample"
-                        >
-                            ← PREV
-                        </button>
+                            <button
+                                className="text-white font-mono hover:text-gray-300 transition-colors px-4 py-2 bg-black bg-opacity-50 rounded"
+                                onClick={goToPrev}
+                                aria-label="previous sample"
+                                disabled={isTransitioning}
+                            >
+                                ← PREV
+                            </button>
+                        </div>
                         
-                        <button
-                            className="hover:text-gray-300 transition-colors px-2 py-1 rounded"
-                            onClick={() => {
-                                // Direct approach without any state transitions or complex logic
-                                let newIndex = currentIndex + 1;
-                                if (newIndex >= sliderImages.length) newIndex = 0;
-                                setCurrentIndex(newIndex);
-                            }}
-                            aria-label="next sample"
+                        <div 
+                            className="pointer-events-auto"
+                            style={{ marginRight: `-${buttonSpacing}` }}
                         >
-                            NEXT →
-                        </button>
+                            <button
+                                className="text-white font-mono hover:text-gray-300 transition-colors px-4 py-2 bg-black bg-opacity-50 rounded"
+                                onClick={goToNext}
+                                aria-label="next sample"
+                                disabled={isTransitioning}
+                            >
+                                NEXT →
+                            </button>
+                        </div>
                     </div>
                     
                     {/* Image container with touch events */}
                     <div 
                         ref={containerRef}
-                        className="relative w-full"
+                        className="relative w-full flex justify-center"
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                    >
+                        {/* image window */}
+                        <div 
+                            className="mx-auto transition-all duration-300 overflow-visible"
+                            style={{ 
+                                maxWidth: windowDimensions.maxWidth,
+                                width: windowDimensions.width,
+                                height: windowDimensions.height
+                            }}
+                        >
+                            <motion.div
+                                whileHover={{ scale: 1.01 }}
+                                className="origin-center overflow-visible"
+                            >
+                                <Window title={`SAMPLE ${currentIndex + 1}/${sliderImages.length}`}>
+                                    <div className="overflow-y-auto bg-black" style={{ 
+                                            maxHeight: `calc(${windowDimensions.maxHeight} - 3rem)`, 
+                                            height: 'auto' 
+                                        }}>
+                                        <AnimatePresence custom={direction} initial={false} mode="wait">
+                                            <motion.div 
+                                                key={currentIndex}
+                                                className="relative bg-black w-full h-full"
+                                                custom={direction}
+                                                variants={variants}
+                                                initial="enter"
+                                                animate="center"
+                                                exit="exit"
+                                                transition={{
+                                                    x: { type: "spring", stiffness: 300, damping: 30 }
+                                                }}
+                                                style={{
+                                                    position: 'relative',
+                                                    top: 0,
+                                                    left: 0
+                                                }}
+                                            >
+                                                <img 
+                                                    ref={imageRef}
+                                                    src={sliderImages[currentIndex].src} 
+                                                    alt={sliderImages[currentIndex].alt}
+                                                    className="w-full h-auto object-contain" 
+                                                    loading="lazy"
+                                                    onLoad={(e) => {
+                                                        const img = e.target as HTMLImageElement;
+                                                        updateImageDetails(img.naturalWidth, img.naturalHeight);
+                                                    }}
+                                                />
+                                            </motion.div>
+                                        </AnimatePresence>
+                                    </div>
+                                </Window>
+                            </motion.div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Mobile/tablet layout */}
+            {(isMobile || isTablet) && (
+                <div className="w-full flex flex-col items-center">
+                    {/* Image container with touch events */}
+                    <div 
+                        ref={containerRef}
+                        className="relative w-full flex justify-center"
                         onTouchStart={handleTouchStart}
                         onTouchMove={handleTouchMove}
                         onTouchEnd={handleTouchEnd}
@@ -424,16 +395,36 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
                         </div>
                     </div>
                     
-                    {/* Process link below */}
-                    {slug && (
-                        <Link 
-                            to={`#process`}
-                            className="mt-8 font-mono text-white hover:text-gray-300 transition-colors"
-                            aria-label="view process"
+                    {/* Navigation placed BELOW the image */}
+                    <div className="flex items-center justify-center gap-8 md:gap-12 mt-8 font-mono text-white z-30">
+                        <button
+                            className="hover:text-gray-300 transition-colors px-2 py-1"
+                            onClick={goToPrev}
+                            aria-label="previous sample"
+                            disabled={isTransitioning}
                         >
-                            ↓ PROCESS
-                        </Link>
-                    )}
+                            ← PREV
+                        </button>
+                        
+                        {slug && (
+                            <Link 
+                                to={`#process`}
+                                className="hover:text-gray-300 transition-colors px-2 py-1"
+                                aria-label="view process"
+                            >
+                                ↓ PROCESS
+                            </Link>
+                        )}
+                        
+                        <button
+                            className="hover:text-gray-300 transition-colors px-2 py-1"
+                            onClick={goToNext}
+                            aria-label="next sample"
+                            disabled={isTransitioning}
+                        >
+                            NEXT →
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
