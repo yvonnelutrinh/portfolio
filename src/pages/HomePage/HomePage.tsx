@@ -4,6 +4,7 @@ import { HeaderNav, HomePageNav } from "../../components/Navigation/Navigation"
 import TextDistortion from '../../components/TextDistortion/TextDistortion'
 import Footer from "../../components/Footer/Footer"
 import ScrollToAnchor from "../../components/ScrollToAnchor/ScrollToAnchor"
+import Banner from "../../components/Banner/Banner"
 
 export default function Home() {
   const [mounted, setMounted] = useState(false)
@@ -39,6 +40,9 @@ export default function Home() {
                 Creative Developer & Designer
               </motion.p>
               <HomePageNav />
+              <div className="mt-4 md:mt-6 lg:mt-8">
+                <Banner />
+              </div>
             </motion.div>
           </section>
         </main>

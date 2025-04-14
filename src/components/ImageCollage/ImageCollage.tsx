@@ -77,7 +77,6 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
     }> = [];
     
     const totalImages = limitedImages.length;
-    console.log("creating collage positions for", totalImages, "images");
     
     // position images based on count
     if (totalImages === 2) {
