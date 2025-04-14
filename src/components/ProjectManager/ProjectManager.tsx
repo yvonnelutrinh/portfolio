@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import Footer from "../Footer/Footer"
 import TitleScroll from "../TitleScroll/TitleScroll"
 import Header from "../Header/Header"
@@ -13,16 +13,17 @@ const projectsData = {
     "wander": {
         title: "WANDER",
         description:
-            "Wander is a wellness app designed to combat digital fatigue and unlock imagination through immersive sound and guided exercises.",
+            "Wander is a playful wellness app designed to combat digital fatigue and unlock imagination through immersive soundscapes and guided exercises.",
         year: "2025",
-        role: "UX/UI Design, Audio, Animation, Development",
+        role: "UX/UI Design, Sound Design, Animation Design, Full-Stack Development",
         client: "BrainStation | Capstone",
-        details: { subheader: "process", process: "Extensive research process, collecting design references throughout the process. Proposal with data, libraries, and basic interactive prototype to demonstrate animation. Learned numerous new technologies and architected integrations to create a smooth, unified user experience. Back-end server uses SQL database to handle anonymized user ids, storing user customization preferences for theme and colour palettes.", impact: "Wander offers users a chance to reset, restore, and reimagine through generative sound, calming animations, and a word comparison exercise. Utilizing Gemini API, the user receives a custom proverb to their submitted insights." },
+        details: { subheader: "PROCESS", process: "Blended strategic research with hands-on development, building interactive prototypes that showcased animation concepts. Implemented new technologies while crafting a SQL database architecture that elegantly handles user identification and preferences.", impact: "Created a digital sanctuary that fights creative block through a generative sound bath, fluid animations, and a thoughtful cognitive exercise. The Gemini API integration offers personalized insights based on user reflections, making each experience uniquely rewarding." },
         embed: {
             url: "https://yvonnelutrinh.github.io/wander/",
             width: 1024,
             height: 768,
             scale: 1,
+            theme: "dark"
         },
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL", "Gemini API", "Motion", "Tone", "Howler", "Chroma", "Color", "Random-words", "Mobx", "Figma"],
         images: {
@@ -32,7 +33,7 @@ const projectsData = {
     },
     "creative-world": {
         title: "CREATIVE WORLD",
-        description: "A responsive e-commerce website for Corex Creative's brand expansion project, revealing a less commonly seen side of the brand.",
+        description: "Creative World is a responsive e-commerce website for Corex Creative's brand expansion project, revealing a less commonly seen side of the brand.",
         year: "2024",
         role: "UX/UI Design, Webflow Development",
         client: "Corex Creative",
@@ -42,8 +43,9 @@ const projectsData = {
             width: 1024,
             height: 768,
             scale: 1,
+            theme: "default"
         },
-        details: { subheader: "process", process: "Managed entire project lifecycle from user research to Figma prototyping and final implementation in Webflow. Supported client through design process and developing Creative World's brand identity.", impact: "The clean, modern design balances negative space with bright visuals to showcase the brand's bold offerings. The final result is sleek yet community-grounded, tailored to the preferences of the brand's target audience." },
+        details: { subheader: "PROCESS", process: "Guided this project from initial research through final implementation, crafting detailed Figma prototypes before building in Webflow. Partnered closely with the client to refine their brand identity throughout the process.", impact: "Struck the perfect balance between clean negative space and vibrant visuals to showcase the brand's unique offerings. The result feels both sophisticated and approachable—connecting deeply with the target audience while fostering community." },
         images: {
             feature: { src: "/creative-world-feature.png", alt: "Creative world website's product page with product details and images." },
             process: [{ src: "/creative-world-process.png", alt: "Creative World process" }, { src: "/creative-world-process-2.png", alt: "Creative World process" }]
@@ -61,11 +63,13 @@ const projectsData = {
             width: 1024,
             height: 768,
             scale: 1,
-            fixedDesktopRatio: true
+            fixedDesktopRatio: true,
+            theme: "default",
+            customWidth: 1080 // Slightly wider to accommodate content
         },
         tech: ["React", "Javascript", "Gemini API", "Figma"],
         credit: "Built during a 24-hour hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Alexandria Nancoo-Balkaran, Brigid Corey, Toshi Biswas, Quynh Do, and Vivian Cao.",
-        details: { subheader: "process", process: "Set up FigJam board to manage the brainstorming and collaboration process between seven developers. Pitched the final idea for BizBot, and developed initial form functionality with LLM response to demonstrate feasibility to team. Collaborated with another developer to refine prompting and report format through specific formatting injected in Gemini response. Created wireframes and mockups for team to parallelize tasks, flushing out functionality and basic design.", impact: "Presented consistent working demo to panel of Microsoft judges, successfully responding to technical inquiries." },
+        details: { subheader: "PROCESS", process: "Orchestrated team collaboration through FigJam, allowing our development team to work seamlessly. Built initial form functionality with LLM integration to validate our approach, then refined prompts and response formatting to maximize the Gemini API's potential.", impact: "Delivered a functional prototype that impressed Microsoft judges with its practical AI implementation. Our solution offers small businesses clear, actionable AI adoption strategies tailored to their specific needs." },
         images: {
             feature: { src: "/bizbot-feature.png", alt: "BizBot app homepage to generate custom AI adoption recommendations for small businesses." },
             process: [{ src: "/bizbot-process.png", alt: "BizBot process" }, { src: "/bizbot-process-2.png", alt: "BizBot process" }, { src: "/bizbot-process-3.png", alt: "BizBot process" }, { src: "/bizbot-process-4.png", alt: "BizBot process" }, { src: "/bizbot-process-5.png", alt: "BizBot process" }, { src: "/bizbot-process-6.png", alt: "BizBot process" }]
@@ -74,7 +78,7 @@ const projectsData = {
     "pokemon-valentine": {
         title: "POKÉMON VALENTINE",
         description:
-            "A simple responsive web app that generates custom downloadable Pokémon Valentine's cards.",
+            "Pokemon Valentine is a simple responsive web app that generates custom downloadable Valentine's cards.",
         year: "2025",
         role: "Development, Responsive Styling",
         client: "BrainStation",
@@ -85,8 +89,10 @@ const projectsData = {
             width: 1024,
             height: 600,
             scale: 1,
+            theme: "light",
+            customWidth: 380 // Custom width to match the app's actual size without scrolling
         },
-        details: { subheader: "process", process: "Brainstorming in Excalidraw, then each developer worked in parallel to design and implement functionality, managing scope effectively to ship in under 24 hours.", impact: "Delivered project on time, providing users with Valentines cards to share with loved ones on February 14." },
+        details: { subheader: "PROCESS", process: "Visualized concepts in Excalidraw before implementing parallel workflows to maximize our 24-hour timeframe. Made smart scope decisions that kept us focused on delivering core functionality.", impact: "Shipped a delightful app that lets users create and share personalized Pokémon Valentine's cards—proving that even quick-turn projects can deliver meaningful user experiences." },
         images: {
             feature: { src: "/pokemon-valentine-feature.png", alt: "Pokemon Valentine app homepage to generate custom Valentine's cards." },
             process: [{ src: "/pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
@@ -100,7 +106,7 @@ const projectsData = {
         role: "Development",
         client: "BrainStation | Projects",
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL"],
-        details: { subheader: " ", process: "Developed in 1-week sprints, drawing out site-map diagrams to prepare development processes. Utilized mobile-first design, BEM methodology to prioritize DRY, performant code.", impact: "Responsive, accessible web applications with functional API calls, back-end database implementation, and comprehensive error handling." },
+        details: { subheader: "PROCESS", process: "Approached each project through focused one-week sprints, using site-maps to plan efficient workflows. Embraced mobile-first design and BEM methodology to create clean, maintainable, DRY code.", impact: "Delivered responsive, accessible applications with seamless API integration, secure database implementation, and robust error handling—translating designer mockups into real-world solutions." },
         images: {
             feature: { src: "/snaps-feature.png", alt: "Feature responsive development image." },
             slider: [{ src: "/snaps-1.png", alt: "Snaps web application." }, { src: "/snaps-2.png", alt: "Snaps web application." }, { src: "/snaps-3.png", alt: "Snaps web application." }, { src: "/instock-1.png", alt: "InStock web application." }, { src: "/instock-2.png", alt: "InStock web application." }, { src: "/instock-3.png", alt: "InStock web application." }],
@@ -159,20 +165,20 @@ export default function ProjectPage() {
 
                                 <div className="grid grid-cols-2 gap-8 text-sm font-mono">
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">year</h2>
+                                        <h2 className="text-gray-500 mb-1">YEAR</h2>
                                         <p>{project.year}</p>
                                     </div>
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">role</h2>
+                                        <h2 className="text-gray-500 mb-1">ROLE</h2>
                                         <p>{project.role}</p>
                                     </div>
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">client</h2>
+                                        <h2 className="text-gray-500 mb-1">CLIENT</h2>
                                         <p>{project.client}</p>
                                     </div>
 
                                     <div>
-                                        <h2 className="text-gray-500 mb-1">tech stack</h2>
+                                        <h2 className="text-gray-500 mb-1">TECH STACK</h2>
                                         <div className="grid grid-cols-2 gap-x-4">
                                             {project.tech.map((item: string, key: number) => (<p className=" text-nowrap" key={key} >{item}</p>))
                                             }
@@ -219,14 +225,19 @@ export default function ProjectPage() {
                                 height={project.embed.height}
                                 scale={project.embed.scale}
                                 fixedDesktopRatio={project.embed.fixedDesktopRatio}
-                                slug={slug} />)
-                            : (<div className="w-full max-w-5xl">
+                                theme={project.embed.theme}
+                                slug={slug}
+                                customWidth={project.embed.customWidth}
+                            />
+                        ) : (
+                            <div className="w-full max-w-5xl">
                                 <ImageSlider 
                                     projectTitle={project.title} 
                                     images={project.images?.slider}
                                     slug={slug}
                                 />
-                            </div>)}
+                            </div>
+                        )}
                     </section>
 
                     {/* project process details section */}

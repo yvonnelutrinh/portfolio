@@ -24,10 +24,10 @@ export default function About() {
                             <div className="h-px w-full bg-white mb-8" />
 
                             <p className="text-xl mb-4">
-                                Yvonne is a multidisciplinary designer, developer, and project strategist focused on creating immersive digital experiences that challenge conventional design. Their work explores the intersection of user-centered design and interactive storytelling, creating functional and engaging spaces that feel both intuitive and delightful.
+                                I'm a multidisciplinary designer-developer crafting immersive digital experiences where innovation meets intuitive functionality. My work lives at the intersection of thoughtful design and interactive storytelling—creating digital spaces that engage and perform.
                             </p>
                             <p className="text-xl">
-                                With over seven years of experience in marketing, web communications, and multidisciplinary arts, Yvonne seamlessly integrates their artistic skills into business value. Rooted in a profound sense of engagement within the arts, nonprofits, and municipal government, they seek to continuously improve their craft to better serve their communities.
+                                With 7+ years spanning marketing, digital communications, and creative tech, I transform artistic vision into measurable business impact. My background in arts, nonprofit, and municipal sectors shapes my human-centered approach to technology—one that elevates user experience while serving broader community needs.
                             </p>
                         </motion.div>
 

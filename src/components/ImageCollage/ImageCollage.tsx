@@ -40,9 +40,9 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
   if (limitedImages.length === 1) {
     return (
       <div 
-        className={`relative w-full ${alignTop ? 'h-auto' : 'h-[400px] md:h-[500px]'}`} 
+        className={`relative w-full ${alignTop ? 'h-auto' : 'h-auto md:h-[500px]'}`} 
         style={{ 
-          minHeight: '350px',
+          minHeight: alignTop ? 'auto' : '250px',
           maxHeight: alignTop ? '500px' : 'auto',
         }}
       >

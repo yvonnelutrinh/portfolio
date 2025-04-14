@@ -133,7 +133,7 @@ function HomePageNav() {
             >
               <Link
                 to={route.path}
-                className="hover:text-gray-400 transition-colors duration-300 text-white-600 py-2 px-3 inline-block min-w-[44px] min-h-[44px]"
+                className="hover:text-gray-400 transition-colors duration-300 text-white-600 py-2 px-3 inline-block min-w-[44px] min-h-[44px] whitespace-nowrap"
                 aria-label={route.label.replace("→", "arrow")}
               >
                 {route.label}

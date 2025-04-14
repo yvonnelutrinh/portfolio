@@ -94,30 +94,35 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         return () => clearTimeout(timer);
     }, [currentIndex]);
 
-    // navigation with animation lock
-    const handlePrev = () => {
+    // Completely separate navigation functions for desktop vs mobile/tablet
+    // to avoid any potential conflicts or interference
+    
+    // Desktop navigation functions
+    const handleDesktopPrev = () => {
         if (isTransitioning) return;
         setIsTransitioning(true);
         setDirection(-1);
         setCurrentIndex((prev) => (prev === 0 ? sliderImages.length - 1 : prev - 1));
         
-        // prevent rapid clicking
         setTimeout(() => {
             setIsTransitioning(false);
         }, 500);
     };
 
-    const handleNext = () => {
+    const handleDesktopNext = () => {
         if (isTransitioning) return;
         setIsTransitioning(true);
         setDirection(1);
         setCurrentIndex((prev) => (prev === sliderImages.length - 1 ? 0 : prev + 1));
         
-        // prevent rapid clicking
         setTimeout(() => {
             setIsTransitioning(false);
         }, 500);
     };
+    
+    // Original navigation functions preserved for other parts of the code
+    const handlePrev = handleDesktopPrev;
+    const handleNext = handleDesktopNext;
 
     // swipe gestures for touch devices
     const handleTouchStart = (e: React.TouchEvent) => {
@@ -229,133 +234,208 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
     
     return (
         <div className="w-full flex flex-col items-center justify-center py-4">
-            <div 
-                ref={containerRef}
-                className="relative w-full"
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-            >
-                {/* desktop navigation */}
-                {!isMobile && !isTablet && (
-                    <>
-                        <motion.div 
-                            className="absolute top-1/2 z-10 transform -translate-y-1/2"
-                            style={{ left: `-${buttonSpacing}` }}
-                            transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                            <button
-                                className="text-white font-mono hover:text-gray-300 transition-colors px-4"
-                                onClick={handlePrev}
-                                aria-label="previous sample"
-                                disabled={isTransitioning}
-                            >
-                                ← PREV
-                            </button>
-                        </motion.div>
-
-                        <motion.div 
-                            className="absolute top-1/2 z-10 transform -translate-y-1/2"
-                            style={{ right: `-${buttonSpacing}` }}
-                            transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        >
-                            <button
-                                className="text-white font-mono hover:text-gray-300 transition-colors px-4"
-                                onClick={handleNext}
-                                aria-label="next sample"
-                                disabled={isTransitioning}
-                            >
-                                NEXT →
-                            </button>
-                        </motion.div>
-                    </>
-                )}
-
-                {/* image window */}
+            {/* Desktop navigation */}
+            {!isMobile && !isTablet && (
                 <div 
-                    className="mx-auto transition-all duration-300 overflow-visible"
-                    style={{ 
-                        maxWidth: windowDimensions.maxWidth,
-                        width: windowDimensions.width,
-                        height: windowDimensions.height
-                    }}
+                    ref={containerRef}
+                    className="relative w-full"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
                 >
-                    <motion.div
-                        whileHover={{ scale: 1.01 }}
-                        className="origin-center overflow-visible"
+                    <motion.div 
+                        className="absolute top-1/2 z-20 transform -translate-y-1/2"
+                        style={{ left: `-${buttonSpacing}` }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
                     >
-                        <Window title={`${projectTitle} | SAMPLE ${currentIndex + 1}/${sliderImages.length}`}>
-                            <div className="overflow-y-auto bg-black" style={{ 
-                                    maxHeight: `calc(${windowDimensions.maxHeight} - 3rem)`, 
-                                    height: 'auto' 
-                                }}>
-                                <AnimatePresence custom={direction} initial={false} mode="wait">
-                                    <motion.div 
-                                        key={currentIndex}
-                                        className="relative bg-black w-full h-full"
-                                        custom={direction}
-                                        variants={variants}
-                                        initial="enter"
-                                        animate="center"
-                                        exit="exit"
-                                        transition={{
-                                            x: { type: "spring", stiffness: 300, damping: 30 }
-                                        }}
-                                        style={{
-                                            position: 'relative',
-                                            top: 0,
-                                            left: 0
-                                        }}
-                                    >
-                                        <img 
-                                            ref={imageRef}
-                                            src={sliderImages[currentIndex].src} 
-                                            alt={sliderImages[currentIndex].alt}
-                                            className="w-full h-auto object-contain" 
-                                            loading="lazy"
-                                            onLoad={(e) => {
-                                                const img = e.target as HTMLImageElement;
-                                                updateImageDetails(img.naturalWidth, img.naturalHeight);
-                                            }}
-                                        />
-                                    </motion.div>
-                                </AnimatePresence>
-                            </div>
-                        </Window>
-                    </motion.div>
-                </div>
-
-                {/* mobile/tablet navigation */}
-                {(isMobile || isTablet) && (
-                    <div className="flex justify-center gap-8 md:gap-12 mt-8 font-mono text-white">
                         <button
-                            className="hover:text-gray-300 transition-colors px-2"
-                            onClick={handlePrev}
+                            className="text-white font-mono hover:text-gray-300 transition-colors px-4"
+                            onClick={handleDesktopPrev}
                             aria-label="previous sample"
                             disabled={isTransitioning}
                         >
                             ← PREV
                         </button>
-                        {slug && (
-                            <Link 
-                                to={`#process`}
-                                className="hover:text-gray-300 transition-colors px-2"
-                                aria-label="view process"
-                            >
-                                ↓ PROCESS
-                            </Link>
-                        )}
+                    </motion.div>
+
+                    <motion.div 
+                        className="absolute top-1/2 z-20 transform -translate-y-1/2"
+                        style={{ right: `-${buttonSpacing}` }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
                         <button
-                            className="hover:text-gray-300 transition-colors px-2"
-                            onClick={handleNext}
+                            className="text-white font-mono hover:text-gray-300 transition-colors px-4"
+                            onClick={handleDesktopNext}
                             aria-label="next sample"
                             disabled={isTransitioning}
                         >
                             NEXT →
                         </button>
+                    </motion.div>
+
+                    {/* image window */}
+                    <div 
+                        className="mx-auto transition-all duration-300 overflow-visible"
+                        style={{ 
+                            maxWidth: windowDimensions.maxWidth,
+                            width: windowDimensions.width,
+                            height: windowDimensions.height
+                        }}
+                    >
+                        <motion.div
+                            whileHover={{ scale: 1.01 }}
+                            className="origin-center overflow-visible"
+                        >
+                            <Window title={`SAMPLE ${currentIndex + 1}/${sliderImages.length}`}>
+                                <div className="overflow-y-auto bg-black" style={{ 
+                                        maxHeight: `calc(${windowDimensions.maxHeight} - 3rem)`, 
+                                        height: 'auto' 
+                                    }}>
+                                    <AnimatePresence custom={direction} initial={false} mode="wait">
+                                        <motion.div 
+                                            key={currentIndex}
+                                            className="relative bg-black w-full h-full"
+                                            custom={direction}
+                                            variants={variants}
+                                            initial="enter"
+                                            animate="center"
+                                            exit="exit"
+                                            transition={{
+                                                x: { type: "spring", stiffness: 300, damping: 30 }
+                                            }}
+                                            style={{
+                                                position: 'relative',
+                                                top: 0,
+                                                left: 0
+                                            }}
+                                        >
+                                            <img 
+                                                ref={imageRef}
+                                                src={sliderImages[currentIndex].src} 
+                                                alt={sliderImages[currentIndex].alt}
+                                                className="w-full h-auto object-contain" 
+                                                loading="lazy"
+                                                onLoad={(e) => {
+                                                    const img = e.target as HTMLImageElement;
+                                                    updateImageDetails(img.naturalWidth, img.naturalHeight);
+                                                }}
+                                            />
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
+                            </Window>
+                        </motion.div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
+
+            {/* Mobile/tablet layout - completely separate layout structure */}
+            {(isMobile || isTablet) && (
+                <div className="w-full flex flex-col items-center">
+                    {/* Navigation placed ABOVE the image */}
+                    <div className="flex justify-center gap-8 md:gap-12 mb-4 font-mono text-white z-20">
+                        <button
+                            className="hover:text-gray-300 transition-colors px-2 py-1 rounded"
+                            onClick={() => {
+                                // Direct approach without any state transitions or complex logic
+                                let newIndex = currentIndex - 1;
+                                if (newIndex < 0) newIndex = sliderImages.length - 1;
+                                setCurrentIndex(newIndex);
+                            }}
+                            aria-label="previous sample"
+                        >
+                            ← PREV
+                        </button>
+                        
+                        <button
+                            className="hover:text-gray-300 transition-colors px-2 py-1 rounded"
+                            onClick={() => {
+                                // Direct approach without any state transitions or complex logic
+                                let newIndex = currentIndex + 1;
+                                if (newIndex >= sliderImages.length) newIndex = 0;
+                                setCurrentIndex(newIndex);
+                            }}
+                            aria-label="next sample"
+                        >
+                            NEXT →
+                        </button>
+                    </div>
+                    
+                    {/* Image container with touch events */}
+                    <div 
+                        ref={containerRef}
+                        className="relative w-full"
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                    >
+                        {/* image window */}
+                        <div 
+                            className="mx-auto transition-all duration-300 overflow-visible"
+                            style={{ 
+                                maxWidth: windowDimensions.maxWidth,
+                                width: windowDimensions.width,
+                                height: windowDimensions.height
+                            }}
+                        >
+                            <motion.div
+                                whileHover={{ scale: 1.01 }}
+                                className="origin-center overflow-visible"
+                            >
+                                <Window title={`SAMPLE ${currentIndex + 1}/${sliderImages.length}`}>
+                                    <div className="overflow-y-auto bg-black" style={{ 
+                                            maxHeight: `calc(${windowDimensions.maxHeight} - 3rem)`, 
+                                            height: 'auto' 
+                                        }}>
+                                        <AnimatePresence custom={direction} initial={false} mode="wait">
+                                            <motion.div 
+                                                key={currentIndex}
+                                                className="relative bg-black w-full h-full"
+                                                custom={direction}
+                                                variants={variants}
+                                                initial="enter"
+                                                animate="center"
+                                                exit="exit"
+                                                transition={{
+                                                    x: { type: "spring", stiffness: 300, damping: 30 }
+                                                }}
+                                                style={{
+                                                    position: 'relative',
+                                                    top: 0,
+                                                    left: 0
+                                                }}
+                                            >
+                                                <img 
+                                                    ref={imageRef}
+                                                    src={sliderImages[currentIndex].src} 
+                                                    alt={sliderImages[currentIndex].alt}
+                                                    className="w-full h-auto object-contain" 
+                                                    loading="lazy"
+                                                    onLoad={(e) => {
+                                                        const img = e.target as HTMLImageElement;
+                                                        updateImageDetails(img.naturalWidth, img.naturalHeight);
+                                                    }}
+                                                />
+                                            </motion.div>
+                                        </AnimatePresence>
+                                    </div>
+                                </Window>
+                            </motion.div>
+                        </div>
+                    </div>
+                    
+                    {/* Process link below */}
+                    {slug && (
+                        <Link 
+                            to={`#process`}
+                            className="mt-8 font-mono text-white hover:text-gray-300 transition-colors"
+                            aria-label="view process"
+                        >
+                            ↓ PROCESS
+                        </Link>
+                    )}
+                </div>
+            )}
         </div>
     );
 };
