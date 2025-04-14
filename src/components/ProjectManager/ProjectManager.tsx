@@ -232,7 +232,6 @@ export default function ProjectPage() {
                         ) : (
                             <div className="w-full max-w-5xl">
                                 <ImageSlider 
-                                    projectTitle={project.title} 
                                     images={project.images?.slider}
                                     slug={slug}
                                 />

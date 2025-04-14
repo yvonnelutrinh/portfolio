@@ -4,12 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 interface ImageSliderProps {
-    projectTitle: string;
     images?: { src: string; alt: string }[];
     slug?: string;
 }
 
-const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug }) => {
+const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [touchStart, setTouchStart] = useState(0);
     const [touchEnd, setTouchEnd] = useState(0);
@@ -164,7 +163,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
 
     // figure out best size for current device
     const getWindowDimensions = () => {
-        const mobileAspectRatio = 9/16; 
+        // const mobileAspectRatio = 9/16; 
         
         let windowWidth = 'auto';
         let windowHeight = 'auto';

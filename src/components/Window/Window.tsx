@@ -1,4 +1,4 @@
-export default function Window({ title, children }) {
+export default function Window({ title, children }: { title: string; children: React.ReactNode }) {
     return (
         <div className="bg-black/80 border rounded p-4 overflow-visible w-full">
             <div className="flex items-center gap-2 mb-4 border-b border-brutalist/10 pb-2">

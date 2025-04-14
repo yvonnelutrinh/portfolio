@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
 import { motion } from "motion/react"
-import Navigation from "../../components/Navigation/Navigation"
+import { HeaderNav } from "../../components/Navigation/Navigation"
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -52,7 +52,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <Navigation />
+      <HeaderNav />
 
       <main className="container mx-auto px-4 pt-32 pb-16">
         <motion.h1
