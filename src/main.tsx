@@ -3,6 +3,13 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { HashRouter } from 'react-router-dom'
+import { initFaviconAnimation } from '../tools/favicon/favicon-animation'
+
+// Initialize the favicon animation with custom settings
+initFaviconAnimation({
+  animationSpeed: 250, // slightly faster animation
+  randomizeOrder: false
+})
 
 createRoot(document.getElementById('root')!).render(
   <HashRouter>

@@ -27,8 +27,8 @@ const projectsData = {
         },
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL", "Gemini API", "Motion", "Tone", "Howler", "Chroma", "Color", "Random-words", "Mobx", "Figma"],
         images: {
-            feature: { src: "wander-breathe.png", alt: "Wander app's breathe page with wave animations, narration text, and volume controls." },
-            process: [{ src: "wander-process.png", alt: "Wander process" }, { src: "wander-process-2.png", alt: "Wander process" }, { src: "wander-process-3.png", alt: "Wander process" }, { src: "wander-process-4.png", alt: "Wander process" }]
+            feature: { src: "images/wander-breathe.jpg", alt: "Wander app's breathe page with wave animations, narration text, and volume controls" },
+            process: [{ src: "images/wander-process.jpg", alt: "Wander process" }, { src: "images/wander-process-2.jpg", alt: "Wander process" }, { src: "images/wander-process-3.jpg", alt: "Wander process" }, { src: "images/wander-process-4.jpg", alt: "Wander process" }]
         }
     },
     "creative-world": {
@@ -47,8 +47,8 @@ const projectsData = {
         },
         details: { subheader: "PROCESS", process: "Guided this project from initial research through final implementation, crafting detailed Figma prototypes before building in Webflow. Partnered closely with the client to refine their brand identity throughout the process.", impact: "Struck the perfect balance between clean negative space and vibrant visuals to showcase the brand's unique offerings. The result feels both sophisticated and approachable—connecting deeply with the target audience while fostering community." },
         images: {
-            feature: { src: "creative-world-feature.png", alt: "Creative world website's product page with product details and images." },
-            process: [{ src: "creative-world-process.png", alt: "Creative World process" }, { src: "creative-world-process-2.png", alt: "Creative World process" }]
+            feature: { src: "images/creative-world-feature.jpg", alt: "Creative world website's product page with product details and images." },
+            process: [{ src: "images/creative-world-process.jpg", alt: "Creative World process" }, { src: "images/creative-world-process-2.jpg", alt: "Creative World process" }]
         }
     },
     "bizbot": {
@@ -71,8 +71,8 @@ const projectsData = {
         credit: "Built during a 24-hour hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Alexandria Nancoo-Balkaran, Brigid Corey, Toshi Biswas, Quynh Do, and Vivian Cao.",
         details: { subheader: "PROCESS", process: "Orchestrated team collaboration through FigJam, allowing our development team to work seamlessly. Built initial form functionality with LLM integration to validate our approach, then refined prompts and response formatting to maximize the Gemini API's potential.", impact: "Delivered a functional prototype that impressed Microsoft judges with its practical AI implementation. Our solution offers small businesses clear, actionable AI adoption strategies tailored to their specific needs." },
         images: {
-            feature: { src: "bizbot-feature.png", alt: "BizBot app homepage to generate custom AI adoption recommendations for small businesses." },
-            process: [{ src: "bizbot-process.png", alt: "BizBot process" }, { src: "bizbot-process-2.png", alt: "BizBot process" }, { src: "bizbot-process-3.png", alt: "BizBot process" }, { src: "bizbot-process-4.png", alt: "BizBot process" }, { src: "bizbot-process-5.png", alt: "BizBot process" }, { src: "bizbot-process-6.png", alt: "BizBot process" }]
+            feature: { src: "images/bizbot-feature.jpg", alt: "BizBot app homepage to generate custom AI adoption recommendations for small businesses" },
+            process: [{ src: "images/bizbot-process.jpg", alt: "BizBot process" }, { src: "images/bizbot-process-2.jpg", alt: "BizBot process" }, { src: "images/bizbot-process-3.jpg", alt: "BizBot process" }, { src: "images/bizbot-process-4.jpg", alt: "BizBot process" }, { src: "images/bizbot-process-5.jpg", alt: "BizBot process" }, { src: "images/bizbot-process-6.jpg", alt: "BizBot process" }]
         }
     },
     "pokemon-valentine": {
@@ -94,23 +94,23 @@ const projectsData = {
         },
         details: { subheader: "PROCESS", process: "Visualized concepts in Excalidraw before implementing parallel workflows to maximize our 24-hour timeframe. Made smart scope decisions that kept us focused on delivering core functionality.", impact: "Shipped a delightful app that lets users create and share personalized Pokémon Valentine's cards—proving that even quick-turn projects can deliver meaningful user experiences." },
         images: {
-            feature: { src: "pokemon-valentine-feature.png", alt: "Pokemon Valentine app homepage to generate custom Valentine's cards." },
-            process: [{ src: "pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
+            feature: { src: "images/pokemon-valentine-feature.jpg", alt: "Pokemon Valentine app homepage to generate custom Valentine's cards" },
+            process: [{ src: "images/pokemon-valentine-process.jpg", alt: "Pokemon Valentine process" }, { src: "images/pokemon-valentine-process-2.jpg", alt: "Pokemon Valentine process" }, { src: "images/pokemon-valentine-process-3.jpg", alt: "Pokemon Valentine process" }]
         }
     },
     "development": {
         title: "RESPONSIVE DEVELOPMENT",
         description:
-            "Responsive websites developed to mirror designer-provided style guides and mockups.",
+            "Responsive websites developed according to designer-provided style guides and mockups.",
         year: "2025",
         role: "Development",
         client: "BrainStation | Projects",
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL"],
-        details: { subheader: "PROCESS", process: "Approached each project through focused one-week sprints, using site-maps to plan efficient workflows. Embraced mobile-first design and BEM methodology to create clean, maintainable, DRY code.", impact: "Delivered responsive, accessible applications with seamless API integration, secure database implementation, and robust error handling—translating designer mockups into real-world solutions." },
+        details: { subheader: "PROCESS", process: "Approached each project through focused one-week sprints, using site-maps to plan efficient workflows. Embraced mobile-first design and BEM methodology to create clean, maintainable, DRY code.", impact: "Led information architecture diagramming for group projects, supporting an efficient development process across development teams. Delivered responsive, accessible applications with seamless API integration, secure database implementation, and robust error handling—translating designer mockups into real-world solutions." },
         images: {
-            feature: { src: "snaps-feature.png", alt: "Feature responsive development image." },
-            slider: [{ src: "snaps-1.png", alt: "Snaps web application." }, { src: "snaps-2.png", alt: "Snaps web application." }, { src: "snaps-3.png", alt: "Snaps web application." }, { src: "instock-1.png", alt: "InStock web application." }, { src: "instock-2.png", alt: "InStock web application." }, { src: "instock-3.png", alt: "InStock web application." }],
-            process: [{ src: "pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
+            feature: { src: "images/snaps-feature.jpg", alt: "Feature responsive development image." },
+            slider: [{ src: "images/snaps-1.jpg", alt: "Snaps web application." }, { src: "images/snaps-2.jpg", alt: "Snaps web application" }, { src: "images/snaps-3.jpg", alt: "Snaps web application" }, { src: "images/instock-1.jpg", alt: "InStock web application." }, { src: "images/instock-2.jpg", alt: "InStock web application" }, { src: "images/instock-3.jpg", alt: "InStock web application" }],
+            process: [{ src: "images/group-project-process.jpg", alt: "Group project, InStock process" }, { src: "images/group-project-process-2.jpg", alt: "Group project, InStock process" }, { src: "images/pair-programming-process.jpg", alt: "Pair programming process" }, { src: "images/pair-programming-process-2.jpg", alt: "Pair programming process" }]
         }
     },
     // "ux-ui": {

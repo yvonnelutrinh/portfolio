@@ -268,7 +268,7 @@
   bottom: -50%;
   width: 200%;
   height: 200vh;
-  background: transparent url("/noise.png") repeat 0 0;
+  background: transparent url("/images/noise.jpg") repeat 0 0;
   background-repeat: repeat;
   animation: grain 8s steps(10) infinite;
   opacity: 0.15;

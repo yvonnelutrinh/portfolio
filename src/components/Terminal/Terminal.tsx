@@ -10,14 +10,14 @@ export default function Terminal() {
     const title = "process.terminal";
 
     const terminalLines = [
-        "$ initiating development_process.sh",
-        "$ loading creative_philosophy.module",
-        "$ importing design.principles",
-        "$ implementing functional_dry.code",
-        "$ testing user_experience.flow",
-        "$ resolving conflicts...",
-        "$ merging approaches...",
-        "$ process_complete: balanced applications deployed"
+        "$ npm install coffee-to-code-converter",
+        "$ ./make-pixels-dance.sh --gracefully",
+        "$ git commit -m \"fix bugs; add features\"",
+        "$ optimize --ux=\"delightful\" --cpu=\"happy\"",
+        "$ import BrainOverflow from \"experience\"",
+        "$ killall -9 bugs.process",
+        "$ docker run --sarcasm=minimal --collaboration=expert teamwork",
+        "$ ship-it --quality=\"perfection\" --sushi=true"
     ];
 
     useEffect(() => {

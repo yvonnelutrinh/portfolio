@@ -2,7 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <script>
+      // Initial favicon color based on color scheme
+      const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const textColor = isDarkMode ? 'white' : 'black';
+      const symbol = '...';
+      const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text x="16" y="16" font-family="monospace" font-size="16" fill="${textColor}" text-anchor="middle" dominant-baseline="middle">${symbol}</text></svg>`;
+      const encodedSVG = encodeURIComponent(svgString);
+      const faviconUrl = `data:image/svg+xml;charset=utf-8,${encodedSVG}`;
+      document.write(`<link rel="icon" type="image/svg+xml" href="${faviconUrl}" />`);
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yvonne Lu Trinh</title>
   </head>
