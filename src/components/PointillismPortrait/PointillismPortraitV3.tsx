@@ -41,7 +41,7 @@ export default function PointillismPortraitV3() {
   useEffect(() => {
     setLoading(true);
     
-    fetch("/dot-map.json")
+    fetch("dot-map.json")
       .then(res => res.json())
       .then((rawDots: Dot[]) => {
         const filteredDots = rawDots.filter(dot => dot.x > 85 && dot.x < 400); // remove rectangle bars on either side

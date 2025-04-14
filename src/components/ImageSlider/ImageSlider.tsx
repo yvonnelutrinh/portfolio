@@ -22,13 +22,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
 
     // fallback to defaults if no images provided
     const sliderImages = images || [
-        { src: '/bandsite.png', alt: 'BandSite application' },
-        { src: '/instock-1.png', alt: 'InStock application - view 1' },
-        { src: '/instock-2.png', alt: 'InStock application - view 2' },
-        { src: '/instock-3.png', alt: 'InStock application - view 3' },
-        { src: '/snaps-1.png', alt: 'Snaps application - view 1' },
-        { src: '/snaps-2.png', alt: 'Snaps application - view 2' },
-        { src: '/snaps-3.png', alt: 'Snaps application - view 3' }
+        { src: 'bandsite.png', alt: 'BandSite application' },
+        { src: 'instock-1.png', alt: 'InStock application - view 1' },
+        { src: 'instock-2.png', alt: 'InStock application - view 2' },
+        { src: 'instock-3.png', alt: 'InStock application - view 3' },
+        { src: 'snaps-1.png', alt: 'Snaps application - view 1' },
+        { src: 'snaps-2.png', alt: 'Snaps application - view 2' },
+        { src: 'snaps-3.png', alt: 'Snaps application - view 3' }
     ];
 
     // detect device size

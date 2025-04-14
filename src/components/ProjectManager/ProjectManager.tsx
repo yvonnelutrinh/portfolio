@@ -27,8 +27,8 @@ const projectsData = {
         },
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL", "Gemini API", "Motion", "Tone", "Howler", "Chroma", "Color", "Random-words", "Mobx", "Figma"],
         images: {
-            feature: { src: "/wander-breathe.png", alt: "Wander app's breathe page with wave animations, narration text, and volume controls." },
-            process: [{ src: "/wander-process.png", alt: "Wander process" }, { src: "/wander-process-2.png", alt: "Wander process" }, { src: "/wander-process-3.png", alt: "Wander process" }, { src: "/wander-process-4.png", alt: "Wander process" }]
+            feature: { src: "wander-breathe.png", alt: "Wander app's breathe page with wave animations, narration text, and volume controls." },
+            process: [{ src: "wander-process.png", alt: "Wander process" }, { src: "wander-process-2.png", alt: "Wander process" }, { src: "wander-process-3.png", alt: "Wander process" }, { src: "wander-process-4.png", alt: "Wander process" }]
         }
     },
     "creative-world": {
@@ -47,8 +47,8 @@ const projectsData = {
         },
         details: { subheader: "PROCESS", process: "Guided this project from initial research through final implementation, crafting detailed Figma prototypes before building in Webflow. Partnered closely with the client to refine their brand identity throughout the process.", impact: "Struck the perfect balance between clean negative space and vibrant visuals to showcase the brand's unique offerings. The result feels both sophisticated and approachable—connecting deeply with the target audience while fostering community." },
         images: {
-            feature: { src: "/creative-world-feature.png", alt: "Creative world website's product page with product details and images." },
-            process: [{ src: "/creative-world-process.png", alt: "Creative World process" }, { src: "/creative-world-process-2.png", alt: "Creative World process" }]
+            feature: { src: "creative-world-feature.png", alt: "Creative world website's product page with product details and images." },
+            process: [{ src: "creative-world-process.png", alt: "Creative World process" }, { src: "creative-world-process-2.png", alt: "Creative World process" }]
         }
     },
     "bizbot": {
@@ -71,8 +71,8 @@ const projectsData = {
         credit: "Built during a 24-hour hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Alexandria Nancoo-Balkaran, Brigid Corey, Toshi Biswas, Quynh Do, and Vivian Cao.",
         details: { subheader: "PROCESS", process: "Orchestrated team collaboration through FigJam, allowing our development team to work seamlessly. Built initial form functionality with LLM integration to validate our approach, then refined prompts and response formatting to maximize the Gemini API's potential.", impact: "Delivered a functional prototype that impressed Microsoft judges with its practical AI implementation. Our solution offers small businesses clear, actionable AI adoption strategies tailored to their specific needs." },
         images: {
-            feature: { src: "/bizbot-feature.png", alt: "BizBot app homepage to generate custom AI adoption recommendations for small businesses." },
-            process: [{ src: "/bizbot-process.png", alt: "BizBot process" }, { src: "/bizbot-process-2.png", alt: "BizBot process" }, { src: "/bizbot-process-3.png", alt: "BizBot process" }, { src: "/bizbot-process-4.png", alt: "BizBot process" }, { src: "/bizbot-process-5.png", alt: "BizBot process" }, { src: "/bizbot-process-6.png", alt: "BizBot process" }]
+            feature: { src: "bizbot-feature.png", alt: "BizBot app homepage to generate custom AI adoption recommendations for small businesses." },
+            process: [{ src: "bizbot-process.png", alt: "BizBot process" }, { src: "bizbot-process-2.png", alt: "BizBot process" }, { src: "bizbot-process-3.png", alt: "BizBot process" }, { src: "bizbot-process-4.png", alt: "BizBot process" }, { src: "bizbot-process-5.png", alt: "BizBot process" }, { src: "bizbot-process-6.png", alt: "BizBot process" }]
         }
     },
     "pokemon-valentine": {
@@ -94,8 +94,8 @@ const projectsData = {
         },
         details: { subheader: "PROCESS", process: "Visualized concepts in Excalidraw before implementing parallel workflows to maximize our 24-hour timeframe. Made smart scope decisions that kept us focused on delivering core functionality.", impact: "Shipped a delightful app that lets users create and share personalized Pokémon Valentine's cards—proving that even quick-turn projects can deliver meaningful user experiences." },
         images: {
-            feature: { src: "/pokemon-valentine-feature.png", alt: "Pokemon Valentine app homepage to generate custom Valentine's cards." },
-            process: [{ src: "/pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
+            feature: { src: "pokemon-valentine-feature.png", alt: "Pokemon Valentine app homepage to generate custom Valentine's cards." },
+            process: [{ src: "pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
         }
     },
     "development": {
@@ -108,9 +108,9 @@ const projectsData = {
         tech: ["React", "Javascript", "SCSS", "Node", "Express", "SQL"],
         details: { subheader: "PROCESS", process: "Approached each project through focused one-week sprints, using site-maps to plan efficient workflows. Embraced mobile-first design and BEM methodology to create clean, maintainable, DRY code.", impact: "Delivered responsive, accessible applications with seamless API integration, secure database implementation, and robust error handling—translating designer mockups into real-world solutions." },
         images: {
-            feature: { src: "/snaps-feature.png", alt: "Feature responsive development image." },
-            slider: [{ src: "/snaps-1.png", alt: "Snaps web application." }, { src: "/snaps-2.png", alt: "Snaps web application." }, { src: "/snaps-3.png", alt: "Snaps web application." }, { src: "/instock-1.png", alt: "InStock web application." }, { src: "/instock-2.png", alt: "InStock web application." }, { src: "/instock-3.png", alt: "InStock web application." }],
-            process: [{ src: "/pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "/pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
+            feature: { src: "snaps-feature.png", alt: "Feature responsive development image." },
+            slider: [{ src: "snaps-1.png", alt: "Snaps web application." }, { src: "snaps-2.png", alt: "Snaps web application." }, { src: "snaps-3.png", alt: "Snaps web application." }, { src: "instock-1.png", alt: "InStock web application." }, { src: "instock-2.png", alt: "InStock web application." }, { src: "instock-3.png", alt: "InStock web application." }],
+            process: [{ src: "pokemon-valentine-process.png", alt: "Pokemon Valentine process" }, { src: "pokemon-valentine-process-2.png", alt: "Pokemon Valentine process" }, { src: "pokemon-valentine-process-3.png", alt: "Pokemon Valentine process" }]
         }
     },
     // "ux-ui": {
@@ -192,14 +192,14 @@ export default function ProjectPage() {
                             </div>
 
                             <div className="h-auto flex items-start justify-center md:justify-end">
-                                <div 
-                                    className="relative border-2 border-gray-800 shadow-md transition-shadow duration-300 hover:shadow-xl overflow-visible group" 
+                                <div
+                                    className="relative border-2 border-gray-800 shadow-md transition-shadow duration-300 hover:shadow-xl overflow-visible group"
                                     style={{ maxHeight: '50vh' }}
                                 >
-                                    <img 
-                                        src={project.images.feature.src} 
-                                        alt={project.images.feature.alt} 
-                                        className="max-h-[50vh] w-auto object-contain transition-transform duration-300 group-hover:scale-110 cursor-pointer" 
+                                    <img
+                                        src={project.images.feature.src}
+                                        alt={project.images.feature.alt}
+                                        className="max-h-[50vh] w-auto object-contain transition-transform duration-300 group-hover:scale-110 cursor-pointer"
                                         onClick={(e) => {
                                             // toggle a class to keep the image zoomed until clicked again
                                             const target = e.currentTarget;
@@ -231,7 +231,7 @@ export default function ProjectPage() {
                             />
                         ) : (
                             <div className="w-full max-w-5xl">
-                                <ImageSlider 
+                                <ImageSlider
                                     images={project.images?.slider}
                                     slug={slug}
                                 />
@@ -244,8 +244,8 @@ export default function ProjectPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
                             <div className="relative w-full h-auto">
                                 {project.images && project.images.process ? (
-                                    <ImageCollage 
-                                        images={project.images.process} 
+                                    <ImageCollage
+                                        images={project.images.process}
                                         maxImages={5}
                                         alignTop={true}
                                     />
