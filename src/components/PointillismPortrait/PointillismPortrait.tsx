@@ -241,6 +241,19 @@ export default function PointillismPortrait() {
     // all dots combined for rendering (background then foreground)
     const allDots = [...depthDots, ...primaryDots];
     
+    const calculateCenteringOffset = (canvasWidth: number) => {
+      // Only apply offset on smaller screens (tablet and mobile)
+      if (canvasWidth < 768) {
+        // Calculate horizontal offset to center the portrait
+        // The original portrait spans from x=85 to x=400, centered around ~240px
+        // We want to center that range in our canvas
+        const portraitMidpoint = 240; // approx midpoint of the portrait
+        const canvasMidpoint = canvasWidth / 2;
+        return canvasMidpoint - portraitMidpoint;
+      }
+      return 0; // No offset needed on desktop
+    };
+
     const animate = (currentTime: number) => {
       const deltaTime = Math.min((currentTime - lastTime) / 1000, 0.1); // cap delta time
       lastTime = currentTime;
@@ -251,6 +264,9 @@ export default function PointillismPortrait() {
       
       // clear canvas with alpha for potential background
       ctx.clearRect(0, 0, displayWidth, displayHeight);
+      
+      // Calculate centering offset for smaller screens
+      const centeringOffset = calculateCenteringOffset(displayWidth);
       
       // local breathing time that's continuously incremented
       const breathingTime = breathingTimeRef.current;
@@ -265,8 +281,8 @@ export default function PointillismPortrait() {
         const breatheX = Math.sin(breathePhase) * dot.breatheAmount;
         const breatheY = Math.cos(breathePhase * 1.3) * dot.breatheAmount;
         
-        // calculate mouse proximity effect
-        const dx = mouse.x - dot.originalX;
+        // calculate mouse proximity effect - adjust with centering offset
+        const dx = mouse.x - (dot.originalX + centeringOffset);
         const dy = mouse.y - dot.originalY;
         const distance = Math.sqrt(dx * dx + dy * dy);
         const proximity = Math.max(0, 1 - distance / maxDistance);
@@ -309,8 +325,8 @@ export default function PointillismPortrait() {
           dot.hoverOffsetY = 0;
         }
         
-        // target position combining all motion types
-        const targetX = dot.originalX + breatheX + organicX + repelX + hoverX;
+        // target position combining all motion types - apply centering offset to X position
+        const targetX = dot.originalX + breatheX + organicX + repelX + hoverX + centeringOffset;
         const targetY = dot.originalY + breatheY + organicY + repelY + hoverY;
         
         // apply spring physics (deeper dots move slower)
@@ -356,7 +372,7 @@ export default function PointillismPortrait() {
   }, [primaryDots, depthDots, mouse, time]);
   
   return (
-    <div className="relative w-full max-w-lg h-[512px] bg-black overflow-hidden">
+    <div className="relative w-full h-[512px] bg-black overflow-hidden">
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center text-white">
           Loading portrait...
