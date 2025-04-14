@@ -13,7 +13,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
     const [currentIndex, setCurrentIndex] = useState(0);
     const [touchStart, setTouchStart] = useState(0);
     const [touchEnd, setTouchEnd] = useState(0);
-    const [direction, setDirection] = useState(0); // -1 for left, 1 for right
+    const [direction, setDirection] = useState(0); 
     const [isMobile, setIsMobile] = useState(false);
     const [isTablet, setIsTablet] = useState(false);
     const [imageDetails, setImageDetails] = useState({ width: 0, height: 0, aspectRatio: 16/9 });
@@ -21,7 +21,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
     const containerRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
 
-    // use images prop if available, otherwise use default images
+    // fallback to defaults if no images provided
     const sliderImages = images || [
         { src: '/bandsite.png', alt: 'BandSite application' },
         { src: '/instock-1.png', alt: 'InStock application - view 1' },
@@ -32,7 +32,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         { src: '/snaps-3.png', alt: 'Snaps application - view 3' }
     ];
 
-    // check screen size
+    // detect device size
     useEffect(() => {
         const checkScreenSize = () => {
             setIsMobile(window.innerWidth < 640);
@@ -44,7 +44,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         return () => window.removeEventListener('resize', checkScreenSize);
     }, []);
 
-    // preload images and determine dimensions
+    // load images and get their real dimensions
     useEffect(() => {
         const preloadImages = () => {
             sliderImages.forEach((image, index) => {
@@ -62,7 +62,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         preloadImages();
     }, [sliderImages]);
 
-    // update image details when current index changes
+    // update dimensions when changing images
     useEffect(() => {
         const updateCurrentImage = () => {
             const img = new Image();
@@ -76,7 +76,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         updateCurrentImage();
     }, [currentIndex, sliderImages]);
 
-    // update image dimensions
+    // store image size info
     const updateImageDetails = (width: number, height: number) => {
         setImageDetails({
             width,
@@ -85,23 +85,23 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         });
     };
 
-    // auto-advance slides (extended time interval)
+    // auto-rotate slides
     useEffect(() => {
         const timer = setTimeout(() => {
             handleNext();
-        }, 15000); // extended to 15 seconds
+        }, 15000); 
         
         return () => clearTimeout(timer);
     }, [currentIndex]);
 
-    // handle navigation with transition lock
+    // navigation with animation lock
     const handlePrev = () => {
         if (isTransitioning) return;
         setIsTransitioning(true);
         setDirection(-1);
         setCurrentIndex((prev) => (prev === 0 ? sliderImages.length - 1 : prev - 1));
         
-        // Release transition lock after animation completes
+        // prevent rapid clicking
         setTimeout(() => {
             setIsTransitioning(false);
         }, 500);
@@ -113,13 +113,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         setDirection(1);
         setCurrentIndex((prev) => (prev === sliderImages.length - 1 ? 0 : prev + 1));
         
-        // Release transition lock after animation completes
+        // prevent rapid clicking
         setTimeout(() => {
             setIsTransitioning(false);
         }, 500);
     };
 
-    // touch event handlers for mobile swiping
+    // swipe gestures for touch devices
     const handleTouchStart = (e: React.TouchEvent) => {
         setTouchStart(e.targetTouches[0].clientX);
     };
@@ -132,17 +132,17 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         if (isTransitioning) return;
         
         if (touchStart - touchEnd > 50) {
-            // swipe left, go next (consistent with natural direction)
+            // swipe left = next
             handleNext();
         }
 
         if (touchStart - touchEnd < -50) {
-            // swipe right, go prev (consistent with natural direction)
+            // swipe right = prev
             handlePrev();
         }
     };
 
-    // animation variants for slide transitions
+    // slide transition animations
     const variants = {
         enter: (direction: number) => ({
             x: direction > 0 ? '100%' : '-100%',
@@ -161,47 +161,45 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
         })
     };
 
-    // calculate dynamic window dimensions based on device proportions
+    // figure out best size for current device
     const getWindowDimensions = () => {
-        // Default aspect ratios for different device types
-        const mobileAspectRatio = 9/16; // portrait orientation
+        const mobileAspectRatio = 9/16; 
         
         let windowWidth = 'auto';
         let windowHeight = 'auto';
         let maxWidth = '100%';
         let maxHeight = '60vh';
         
-        // For mobile screens
+        // mobile sizing
         if (isMobile) {
             maxWidth = '90vw';
             maxHeight = '50vh';
             
-            // If image is very tall, constrain height
+            // handle tall images
             if (imageDetails.aspectRatio < 1) {
-                windowHeight = `min(${maxHeight}, ${90 * mobileAspectRatio}vw)`;
+                // windowHeight = `min(${maxHeight}, ${90 * mobileAspectRatio}vw)`;
             }
         } 
-        // For tablet screens
+        // tablet sizing
         else if (isTablet) {
             maxWidth = '80vw';
             maxHeight = '60vh';
             
-            // Scale down image if it's mobile-width (narrow)
+            // narrow images
             if (imageDetails.aspectRatio < 0.8) {
                 maxWidth = '60vw';
             }
         } 
-        // For desktop screens
+        // desktop sizing
         else {
-            // Scale based on aspect ratio
             if (imageDetails.aspectRatio < 1) {
-                // Portrait or mobile-width image gets scaled down
+                // portrait images
                 maxWidth = '40vw';
             } else if (imageDetails.aspectRatio > 1.5) {
-                // Widescreen images
+                // widescreen images
                 maxWidth = '70vw';
             } else {
-                // Normal desktop proportions
+                // standard images
                 maxWidth = '60vw';
             }
         }
@@ -216,9 +214,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
     
     const windowDimensions = getWindowDimensions();
 
-    // calculate dynamic button spacing to match window
+    // space nav buttons evenly
     const getButtonSpacing = () => {
-        // Match the spacing to the parent container's padding
         if (isMobile) {
             return '1rem';
         } else if (isTablet) {
@@ -239,7 +236,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
             >
-                {/* Desktop navigation buttons - visible only on desktop */}
+                {/* desktop navigation */}
                 {!isMobile && !isTablet && (
                     <>
                         <motion.div 
@@ -274,7 +271,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
                     </>
                 )}
 
-                {/* image with window */}
+                {/* image window */}
                 <div 
                     className="mx-auto transition-all duration-300 overflow-visible"
                     style={{ 
@@ -328,7 +325,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ projectTitle, images, slug })
                     </motion.div>
                 </div>
 
-                {/* mobile/tablet navigation and process buttons - visible only on mobile/tablet */}
+                {/* mobile/tablet navigation */}
                 {(isMobile || isTablet) && (
                     <div className="flex justify-center gap-8 md:gap-12 mt-8 font-mono text-white">
                         <button

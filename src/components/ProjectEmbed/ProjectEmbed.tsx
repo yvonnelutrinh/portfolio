@@ -6,16 +6,18 @@ import { Link } from "react-router-dom";
 type ProjectEmbedProps = {
     title: string;
     url: string;
-    width?: number; // Kept for backwards compatibility
-    height?: number; // Kept for backwards compatibility
-    scale?: number; // Kept for backwards compatibility
+    width?: number; // kept for backwards compatibility
+    height?: number; // kept for backwards compatibility
+    scale?: number; // kept for backwards compatibility
     slug?: string;
+    fixedDesktopRatio?: boolean; // forces desktop aspect ratio
 };
 
 export const ProjectEmbed = ({
     title,
     url,
-    slug
+    slug,
+    fixedDesktopRatio = false // default to false for backward compatibility
 }: ProjectEmbedProps) => {
     const [isMobile, setIsMobile] = useState(false);
     const [isTablet, setIsTablet] = useState(false);
@@ -23,7 +25,7 @@ export const ProjectEmbed = ({
     const [viewportHeight, setViewportHeight] = useState(0);
     const iframeRef = useRef<HTMLIFrameElement>(null);
 
-    // Update viewport dimensions on mount and window resize
+    // handle viewport sizing on mount and resize
     useEffect(() => {
         const updateViewportDimensions = () => {
             const isSmallScreen = window.innerWidth < 640;
@@ -32,39 +34,54 @@ export const ProjectEmbed = ({
             setIsMobile(isSmallScreen);
             setIsTablet(isMediumScreen);
             
-            // Calculate viewport aspect ratio
-            const windowAspectRatio = window.innerWidth / window.innerHeight;
-            
-            // Calculate available width (with padding)
-            const containerPadding = isSmallScreen ? 16 : isMediumScreen ? 32 : 48;
-            const availableWidth = window.innerWidth - (containerPadding * 2);
-            const maxWidth = Math.min(availableWidth, 1200); // Reasonable max width
-            
-            // Button space if needed
-            const buttonSpace = (isMobile || isTablet) && slug ? 48 : 0;
-            
-            // Calculate height based on aspect ratio
-            // Parent section is 80vh
-            const availableHeight = (window.innerHeight * 0.8) - buttonSpace - containerPadding;
-            
-            // Choose dimensions that fit within available space while maintaining aspect ratio
-            let finalWidth = maxWidth;
-            let finalHeight = finalWidth / windowAspectRatio;
-            
-            // If height exceeds available space, recalculate based on height
-            if (finalHeight > availableHeight) {
-                finalHeight = availableHeight;
-                finalWidth = finalHeight * windowAspectRatio;
+            if (fixedDesktopRatio) {
+                // maintain desktop aspect ratio for certain projects
+                const DESKTOP_ASPECT_RATIO = 16/9;
+                // todo: fix bizbot iframe mobile responsiveness
+                const containerPadding = isSmallScreen ? 16 : isMediumScreen ? 32 : 48;
+                const availableWidth = window.innerWidth - (containerPadding * 2);
+                const maxWidth = Math.min(availableWidth, 1200); // max reasonable width
+                
+                const idealHeight = maxWidth / DESKTOP_ASPECT_RATIO;
+                
+                const viewportHeightLimit = window.innerHeight * 0.7; // use 70% of viewport height max
+                const finalHeight = Math.min(idealHeight, viewportHeightLimit);
+                const finalWidth = finalHeight * DESKTOP_ASPECT_RATIO;
+                
+                setViewportWidth(finalWidth);
+                setViewportHeight(finalHeight);
+            } else {
+                // adapt to viewport for responsive projects
+                const aspectRatio = window.innerWidth / window.innerHeight;
+                
+                const containerPadding = isSmallScreen ? 16 : isMediumScreen ? 32 : 48;
+                const availableWidth = window.innerWidth - (containerPadding * 2);
+                const maxWidth = Math.min(availableWidth, 1200);
+                
+                const buttonSpace = (isMobile || isTablet) && slug ? 48 : 0;
+                
+                // parent section is 80vh
+                const availableHeight = (window.innerHeight * 0.8) - buttonSpace - containerPadding;
+                
+                // fit within available space
+                let finalWidth = maxWidth;
+                let finalHeight = finalWidth / aspectRatio;
+                
+                // recalculate if height is too big
+                if (finalHeight > availableHeight) {
+                    finalHeight = availableHeight;
+                    finalWidth = finalHeight * aspectRatio;
+                }
+                
+                setViewportWidth(finalWidth);
+                setViewportHeight(finalHeight);
             }
-            
-            setViewportWidth(finalWidth);
-            setViewportHeight(finalHeight);
         };
 
         updateViewportDimensions();
         window.addEventListener('resize', updateViewportDimensions);
         return () => window.removeEventListener('resize', updateViewportDimensions);
-    }, [slug]);
+    }, [slug, fixedDesktopRatio, isMobile, isTablet]);
 
     return (
         <div className="flex flex-col items-center justify-center w-full h-full">
@@ -81,40 +98,31 @@ export const ProjectEmbed = ({
                         className="bg-black flex justify-center overflow-auto"
                         style={{ 
                             height: `${viewportHeight}px`,
-                            maxHeight: '65vh'
+                            maxHeight: fixedDesktopRatio ? '75vh' : '65vh'
                         }}
                     >
-                        {viewportWidth > 0 && ( // Only render when dimensions are calculated
+                        {viewportWidth > 0 && ( // only render when dimensions are calculated
                             <iframe
                                 ref={iframeRef}
                                 src={url}
                                 title={title}
-                                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
+                                className="w-full h-full border-0"
                                 loading="lazy"
-                                className="w-full h-full"
-                                style={{ 
-                                    width: '100%',
-                                    height: '100%',
-                                    border: 0,
-                                    backgroundColor: "white"
-                                }}
+                                aria-label={`${title} project embed`}
                             />
                         )}
                     </div>
                 </Window>
             </motion.div>
-            
-            {/* mobile/tablet process button - visible only on mobile/tablet */}
+
             {(isMobile || isTablet) && slug && (
-                <div className="flex justify-center mt-4 font-mono text-white">
-                    <Link 
-                        to={`#process`}
-                        className="hover:text-gray-300 transition-colors px-4"
-                        aria-label="view process"
-                    >
-                        ↓ PROCESS
-                    </Link>
-                </div>
+                <Link 
+                    to={`#process`}
+                    className="mt-8 font-mono text-white hover:text-gray-300 transition-colors"
+                    aria-label="view process"
+                >
+                    ↓ PROCESS
+                </Link>
             )}
         </div>
     );

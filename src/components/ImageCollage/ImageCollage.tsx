@@ -8,7 +8,7 @@ interface ImageData {
 interface ImageCollageProps {
   images: ImageData | ImageData[];
   maxImages?: number;
-  alignTop?: boolean; // New prop to control vertical alignment
+  alignTop?: boolean; // controls vertical alignment
 }
 
 const ImageCollage: React.FC<ImageCollageProps> = ({ 
@@ -16,24 +16,27 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
   maxImages = 5,
   alignTop = false 
 }) => {
-  // track currently hovered image index
+  // tracks which image is being hovered
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   
-  // add a key to force recalculation on component mount
+  // forces recalculation on mount
   const [refreshKey, setRefreshKey] = useState(Date.now());
   
-  // force refresh on mount
   useEffect(() => {
     setRefreshKey(Date.now());
   }, []);
   
-  // handle case when images is a single object (not an array)
-  const imageArray = Array.isArray(images) ? images : [images];
+  // handle single image vs array
+  const imageArray = useMemo(() => {
+    return Array.isArray(images) ? images : [images];
+  }, [images]);
   
-  // limit # images to maxImages
-  const limitedImages = imageArray.slice(0, maxImages);
+  // cap the number of images shown
+  const limitedImages = useMemo(() => {
+    return imageArray.slice(0, maxImages);
+  }, [imageArray, maxImages]);
 
-  // For a single image, use a centered approach
+  // single image layout
   if (limitedImages.length === 1) {
     return (
       <div 
@@ -64,7 +67,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
     );
   }
   
-  // For multiple images, create a collage with slightly overlapping images
+  // multi-image collage layout
   const createCollagePositions = () => {
     const positions: Array<{
       left: string;
@@ -74,10 +77,11 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
     }> = [];
     
     const totalImages = limitedImages.length;
+    console.log("creating collage positions for", totalImages, "images");
     
-    // Position calculation based on number of images
+    // position images based on count
     if (totalImages === 2) {
-      // First image: Top-left (flush with top)
+      // top-left
       positions.push({
         left: '0%',
         top: '0%',
@@ -85,7 +89,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
         zIndex: 2
       });
       
-      // Second image: Bottom-right with slight overlap
+      // bottom-right overlap
       positions.push({
         left: '40%',
         top: '30%',
@@ -94,7 +98,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
       });
     }
     else if (totalImages === 3) {
-      // First image: Top-left (flush with top)
+      // top-left
       positions.push({
         left: '0%',
         top: '0%',
@@ -102,7 +106,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
         zIndex: 3
       });
       
-      // Second image: Top-right with slight overlap
+      // top-right overlap
       positions.push({
         left: '45%',
         top: '10%',
@@ -110,7 +114,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
         zIndex: 2
       });
       
-      // Third image: Bottom with slight overlap
+      // bottom overlap
       positions.push({
         left: '20%',
         top: '45%',
@@ -119,7 +123,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
       });
     }
     else if (totalImages >= 4) {
-      // First image: Top-left (flush with top)
+      // top-left
       positions.push({
         left: '0%',
         top: '0%',
@@ -127,7 +131,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
         zIndex: 4
       });
       
-      // Second image: Top-right with slight overlap
+      // top-right overlap
       positions.push({
         left: '45%',
         top: '5%',
@@ -135,7 +139,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
         zIndex: 3
       });
       
-      // Third image: Bottom-left with slight overlap
+      // bottom-left overlap
       positions.push({
         left: '10%',
         top: '42%',
@@ -143,7 +147,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
         zIndex: 2
       });
       
-      // Fourth image: Bottom-right with slight overlap
+      // bottom-right overlap
       positions.push({
         left: '50%',
         top: '45%',
@@ -151,7 +155,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
         zIndex: 1
       });
       
-      // Fifth image (if present)
+      // fifth image (center)
       if (totalImages >= 5) {
         positions.push({
           left: '30%',
@@ -162,19 +166,32 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
       }
     }
     
+    // fallback for any additional images
+    while (positions.length < limitedImages.length) {
+      const index = positions.length;
+      positions.push({
+        left: `${(index % 2) * 45}%`,
+        top: `${Math.floor(index / 2) * 40}%`,
+        width: '50%',
+        zIndex: totalImages - index
+      });
+    }
+    
     return positions;
   };
 
   const positions = useMemo(() => createCollagePositions(), [limitedImages.length, refreshKey]);
   
-  // get z-index for an image - highest for hovered image
+  // puts hovered image on top
   const getZIndex = (index: number): number => {
-    // If this is the hovered image, give it the highest z-index
     if (hoveredIndex === index) {
       return 100;
     }
     
-    // Otherwise use the position's z-index
+    if (!positions[index]) {
+      return 1;
+    }
+    
     return positions[index].zIndex;
   };
 
@@ -182,32 +199,36 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
     <div 
       className={`relative w-full ${alignTop ? 'h-auto' : 'h-[400px] md:h-[500px]'}`} 
       style={{ 
-        minHeight: '350px',
-        maxHeight: alignTop ? '500px' : 'auto'
+        minHeight: limitedImages.length > 1 ? '500px' : '350px',
+        maxHeight: alignTop ? '800px' : 'auto'
       }}
     >
-      {limitedImages.map((image, index) => (
-        <div
-          key={`${refreshKey}-${index}`}
-          className="absolute shadow-md transition-all duration-300 hover:shadow-xl overflow-hidden"
-          onMouseEnter={() => setHoveredIndex(index)}
-          onMouseLeave={() => setHoveredIndex(null)}
-          style={{
-            left: positions[index].left,
-            top: positions[index].top,
-            width: positions[index].width,
-            zIndex: getZIndex(index),
-            border: '2px solid #111'
-          }}
-        >
-          <img
-            src={image.src}
-            alt={image.alt}
-            className="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
-            loading="lazy"
-          />
-        </div>
-      ))}
+      {limitedImages.map((image, index) => {
+        if (!positions[index]) return null;
+        
+        return (
+          <div
+            key={`${refreshKey}-${index}`}
+            className="absolute shadow-md transition-all duration-300 hover:shadow-xl overflow-hidden"
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            style={{
+              left: positions[index].left,
+              top: positions[index].top,
+              width: positions[index].width,
+              zIndex: getZIndex(index),
+              border: '2px solid #111'
+            }}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-full h-auto object-cover transition-transform duration-300 hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };

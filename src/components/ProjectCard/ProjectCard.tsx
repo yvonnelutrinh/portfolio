@@ -13,21 +13,21 @@ export default function ProjectCard({ title, slug, index }: ProjectCardProps) {
   const [isTouched, setIsTouched] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
 
-  // handle animation sequence for touch devices
+  // animation sequence for touch devices
   const handleTouchStart = () => {
     setIsTouched(true);
   };
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // for touch devices, prevent navigation until animation completes
+    // prevent navigation until animation completes on touch
     if (('ontouchstart' in window || navigator.maxTouchPoints > 0) && !isHovered) {
       e.preventDefault();
       setIsNavigating(true);
       
-      // set a timeout to navigate after animation completes
+      // navigate after animation finishes
       setTimeout(() => {
         window.location.href = `/work/${slug}`;
-      }, 600); // slightly longer than animation duration
+      }, 600); // matches animation duration
     }
   };
 
@@ -44,7 +44,7 @@ export default function ProjectCard({ title, slug, index }: ProjectCardProps) {
         onTouchStart={handleTouchStart}
       >
         <motion.div
-          className="relative z-10 py-2 px-1" // increased padding for more accessible touch target
+          className="relative z-10 py-2 px-1" // larger touch target
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           data-cursor-hover

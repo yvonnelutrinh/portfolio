@@ -9,7 +9,7 @@ const projects = [
   { id: 3, title: "BIZBOT", slug: "bizbot" },
   { id: 4, title: "POKÉMON VALENTINE", slug: "pokemon-valentine" },
   { id: 5, title: "RESPONSIVE DEVELOPMENT", slug: "development" },
-  { id: 6, title: "SPORIFY/UX", slug: "ux" },
+  // { id: 6, title: "USER EXPERIENCE/INTERFACE", slug: "ux-ui" },
 ]
 
 export default function Work() {
