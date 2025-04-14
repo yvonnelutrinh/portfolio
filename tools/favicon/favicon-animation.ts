@@ -6,26 +6,60 @@
  */
 
 /**
- * Initialize the favicon animation with the provided configuration.
- * 
- * @param {Object} config - Configuration options
- * @param {number} [config.animationSpeed=500] - Time in ms between favicon changes
- * @param {boolean} [config.randomizeOrder=false] - Whether to randomize the order of favicons
- * @param {string[]} [config.customIcons] - Optional array of custom icon paths to use
- * @param {boolean} [config.adaptToColorScheme=true] - Whether to adapt to user's color scheme
+ * Configuration options for favicon animation
  */
-export function initFaviconAnimation(config = {}) {
-  const defaultConfig = {
+interface FaviconAnimationConfig {
+  /** Time in ms between favicon changes */
+  animationSpeed?: number;
+  /** Whether to randomize the order of favicons */
+  randomizeOrder?: boolean;
+  /** Optional array of custom icon paths to use */
+  customIcons?: string[] | null;
+  /** Whether to adapt to user's color scheme */
+  adaptToColorScheme?: boolean;
+}
+
+/**
+ * Options for creating a custom favicon SVG
+ */
+interface FaviconSVGOptions {
+  /** Color of the text */
+  textColor?: string;
+  /** Size of the favicon in pixels */
+  size?: number;
+  /** Font family for the text */
+  fontFamily?: string;
+  /** Font size for the text */
+  fontSize?: number;
+}
+
+/**
+ * Return value from initFaviconAnimation with control functions
+ */
+interface FaviconAnimationControls {
+  /** Start the animation */
+  start: () => () => void;
+  /** Stop the animation */
+  stop: () => void;
+  /** Update the favicon immediately */
+  update: () => void;
+}
+
+/**
+ * Initialize the favicon animation with the provided configuration.
+ */
+export function initFaviconAnimation(config: FaviconAnimationConfig = {}): FaviconAnimationControls {
+  const defaultConfig: FaviconAnimationConfig = {
     animationSpeed: 500,
     randomizeOrder: false,
     customIcons: null,
     adaptToColorScheme: true
   };
 
-  const options = { ...defaultConfig, ...config };
+  const options: FaviconAnimationConfig = { ...defaultConfig, ...config };
 
   // Symbols to use for animation (instead of file paths)
-  const symbols = [
+  const symbols: string[] = [
     '...', // favicon1
     '?!',  // favicon2
     ':|',  // favicon3
@@ -41,19 +75,19 @@ export function initFaviconAnimation(config = {}) {
   ];
 
   // Function to determine if user is in dark mode
-  const isDarkMode = () => {
+  const isDarkMode = (): boolean => {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   };
 
   // Function to get the appropriate text color based on color scheme
-  const getTextColor = () => {
+  const getTextColor = (): string => {
     return options.adaptToColorScheme 
       ? (isDarkMode() ? 'white' : 'black')
       : 'white'; // Default to white if not adapting to color scheme
   };
 
   // Function to generate favicons with the correct color
-  const generateFavicons = () => {
+  const generateFavicons = (): string[] => {
     const textColor = getTextColor();
     return options.customIcons || symbols.map(symbol => 
       createCustomFaviconSVG(symbol, { textColor })
@@ -61,16 +95,16 @@ export function initFaviconAnimation(config = {}) {
   };
 
   // Generate initial favicons
-  let favicons = generateFavicons();
+  let favicons: string[] = generateFavicons();
   
   // Track the current favicon index
-  let currentFaviconIndex = 0;
+  let currentFaviconIndex: number = 0;
   
   // Reference to the animation interval
-  let animationInterval = null;
+  let animationInterval: number | null = null;
   
   // Function to update the favicon
-  const updateFavicon = () => {
+  const updateFavicon = (): void => {
     if (options.randomizeOrder) {
       currentFaviconIndex = Math.floor(Math.random() * favicons.length);
     } else {
@@ -99,7 +133,7 @@ export function initFaviconAnimation(config = {}) {
     const colorSchemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
     // Define the handler function
-    const handleColorSchemeChange = () => {
+    const handleColorSchemeChange = (): void => {
       // Regenerate favicons with the new color scheme
       favicons = generateFavicons();
       // Update the current favicon immediately
@@ -109,14 +143,14 @@ export function initFaviconAnimation(config = {}) {
     // Add the event listener
     if (colorSchemeMediaQuery.addEventListener) {
       colorSchemeMediaQuery.addEventListener('change', handleColorSchemeChange);
-    } else if (colorSchemeMediaQuery.addListener) {
+    } else if ('addListener' in colorSchemeMediaQuery) {
       // Fallback for older browsers
       colorSchemeMediaQuery.addListener(handleColorSchemeChange);
     }
   }
   
   // Start the animation
-  const startAnimation = () => {
+  const startAnimation = (): (() => void) => {
     if (animationInterval) {
       clearInterval(animationInterval);
     }
@@ -125,7 +159,7 @@ export function initFaviconAnimation(config = {}) {
     updateFavicon();
     
     // Start the animation interval
-    animationInterval = setInterval(updateFavicon, options.animationSpeed);
+    animationInterval = window.setInterval(updateFavicon, options.animationSpeed);
     
     // Return a cleanup function
     return () => {
@@ -155,18 +189,18 @@ export function initFaviconAnimation(config = {}) {
 }
 
 // Export a function to create a custom SVG favicon programmatically
-export function createCustomFaviconSVG(symbol, options = {}) {
-  const defaults = {
+export function createCustomFaviconSVG(symbol: string, options: FaviconSVGOptions = {}): string {
+  const defaults: FaviconSVGOptions = {
     textColor: 'white',
     size: 32,
     fontFamily: 'monospace',
     fontSize: 16
   };
   
-  const config = { ...defaults, ...options };
+  const config: FaviconSVGOptions = { ...defaults, ...options };
   
   // Create SVG string with transparent background (removed the rect element)
-  const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="${config.size}" height="${config.size}" viewBox="0 0 ${config.size} ${config.size}"><text x="${config.size/2}" y="${config.size/2}" font-family="${config.fontFamily}" font-size="${config.fontSize}" fill="${config.textColor}" text-anchor="middle" dominant-baseline="middle">${symbol}</text></svg>`;
+  const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="${config.size}" height="${config.size}" viewBox="0 0 ${config.size} ${config.size}"><text x="${config.size!/2}" y="${config.size!/2}" font-family="${config.fontFamily}" font-size="${config.fontSize}" fill="${config.textColor}" text-anchor="middle" dominant-baseline="middle">${symbol}</text></svg>`;
   
   // Convert SVG string to data URL
   const encodedSVG = encodeURIComponent(svgString);

@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 const outputPath = path.resolve(__dirname, '../../public/images/noise.jpg');
 
 // Create a noise texture
-async function createNoiseTexture() {
+async function createNoiseTexture(): Promise<void> {
   try {
     console.log('Creating noise texture...');
     
@@ -47,7 +47,7 @@ async function createNoiseTexture() {
     
     console.log(`✓ Noise texture created: ${outputPath}`);
   } catch (error) {
-    console.error('Error creating noise texture:', error);
+    console.error('Error creating noise texture:', error instanceof Error ? error.message : String(error));
   }
 }
 

@@ -21,8 +21,27 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Configuration type definition
+interface CompressConfig {
+  sourceDir: string;
+  pngDestDir: string;
+  jpgDestDir: string;
+  quality: number;
+  searchDirs: string[];
+  updateReferences: boolean;
+  fileTypesToSearch: string[];
+}
+
+// Processed file information
+interface ProcessedFile {
+  original: string;
+  png: string;
+  jpg: string;
+  relativePath: string;
+}
+
 // Configuration
-const config = {
+const config: CompressConfig = {
   sourceDir: path.resolve(__dirname, '../../public'),
   pngDestDir: path.resolve(__dirname, '../../src/assets/images'),
   jpgDestDir: path.resolve(__dirname, '../../public/images'),
@@ -40,7 +59,7 @@ const DEBUG = true;
 /**
  * Debug logging helper
  */
-function debug(message, object = null) {
+function debug(message: string, object: any = null): void {
   if (DEBUG) {
     if (object) {
       console.log(`[DEBUG] ${message}`, object);
@@ -53,7 +72,7 @@ function debug(message, object = null) {
 /**
  * Ensures all destination directories exist
  */
-function ensureDirectories() {
+function ensureDirectories(): void {
   if (!fs.existsSync(config.pngDestDir)) {
     fs.mkdirSync(config.pngDestDir, { recursive: true });
     console.log(`Created directory: ${config.pngDestDir}`);
@@ -69,14 +88,14 @@ function ensureDirectories() {
  * Finds all PNG files in the source directory using fs instead of glob
  * @returns {Promise<string[]>} Array of PNG file paths
  */
-async function findPngFiles() {
+async function findPngFiles(): Promise<string[]> {
   debug(`Looking for PNG files in: ${config.sourceDir}`);
   
   // Use fs.readdir recursively instead of glob
-  const result = [];
+  const result: string[] = [];
   
   // Helper function to recursively scan directories
-  async function scanDirectory(dir) {
+  async function scanDirectory(dir: string): Promise<void> {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
     
     for (const entry of entries) {
@@ -107,9 +126,9 @@ async function findPngFiles() {
 /**
  * Compresses a PNG file to JPEG and moves the original to assets
  * @param {string} filePath Path to the PNG file
- * @returns {Promise<object|null>} Path to the created JPEG file
+ * @returns {Promise<ProcessedFile|null>} Path to the created JPEG file
  */
-async function compressImage(filePath) {
+async function compressImage(filePath: string): Promise<ProcessedFile | null> {
   const filename = path.basename(filePath, '.png');
   const relativeDir = path.dirname(filePath).replace(config.sourceDir, '');
   
@@ -164,20 +183,20 @@ async function compressImage(filePath) {
       relativePath: path.join(relativeDir, filename).replace(/\\/g, '/'),
     };
   } catch (error) {
-    console.error(`✗ Error processing ${filePath}:`, error);
+    console.error(`✗ Error processing ${filePath}:`, error instanceof Error ? error.message : String(error));
     return null;
   }
 }
 
 /**
  * Update references to PNG files in codebase to use JPG
- * @param {Array} processedFiles Array of processed file paths
+ * @param {Array<ProcessedFile|null>} processedFiles Array of processed file paths
  */
-async function updateFileReferences(processedFiles) {
+async function updateFileReferences(processedFiles: (ProcessedFile | null)[]): Promise<void> {
   console.log('\nUpdating references in codebase...');
   
   // Create a map of original filenames to new JPG paths
-  const replacementMap = {};
+  const replacementMap: Record<string, string> = {};
   
   processedFiles.forEach(file => {
     if (!file) return;
@@ -199,147 +218,148 @@ async function updateFileReferences(processedFiles) {
   debug(`Replacement map:`, replacementMap);
   
   // Find files to search through
-  const filesToSearch = [];
+  const filesToSearch: string[] = [];
   
-  for (const dir of config.searchDirs) {
-    for (const ext of config.fileTypesToSearch) {
+  for (const searchDir of config.searchDirs) {
+    for (const fileType of config.fileTypesToSearch) {
+      const pattern = `${searchDir}/**/*${fileType}`;
+      debug(`Searching for ${pattern}`);
+      
       try {
-        const globPattern = `${dir}/**/*${ext}`;
-        debug(`Searching for files matching pattern: ${globPattern}`);
-        
-        const matches = await new Promise((resolve, reject) => {
-          glob(globPattern, (err, files) => {
-            if (err) {
-              debug(`Error finding files:`, err);
-              reject(err);
-            } else {
-              debug(`Found ${files.length} files with extension ${ext}`);
-              resolve(files);
-            }
-          });
-        });
-        
+        const matches = await glob(pattern);
         filesToSearch.push(...matches);
       } catch (error) {
-        console.error(`Error finding files with extension ${ext}:`, error);
+        console.error(`Error finding ${fileType} files in ${searchDir}:`, error);
       }
     }
   }
   
-  debug(`Files to search for references: ${filesToSearch.length} files`);
+  debug(`Found ${filesToSearch.length} files to check for references`);
   
-  // Count successful replacements
-  let totalReplacements = 0;
+  // Counter for stats
+  let filesUpdated = 0;
+  let referencesReplaced = 0;
   
   // Process each file
-  for (const filePath of filesToSearch) {
-    try {
-      const content = fs.readFileSync(filePath, 'utf8');
-      let newContent = content;
-      let fileModified = false;
+  for (const file of filesToSearch) {
+    let fileContent = fs.readFileSync(file, 'utf8');
+    let fileUpdated = false;
+    
+    // Check for each PNG filename in the file content
+    for (const [pngFilename, jpgPath] of Object.entries(replacementMap)) {
+      const regex = new RegExp(pngFilename, 'g');
+      const initialLength = fileContent.length;
       
-      // Check for each PNG reference
-      for (const [pngName, jpgPath] of Object.entries(replacementMap)) {
-        // Handle various ways the PNG might be referenced
-        const patterns = [
-          new RegExp(`["']([./]*)${pngName}["']`, 'g'), // "filename.png" or './filename.png'
-          new RegExp(`["']([./]*)public/${pngName}["']`, 'g'), // "public/filename.png"
-          new RegExp(`["'](/|/public/)${pngName}["']`, 'g'), // "/filename.png" or "/public/filename.png"
-        ];
+      // Replace only the filename in places where it looks like a reference
+      fileContent = fileContent.replace(regex, (match, offset, string) => {
+        // Simple heuristic to prevent replacing text that happens to match the filename
+        // Check that the match appears to be part of a path or URL
+        const before = string.slice(Math.max(0, offset - 20), offset);
+        const isLikelyReference = 
+          before.includes('/') || 
+          before.includes('url(') || 
+          before.includes('src=') || 
+          before.includes('href=');
         
-        for (const pattern of patterns) {
-          const matches = newContent.match(pattern);
-          if (matches) {
-            debug(`Found matches in ${filePath} for ${pngName}:`, matches);
-            newContent = newContent.replace(pattern, `"${jpgPath}"`);
-            fileModified = true;
-            totalReplacements += matches.length;
-          }
+        if (isLikelyReference) {
+          referencesReplaced++;
+          return path.basename(jpgPath);
         }
-      }
+        
+        return match; // Keep the original if not a likely reference
+      });
       
-      // Save the modified file
-      if (fileModified) {
-        fs.writeFileSync(filePath, newContent, 'utf8');
-        console.log(`✓ Updated references in: ${filePath}`);
+      if (fileContent.length !== initialLength) {
+        fileUpdated = true;
       }
-    } catch (error) {
-      console.error(`✗ Error updating references in ${filePath}:`, error);
+    }
+    
+    // Write the updated content back if changes were made
+    if (fileUpdated) {
+      fs.writeFileSync(file, fileContent, 'utf8');
+      console.log(`✓ Updated references in: ${file}`);
+      filesUpdated++;
     }
   }
   
-  console.log(`\nCompleted ${totalReplacements} reference updates in ${filesToSearch.length} files.`);
+  console.log(`\nReference update complete:`);
+  console.log(`- ${filesUpdated} files updated`);
+  console.log(`- ${referencesReplaced} references replaced`);
 }
 
 /**
  * Clean up original PNG files from public directory
- * @param {Array} processedFiles Array of processed file objects
+ * @param {Array<ProcessedFile|null>} processedFiles Array of processed file objects
  */
-async function cleanupOriginalFiles(processedFiles) {
+async function cleanupOriginalFiles(processedFiles: (ProcessedFile | null)[]): Promise<void> {
   console.log('\nCleaning up original PNG files...');
   
-  for (const file of processedFiles) {
-    if (!file) continue;
+  let count = 0;
+  
+  processedFiles.forEach(file => {
+    if (!file) return;
     
     try {
       if (fs.existsSync(file.original)) {
         fs.unlinkSync(file.original);
-        console.log(`✓ Removed original: ${file.original}`);
-      } else {
-        console.warn(`! Original file not found: ${file.original}`);
+        count++;
+        debug(`Removed original: ${file.original}`);
       }
     } catch (error) {
-      console.error(`✗ Error removing ${file.original}:`, error);
+      console.error(`Error removing ${file.original}:`, error instanceof Error ? error.message : String(error));
     }
-  }
+  });
+  
+  console.log(`✓ Removed ${count} original PNG files from public directory`);
 }
 
 /**
- * Main function
+ * Main function to run the compression workflow
  */
-async function main() {
-  console.log('Image Compression Tool');
-  console.log('=====================');
-  console.log(`Source directory: ${config.sourceDir}`);
-  console.log(`PNG destination: ${config.pngDestDir}`);
-  console.log(`JPG destination: ${config.jpgDestDir}`);
-  console.log(`JPEG quality: ${config.quality}`);
-  console.log('=====================\n');
+async function main(): Promise<void> {
+  console.log('=== Image Compression Tool ===\n');
   
-  try {
-    // Ensure directories exist
-    ensureDirectories();
-    
-    // Find all PNG files
-    const pngFiles = await findPngFiles();
-    console.log(`Found ${pngFiles.length} PNG files to process.\n`);
-    
-    if (pngFiles.length === 0) {
-      console.log('No PNG files found in the source directory. Exiting.');
-      return;
-    }
-    
-    // Process each PNG file
-    const processPromises = pngFiles.map(file => compressImage(file));
-    const processedFiles = await Promise.all(processPromises);
-    
-    // Update references if enabled
-    if (config.updateReferences) {
-      await updateFileReferences(processedFiles);
-    }
-    
-    // Clean up original files
-    await cleanupOriginalFiles(processedFiles);
-    
-    console.log('\nProcess completed successfully!');
-    console.log(`✓ ${processedFiles.filter(Boolean).length} images processed and optimized.`);
-    
-  } catch (error) {
-    console.error('Error in main process:', error);
+  // Step 1: Ensure directories exist
+  console.log('Step 1: Checking directories');
+  ensureDirectories();
+  
+  // Step 2: Find PNG files
+  console.log('\nStep 2: Finding PNG files');
+  const pngFiles = await findPngFiles();
+  
+  if (pngFiles.length === 0) {
+    console.log('No PNG files found. Exiting.');
+    return;
   }
+  
+  console.log(`Found ${pngFiles.length} PNG files to process.`);
+  
+  // Step 3: Process each file
+  console.log('\nStep 3: Processing images');
+  const processedFiles: (ProcessedFile | null)[] = [];
+  
+  for (const filePath of pngFiles) {
+    const result = await compressImage(filePath);
+    processedFiles.push(result);
+  }
+  
+  const successfulFiles = processedFiles.filter(file => file !== null);
+  console.log(`\nProcessed ${successfulFiles.length} of ${pngFiles.length} files successfully.`);
+  
+  // Step 4: Update references in codebase
+  if (config.updateReferences && successfulFiles.length > 0) {
+    console.log('\nStep 4: Updating references in codebase');
+    await updateFileReferences(processedFiles);
+  }
+  
+  // Step 5: Clean up original files
+  console.log('\nStep 5: Cleaning up original files');
+  await cleanupOriginalFiles(processedFiles);
+  
+  console.log('\n=== Compression complete ===');
 }
 
 // Execute main function
 main().catch(error => {
-  console.error('Unhandled exception:', error);
+  console.error('Unhandled exception:', error instanceof Error ? error.message : String(error));
 });
