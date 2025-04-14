@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 interface ProjectCardProps {
   title: string
@@ -12,6 +12,7 @@ export default function ProjectCard({ title, slug, index }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
+  const navigate = useNavigate();
 
   // animation sequence for touch devices
   const handleTouchStart = () => {
@@ -26,7 +27,7 @@ export default function ProjectCard({ title, slug, index }: ProjectCardProps) {
       
       // navigate after animation finishes
       setTimeout(() => {
-        window.location.href = `/work/${slug}`;
+        navigate(`/work/${slug}`);
       }, 600); // matches animation duration
     }
   };
