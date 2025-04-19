@@ -280,7 +280,7 @@ export default function ProjectPage() {
                                 {/* Subfeature section - only appears if project has subfeature images */}
                                 {project.images.subfeature && (
                                     <div className="mt-8 w-full">
-                                        <div className="border-2 border-gray-800 rounded-md p-4 bg-gray-900/30">
+                                        <div className="border-2 border-gray-800 rounded-md px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16 py-1 sm:py-2 md:py-4 lg:py-6 xl:py-8 bg-gray-900/30">
                                             <div className="flex justify-center">
                                                 <div className="flex gap-2 w-full justify-between">
                                                     {project.images.subfeature.map((image: any, key: number) => (
