@@ -65,11 +65,17 @@ const projectsData = {
             scale: 1,
             // theme: "default"
         },
-        tech: ["Next.js", "TypeScript", "TailwindCSS", "OpenAI API", "Convex", "Clerk",, "Figma", "Vercel", "Chrome Extension API"],
+        tech: ["Next.js", "TypeScript", "TailwindCSS", "OpenAI API", "Convex", "Clerk", "Figma", "Vercel", "Chrome Extension API"],
         credit: "Built for the global NextJS hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Lisa Olsen, and Filip Fabiszak.",
-        details: { subheader: "PROCESS", process: "LilGuy transforms mundane productivity tracking into something you'll actually want to use. As project manager, I coordinated our team's workflow through the entire development cycle, ensuring seamless communication between design and development. I led the UI/UX design and front-end development from low-fidelity wireframes through to final implementation, focusing on creating an interface that felt both nostalgic and functional.", impact: "The technical architecture combines several modern tools—using the Chrome Extension API to track web sessions while leveraging OpenAI API's zero-shot classification to categorize sites by productivity. We chose Convex for database management and Clerk for authentication, creating a streamlined experience that helps users stay on track while remaining simple and intuitive."},
+        details: { subheader: "PROCESS", process: "LilGuy transforms mundane productivity tracking into something you'll actually want to use. As project manager, I coordinated our team's workflow through the entire development cycle, ensuring seamless communication between design and development. I led the UI/UX design and front-end development from low-fidelity wireframes through to final implementation, focusing on creating an interface that felt both nostalgic and functional.", impact: "The technical architecture combines several modern tools—using the Chrome Extension API to track web sessions while leveraging OpenAI API's zero-shot classification to categorize sites by productivity. We chose Convex for database management and Clerk for authentication, creating a streamlined experience that helps users stay on track while remaining simple and intuitive." },
         images: {
             feature: { src: "images/lilguy-feature.jpg", alt: "LilGuy homepage displaying LilGuy and productivity metrics" },
+            subfeature: [
+                { src: "images/lilguy-angel-happy.gif", alt: "Happy angel LilGuy character animation" },
+                { src: "images/lilguy-devil-angry.gif", alt: "Angry devil LilGuy character animation" },
+                { src: "images/lilguy-walk-green.gif", alt: "Walking LilGuy character animation" },
+            ],
+            subfeatureCredit: "LilGuy character design and animation by Lisa Olsen",
             process: [{ src: "images/lilguy-lofi.jpg", alt: "LilGuy functional low fidelity prototype" }, { src: "images/lilguy-mockups.jpg", alt: "LilGuy low fidelity mockups" }, { src: "images/lilguy-timeline.jpg", alt: "LilGuy timeline" }, { src: "images/lilguy-user-flow.jpg", alt: "LilGuy early user flow" }, { src: "images/lilguy-ui-process.jpg", alt: "LilGuy UI implementation work in progress" }, { src: "images/lilguy-kanban.jpg", alt: "Kanban board for quick hackathon project ticket tracking." }]
         }
     },
@@ -213,9 +219,10 @@ export default function ProjectPage() {
                                 </div>
                             </div>
 
-                            <div className="h-auto flex items-start justify-center md:justify-end">
+                            <div className="flex flex-col items-start justify-center md:justify-end">
+                                {/* feature image */}
                                 <div
-                                    className="relative border-2 border-gray-800 shadow-md transition-shadow duration-300 hover:shadow-xl overflow-visible group"
+                                    className="relative shadow-md transition-shadow duration-300 hover:shadow-xl overflow-visible group w-full"
                                     style={{ maxHeight: '50vh' }}
                                 >
                                     <img
@@ -233,6 +240,39 @@ export default function ProjectPage() {
                                         }}
                                     />
                                 </div>
+
+                                {/* Subfeature section - only appears if project has subfeature images */}
+                                {project.images.subfeature && (
+                                    <div className="mt-8 w-full">
+                                        <div className="border-2 border-gray-800 rounded-md p-4 bg-gray-900/30">
+                                            <div className="flex justify-center">
+                                                <div className="flex gap-2 w-full justify-between">
+                                                    {project.images.subfeature.map((image: any, key: number) => (
+                                                        <div key={key} className="flex-1 group">
+                                                            <img
+                                                                src={image.src}
+                                                                alt={image.alt}
+                                                                className="w-full h-auto object-contain rounded transition-transform duration-300 group-hover:scale-110 cursor-pointer"
+                                                                onClick={(e) => {
+                                                                    // toggle a class to keep the image zoomed until clicked again
+                                                                    const target = e.currentTarget;
+                                                                    if (target.classList.contains('scale-110')) {
+                                                                        target.classList.remove('scale-110');
+                                                                    } else {
+                                                                        target.classList.add('scale-110');
+                                                                    }
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {project.images.subfeatureCredit && (
+                                            <p className="text-sm text-gray-500 text-center font-mono mt-2">{project.images.subfeatureCredit}</p>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </section>
