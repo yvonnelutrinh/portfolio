@@ -10,14 +10,14 @@ export default function Terminal() {
     const title = "process.terminal";
 
     const terminalLines = [
-        "$ npm install coffee-to-code-converter",
-        "$ ./make-pixels-dance.sh --gracefully",
-        "$ git commit -m \"fix bugs; add features\"",
-        "$ optimize --ux=\"delightful\" --cpu=\"happy\"",
-        "$ import BrainOverflow from \"experience\"",
-        "$ killall -9 bugs.process",
-        "$ docker run --sarcasm=minimal --collaboration=expert teamwork",
-        "$ ship-it --quality=\"perfection\" --sushi=true"
+        "$ npm install caffeine-to-code-converter",
+        "$ ./craft-intuitive-experiences.sh --with-delight",
+        "$ git commit -m \"refactor: make components more reusable\"",
+        "$ optimize --for=\"human-first\" --performance=\"lightning\"",
+        "$ import CreativeSolutions from \"years-of-experience\"",
+        "$ debug --recursive --with-patience",
+        "$ docker compose up teamwork collaboration communication",
+        "$ ship-it --when=\"pixel-perfect\" --celebrate=true"
     ];
 
     useEffect(() => {

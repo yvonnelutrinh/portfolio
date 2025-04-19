@@ -1,14 +1,23 @@
 import Terminal from "../Terminal/Terminal";
+import { motion } from "motion/react";
 
 export default function Skills() {
     return (
         <div className="mt-32">
+            <motion.h2
+                className="font-display text-3xl lg:text-6xl mb-16 md:mb-32"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+                HOW I BUILD
+            </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
                 {/* Process Terminal Column - Top left position */}
                 <div>
                     <Terminal />
                 </div>
-                
+
                 {/* Software Engineering - Top right */}
                 <div className="font-mono">
                     <h2 className="text-white mb-1">SOFTWARE ENGINEERING</h2>

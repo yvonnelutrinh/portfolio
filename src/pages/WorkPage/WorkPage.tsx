@@ -6,10 +6,11 @@ import Header from "../../components/Header/Header"
 const projects = [
   { id: 1, title: "WANDER", slug: "wander" },
   { id: 2, title: "CREATIVE WORLD", slug: "creative-world" },
-  { id: 3, title: "BIZBOT", slug: "bizbot" },
+  { id: 3, title: "LILGUY", slug: "lilguy" },
   { id: 4, title: "POKÉMON VALENTINE", slug: "pokemon-valentine" },
-  { id: 5, title: "RESPONSIVE DEVELOPMENT", slug: "development" },
-  // { id: 6, title: "USER EXPERIENCE/INTERFACE", slug: "ux-ui" },
+  { id: 5, title: "BIZBOT", slug: "bizbot" },
+  { id: 6, title: "RESPONSIVE DEVELOPMENT", slug: "development" },
+  // { id: 7, title: "USER EXPERIENCE/INTERFACE", slug: "ux-ui" },
 ]
 
 export default function Work() {

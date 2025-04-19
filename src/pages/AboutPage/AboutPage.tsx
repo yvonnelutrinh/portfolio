@@ -3,6 +3,7 @@ import Skills from "../../components/Skills/Skills"
 import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
 import PointillismPortrait from "../../components/PointillismPortrait/PointillismPortrait"
+import Process from "../../components/Process/Process"
 
 export default function About() {
     return (
@@ -24,10 +25,10 @@ export default function About() {
                             <div className="h-px w-full bg-white mb-8" />
 
                             <p className="text-xl mb-4">
-                                I'm a multidisciplinary designer-developer crafting immersive digital experiences where innovation meets intuitive functionality. My work lives at the intersection of thoughtful design and interactive storytelling—creating digital spaces that engage and perform.
+                                I blend design and code to build experiences that matter. What drives me isn't just making things look good—it's creating digital spaces where storytelling meets functionality. The sweet spot? When users don't even notice the technology because the experience feels so intuitive.
                             </p>
-                            <p className="text-xl">
-                                With 7+ years spanning marketing, digital communications, and creative tech, I transform artistic vision into measurable business impact. My background in arts, nonprofit, and municipal sectors shapes my human-centered approach to technology—one that elevates user experience while serving broader community needs.
+                            <p className="text-xl mb-4">
+                                My 7+ years across marketing, communications, and creative technology have taught me something crucial: beautiful design without purpose is just decoration. Working in arts, nonprofits, and government shaped my belief that technology should amplify human potential, not replace it—creating connections that serve real community needs.
                             </p>
                         </motion.div>
 
@@ -45,6 +46,7 @@ export default function About() {
                     </div>
 
                     <Skills />
+                    <Process />
                 </main>
                 <Footer />
             </div>
