@@ -54,26 +54,31 @@ const projectsData = {
     "lilguy": {
         title: "LILGUY",
         description:
-            "LilGuy is your browser productivity companion, gamifying goal-setting with an adorable virtual pet that reacts to your productivity habits in real time. This Next.js app + Chrome extension transforms mundane desktop productivity tracking into a delightful experience reminiscent of the 2000s.",
+            "Inspired by the nostalgia of early 2000s virtual pets, LilGuy is a Next.js app + Chrome extension that gamifies goal-setting with a lovable virtual companion who helps you optimize your productivity in real time.",
         year: "2025",
         role: "Front-end Development, UX/UI Design, Project Manager",
         client: "NextJS | Hackathon",
-        embed: {
-            url: "https://lilguy.vercel.app/",
-            width: 1024,
-            height: 768,
-            scale: 1,
-            // theme: "default"
-        },
+        // embed: {
+        //     url: "https://lilguy.vercel.app/",
+        //     width: 1024,
+        //     height: 768,
+        //     scale: 1,
+        //     // theme: "default"
+        // },
         tech: ["Next.js", "TypeScript", "TailwindCSS", "OpenAI API", "Convex", "Clerk", "Figma", "Vercel", "Chrome Extension API"],
         credit: "Built for the global NextJS hackathon by Yvonne Lu Trinh, Ademidé Akinsefunmi, Lisa Olsen, and Filip Fabiszak.",
         details: { subheader: "PROCESS", process: "LilGuy transforms mundane productivity tracking into something you'll actually want to use. As project manager, I coordinated our team's workflow through the entire development cycle, ensuring seamless communication between design and development. I led the UI/UX design and front-end development from low-fidelity wireframes through to final implementation, focusing on creating an interface that felt both nostalgic and functional.", impact: "The technical architecture combines several modern tools—using the Chrome Extension API to track web sessions while leveraging OpenAI API's zero-shot classification to categorize sites by productivity. We chose Convex for database management and Clerk for authentication, creating a streamlined experience that helps users stay on track while remaining simple and intuitive." },
         images: {
             feature: { src: "images/lilguy-feature.jpg", alt: "LilGuy homepage displaying LilGuy and productivity metrics" },
+            slider: [
+                { src: "images/lilguy-widget.jpg", alt: "LilGuy browser widget" },
+                { src: "images/lilguy-websites.jpg", alt: "LilGuy website productivity tracking" },
+                { src: "images/lilguy-goals.jpg", alt: "LilGuy goals dashboard" }
+            ],
             subfeature: [
                 { src: "images/lilguy-angel-happy.gif", alt: "Happy angel LilGuy character animation" },
                 { src: "images/lilguy-devil-angry.gif", alt: "Angry devil LilGuy character animation" },
-                { src: "images/lilguy-walk-green.gif", alt: "Walking LilGuy character animation" },
+                { src: "images/lilguy-walk-green.gif", alt: "Walking LilGuy character animation" }
             ],
             subfeatureCredit: "LilGuy character design and animation by Lisa Olsen",
             process: [{ src: "images/lilguy-lofi.jpg", alt: "LilGuy functional low fidelity prototype" }, { src: "images/lilguy-mockups.jpg", alt: "LilGuy low fidelity mockups" }, { src: "images/lilguy-timeline.jpg", alt: "LilGuy timeline" }, { src: "images/lilguy-user-flow.jpg", alt: "LilGuy early user flow" }, { src: "images/lilguy-ui-process.jpg", alt: "LilGuy UI implementation work in progress" }, { src: "images/lilguy-kanban.jpg", alt: "Kanban board for quick hackathon project ticket tracking." }]
@@ -169,7 +174,7 @@ function SubfeatureImage({ src, alt }: { src: string; alt: string }) {
         }
     }, [isActive, isGif, src, staticSrc]);
 
-    // If PNG doesn't exist, fallback to GIF (handles missing PNG gracefully)
+    // If PNG doesn't exist, fallback to GIF
     const handleImgError = () => {
         if (isGif && imgSrc !== src) {
             setImgSrc(src);
@@ -280,7 +285,7 @@ export default function ProjectPage() {
                                 {/* Subfeature section - only appears if project has subfeature images */}
                                 {project.images.subfeature && (
                                     <div className="mt-8 w-full">
-                                        <div className="border-2 border-gray-800 rounded-md px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16 py-1 sm:py-2 md:py-4 lg:py-6 xl:py-8 bg-gray-900/30">
+                                        <div className="border-2 border-gray-800 rounded-md px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-6 md:py-8 lg:py-6 xl:py-8 bg-gray-900/30">
                                             <div className="flex justify-center">
                                                 <div className="flex gap-2 w-full justify-between">
                                                     {project.images.subfeature.map((image: any, key: number) => (
@@ -317,14 +322,12 @@ export default function ProjectPage() {
                                 slug={slug}
                                 customWidth={project.embed.customWidth}
                             />
-                        ) : (
-                            <div className="w-full max-w-5xl">
-                                <ImageSlider
-                                    images={project.images?.slider}
-                                    slug={slug}
-                                />
-                            </div>
-                        )}
+                        ) : project.images.slider ? (
+                            <ImageSlider
+                                images={project.images.slider}
+                                slug={slug}
+                            />
+                        ) : null}
                     </section>
 
                     {/* project process details section */}
@@ -343,13 +346,19 @@ export default function ProjectPage() {
                             </div>
 
                             <div>
-                                <h2 className="font-display text-4xl md:text-6xl mb-8">{project.details.subheader}</h2>
-                                <p className="text-xl mb-8">
-                                    {project.details.process}
-                                </p>
-                                <p className="text-xl">
-                                    {project.details.impact}
-                                </p>
+                                {project.details ? (
+                                    <>
+                                        <h2 className="font-display text-4xl md:text-6xl mb-8">{project.details.subheader}</h2>
+                                        <p className="text-gray-300 mb-8">
+                                            {project.details.process}
+                                        </p>
+                                        <p className="text-gray-300">
+                                            {project.details.impact}
+                                        </p>
+                                    </>
+                                ) : (
+                                    <div className="font-mono text-sm text-gray-500">Project details coming soon.</div>
+                                )}
                             </div>
                         </div>
                     </section>

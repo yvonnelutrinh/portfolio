@@ -228,16 +228,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
     const buttonSpacing = getButtonSpacing();
     
     return (
-        <div className="w-full flex flex-col items-center justify-center py-4">
+        <div className="w-full max-w-screen-xl flex flex-col items-center justify-center py-4 mx-auto">
             {/* Desktop layout with side navigation */}
             {!isMobile && !isTablet && (
-                <div className="relative w-full">
+                <div className="relative w-full min-w-[400px]" style={{minWidth: 0}}>
                     {/* Desktop navigation buttons */}
-                    <div className="w-full flex justify-between absolute top-1/2 z-30 transform -translate-y-1/2 pointer-events-none">
-                        <div 
-                            className="pointer-events-auto"
-                            style={{ marginLeft: `-${buttonSpacing}` }}
-                        >
+                    <div className="w-full flex justify-between absolute top-1/2 z-30 transform -translate-y-1/2 pointer-events-none px-4">
+                        <div className="pointer-events-auto">
                             <button
                                 className="text-white font-mono hover:text-gray-300 transition-colors px-4 py-2 bg-black bg-opacity-50 rounded"
                                 onClick={goToPrev}
@@ -247,11 +244,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
                                 ← PREV
                             </button>
                         </div>
-                        
-                        <div 
-                            className="pointer-events-auto"
-                            style={{ marginRight: `-${buttonSpacing}` }}
-                        >
+                        <div className="pointer-events-auto">
                             <button
                                 className="text-white font-mono hover:text-gray-300 transition-colors px-4 py-2 bg-black bg-opacity-50 rounded"
                                 onClick={goToNext}
@@ -404,7 +397,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
                         >
                             ← PREV
                         </button>
-                        
                         {slug && (
                             <Link 
                                 to={`#process`}
@@ -414,7 +406,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
                                 ↓ PROCESS
                             </Link>
                         )}
-                        
                         <button
                             className="hover:text-gray-300 transition-colors px-2 py-1"
                             onClick={goToNext}
