@@ -133,8 +133,7 @@ const projectsData = {
     },
     "development": {
         title: "RESPONSIVE DEVELOPMENT",
-        description:
-            "Responsive websites developed according to designer-provided style guides and mockups.",
+        description: "Bringing designer-provided style guides and mockups to life, I craft responsive web applications that delight users and stay true to the original vision.",
         year: "2025",
         role: "Development",
         client: "BrainStation | Projects",

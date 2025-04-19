@@ -214,19 +214,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
     
     const windowDimensions = getWindowDimensions();
 
-    // space nav buttons evenly - increased for wider spacing
-    const getButtonSpacing = () => {
-        if (isMobile) {
-            return '2rem'; 
-        } else if (isTablet) {
-            return '3rem'; 
-        } else {
-            return '4rem'; 
-        }
-    };
-
-    const buttonSpacing = getButtonSpacing();
-    
     return (
         <div className="w-full max-w-screen-xl flex flex-col items-center justify-center py-4 mx-auto">
             {/* Desktop layout with side navigation */}
@@ -236,7 +223,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
                     <div className="w-full flex justify-between absolute top-1/2 z-30 transform -translate-y-1/2 pointer-events-none px-4">
                         <div className="pointer-events-auto">
                             <button
-                                className="text-white font-mono hover:text-gray-300 transition-colors px-4 py-2 bg-black bg-opacity-50 rounded"
+                                className="text-white font-mono hover:text-gray-300 transition-colors px-4 py-2 rounded"
                                 onClick={goToPrev}
                                 aria-label="previous sample"
                                 disabled={isTransitioning}
@@ -246,7 +233,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
                         </div>
                         <div className="pointer-events-auto">
                             <button
-                                className="text-white font-mono hover:text-gray-300 transition-colors px-4 py-2 bg-black bg-opacity-50 rounded"
+                                className="text-white font-mono hover:text-gray-300 transition-colors px-4 py-2 rounded"
                                 onClick={goToNext}
                                 aria-label="next sample"
                                 disabled={isTransitioning}
