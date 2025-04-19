@@ -213,13 +213,13 @@ export default function ProjectPage() {
                                         </div>
                                     </div>
                                     {project.credit && (<div>
-                                        <h2 className="text-gray-500 mb-1 width-[200%]">credit</h2>
+                                        <h2 className="text-gray-500 mb-1 width-[200%]">CREDIT</h2>
                                         <p>{project.credit}</p>
                                     </div>)}
                                 </div>
                             </div>
 
-                            <div className="flex flex-col items-start justify-center md:justify-end">
+                            <div className="flex flex-col items-start justify-start">
                                 {/* feature image */}
                                 <div
                                     className="relative shadow-md transition-shadow duration-300 hover:shadow-xl overflow-visible group w-full"
