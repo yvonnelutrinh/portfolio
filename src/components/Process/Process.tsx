@@ -17,13 +17,15 @@ export default function Process() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <div>
             <p className="text-gray-300 mb-6">
-              I don't just hand off wireframes or code. I'm in it from rough sketches to launch day and beyond. This end-to-end involvement is about crafting coherent experiences where each decision builds on the last. My process integrates strategic research, thoughtful project management, and technical execution, finding those unexpected connections between user needs and business goals. The most elegant solutions often emerge from constraints, and the best work happens when we balance bold vision with practical delivery.
+              I don't drop off wireframes and disappear. I'm there from the first sketch to launch day and beyond. Why? Because the best digital experiences aren't assembled like furniture—they're crafted through hundreds of interconnected decisions. 
+              
+              My approach weaves together research, strategy, and execution to find those unexpected connections between what users need and what businesses aim for. The constraints of a project? That's where the most interesting solutions happen. Give me a seemingly impossible timeline or technical limitation, and watch what unfolds.
             </p>
             <h3 className="text-xl font-bold mt-8 mb-4">LIFE BEYOND THE SCREEN</h3>
             <div className="text-gray-300 mb-6">
-              When I'm not designing digital experiences, you'll find me carving down mountains as a newbie snowboarder or carefully identifying fungi on forest hikes. This balance of technical work and tactile adventure keeps my perspective fresh and human-centered. My curiosity drives continuous exploration about our place in this world and how we can collectively make meaningful impact.
+              When I'm not pushing pixels, I'm carving down mountains as a newbie snowboarder or getting lost (intentionally) while identifying fungi on forest hikes. This balance keeps me human. Tech work can trap us in abstractions—sometimes you need to feel actual snow under your board to remember what we're building for.
 
-              I'm also a visual mixed media artist in collage, creating immersive sound experiences as a DJ and sound bath facilitator. I believe creativity flows through multiple dimensions—extending well beyond the digital space we often inhabit. Let's <Link to="#contact" className="text-white underline hover:text-neon transition-colors">connect</Link> and share ideas about tech, design, art, or our latest adventures.
+              I create mixed media collage art and craft immersive sound experiences as both a DJ and sound bath facilitator. Creativity doesn't respect the boundaries we put around it, does it? These seemingly disconnected practices inform each other in surprising ways. Let's <Link to="#contact" className="text-white underline hover:text-neon transition-colors">connect</Link> and swap stories about design philosophy, that weird bug you can't solve, or our latest adventures.
             </div>
           </div>
 
