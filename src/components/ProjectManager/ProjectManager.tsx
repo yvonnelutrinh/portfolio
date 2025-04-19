@@ -71,6 +71,7 @@ const projectsData = {
         images: {
             feature: { src: "images/lilguy-feature.jpg", alt: "LilGuy homepage displaying LilGuy and productivity metrics" },
             slider: [
+                { src: "images/lilguy-feature.jpg", alt: "LilGuy dashboard displaying productivity metrics" },
                 { src: "images/lilguy-widget.jpg", alt: "LilGuy browser widget" },
                 { src: "images/lilguy-websites.jpg", alt: "LilGuy website productivity tracking" },
                 { src: "images/lilguy-goals.jpg", alt: "LilGuy goals dashboard" }
