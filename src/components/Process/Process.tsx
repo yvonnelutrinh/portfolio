@@ -21,9 +21,11 @@ export default function Process() {
             </p>
             <h3 className="text-xl font-bold mt-8 mb-4">LIFE BEYOND THE SCREEN</h3>
             <div className="text-gray-300 mb-6">
-              When I'm not designing digital experiences, you'll find me carving down mountains as a newbie snowboarder or carefully identifying fungi on forest hikes. This balance of technical work and tactile adventure keeps my perspective fresh and human-centered. My curiosity drives continuous exploration about our place in this world and how we can collectively make meaningful impact.
+              <p>When I'm not designing digital experiences, you'll find me carving down mountains as a newbie snowboarder or carefully identifying fungi on forest hikes. I'm also a visual mixed media artist in collage, and I create immersive sound experiences as a DJ and sound bath facilitator. I believe creativity flows through multiple dimensions, extending well beyond the digital space we often inhabit.</p>
+              <div className="my-4"></div>
 
-              I'm also a visual mixed media artist in collage, creating immersive sound experiences as a DJ and sound bath facilitator. I believe creativity flows through multiple dimensions—extending well beyond the digital space we often inhabit. Let's <Link to="#contact" className="text-white underline hover:text-neon transition-colors">connect</Link> and share ideas about tech, design, art, or our latest adventures.
+
+              <p>This balance of technical work and tactile adventure keeps my perspective fresh and human-centered. My curiosity drives continuous exploration about our place in this world and how we can collectively make meaningful impact. Let's <Link to="#contact" className="text-white underline hover:text-neon transition-colors">connect</Link> and share ideas about tech, design, art, or our latest adventures.</p>
             </div>
           </div>
 
