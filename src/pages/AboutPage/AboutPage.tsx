@@ -25,10 +25,10 @@ export default function About() {
                             <div className="h-px w-full bg-white mb-8" />
 
                             <p className="text-xl mb-4">
-                                I connect design and code to create experiences that actually matter. Ever noticed how the best digital products feel almost invisible? That's what I'm after—the sweet spot where you're so engaged with what you're doing that the technology fades into the background.
+                                I blend design and code to build experiences that matter. What drives me isn't just making things look good—it's creating digital spaces where storytelling meets functionality. The sweet spot? When users don't even notice the technology because the experience feels so intuitive.
                             </p>
                             <p className="text-xl mb-4">
-                                After 7+ years working across marketing, communications, and creative tech, I've learned that pretty interfaces without purpose are just digital decoration. My time in arts, nonprofits, and government shaped a core belief: technology should amplify human potential, not replace it. What's the point of innovation if it doesn't create meaningful connections or solve real problems?
+                                My 7+ years across marketing, communications, and creative technology have taught me something crucial: beautiful design without purpose is just decoration. Working in arts, nonprofits, and government shaped my belief that technology should amplify human potential, not replace it—creating connections that serve real community needs.
                             </p>
                         </motion.div>
 
