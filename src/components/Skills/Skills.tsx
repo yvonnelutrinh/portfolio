@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 
 export default function Skills() {
     return (
+        <>
         <div className="mt-32">
             <motion.h2
                 className="font-display text-3xl lg:text-6xl mb-16 md:mb-32"
@@ -67,5 +68,6 @@ export default function Skills() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

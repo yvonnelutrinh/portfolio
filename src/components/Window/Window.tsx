@@ -1,6 +1,6 @@
-export default function Window({ title, children }: { title: string; children: React.ReactNode }) {
+export default function Window({ title, children, className = "" }: { title: string; children: React.ReactNode; className?: string }) {
     return (
-        <div className="bg-black/80 border rounded p-4 overflow-visible w-full">
+        <div className={`bg-black/80 border rounded p-4 overflow-visible w-full ${className}`}>
             <div className="flex items-center gap-2 mb-4 border-b border-brutalist/10 pb-2">
                 <div className="h-3 w-3 rounded-full bg-red-500 opacity-70"></div>
                 <div className="h-3 w-3 rounded-full bg-yellow-500 opacity-70"></div>
