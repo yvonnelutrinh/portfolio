@@ -153,6 +153,42 @@ const projectsData = {
     // },
 }
 
+function SubfeatureImage({ src, alt }: { src: string; alt: string }) {
+    const isGif = src.endsWith('.gif');
+    const staticSrc = isGif ? src.replace('.gif', '.png') : src;
+    const [isActive, setIsActive] = useState(false);
+    const [imgSrc, setImgSrc] = useState(isGif ? staticSrc : src);
+
+    useEffect(() => {
+        if (isActive && isGif) {
+            setImgSrc(src); // show GIF
+        } else if (isGif) {
+            setImgSrc(staticSrc); // show PNG
+        } else {
+            setImgSrc(src);
+        }
+    }, [isActive, isGif, src, staticSrc]);
+
+    // If PNG doesn't exist, fallback to GIF (handles missing PNG gracefully)
+    const handleImgError = () => {
+        if (isGif && imgSrc !== src) {
+            setImgSrc(src);
+        }
+    };
+
+    return (
+        <img
+            src={imgSrc}
+            alt={alt}
+            className={`w-full h-auto object-contain rounded transition-transform duration-300 cursor-pointer ${isActive ? 'scale-110' : ''}`}
+            onMouseEnter={() => setIsActive(true)}
+            onMouseLeave={() => setIsActive(false)}
+            onClick={() => setIsActive((prev) => !prev)}
+            onError={handleImgError}
+        />
+    );
+}
+
 export default function ProjectPage() {
     const params = useParams()
     const slug = params?.id as string
@@ -249,19 +285,9 @@ export default function ProjectPage() {
                                                 <div className="flex gap-2 w-full justify-between">
                                                     {project.images.subfeature.map((image: any, key: number) => (
                                                         <div key={key} className="flex-1 group">
-                                                            <img
+                                                            <SubfeatureImage
                                                                 src={image.src}
                                                                 alt={image.alt}
-                                                                className="w-full h-auto object-contain rounded transition-transform duration-300 group-hover:scale-110 cursor-pointer"
-                                                                onClick={(e) => {
-                                                                    // toggle a class to keep the image zoomed until clicked again
-                                                                    const target = e.currentTarget;
-                                                                    if (target.classList.contains('scale-110')) {
-                                                                        target.classList.remove('scale-110');
-                                                                    } else {
-                                                                        target.classList.add('scale-110');
-                                                                    }
-                                                                }}
                                                             />
                                                         </div>
                                                     ))}
