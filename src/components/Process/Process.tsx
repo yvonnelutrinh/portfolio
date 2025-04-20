@@ -97,7 +97,7 @@ export default function Process() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.7 }}
               >
-                <h3 className="font-display text-lg mb-1">07. ITERATE</h3>
+                <h3 className="font-display text-lg mb-1">07. TRACK</h3>
                 {/* <p className="text-gray-300 text-xs">Analyze metrics, gather feedback, and continuously improve the product</p> */}
               </motion.div>
             </div>
