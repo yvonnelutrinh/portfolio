@@ -40,7 +40,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
         };
 
         checkScreenSize();
-        window.addEventListener('resize', checkScreenSize, { passive: true });
+        window.addEventListener('resize', checkScreenSize);
         return () => window.removeEventListener('resize', checkScreenSize);
     }, []);
 
