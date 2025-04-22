@@ -60,8 +60,8 @@ export default function TextDistortion({ text, className = "", tag = "h1" }: Tex
       })
     }
 
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
+    return () => window.removeEventListener("mousemove", handleMouseMove, { passive: true })
   }, [isHovered])
 
   return (

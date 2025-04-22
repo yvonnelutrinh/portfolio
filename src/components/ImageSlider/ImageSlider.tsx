@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Window from '../Window/Window';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { tagButtonClick } from '../../utils/clarityTag';
 
 interface ImageSliderProps {
     images?: { src: string; alt: string }[];
@@ -39,7 +40,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
         };
 
         checkScreenSize();
-        window.addEventListener('resize', checkScreenSize);
+        window.addEventListener('resize', checkScreenSize, { passive: true });
         return () => window.removeEventListener('resize', checkScreenSize);
     }, []);
 
@@ -224,7 +225,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
                         <div className="pointer-events-auto">
                             <button
                                 className="text-white font-mono hover:text-gray-300 transition-colors px-4 py-2 rounded"
-                                onClick={goToPrev}
+                                onClick={e => {
+                                    // Clarity tag: clicked_prev
+                                    tagButtonClick(e);
+                                    goToPrev();
+                                }}
                                 aria-label="previous sample"
                                 disabled={isTransitioning}
                             >
@@ -234,7 +239,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
                         <div className="pointer-events-auto">
                             <button
                                 className="text-white font-mono hover:text-gray-300 transition-colors px-4 py-2 rounded"
-                                onClick={goToNext}
+                                onClick={e => {
+                                    // Clarity tag: clicked_next
+                                    tagButtonClick(e);
+                                    goToNext();
+                                }}
                                 aria-label="next sample"
                                 disabled={isTransitioning}
                             >
@@ -378,7 +387,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
                     <div className="flex items-center justify-center gap-8 md:gap-12 mt-8 font-mono text-white z-30">
                         <button
                             className="hover:text-gray-300 transition-colors px-2 py-1"
-                            onClick={goToPrev}
+                            onClick={e => {
+                                // Clarity tag: clicked_prev
+                                tagButtonClick(e);
+                                goToPrev();
+                            }}
                             aria-label="previous sample"
                             disabled={isTransitioning}
                         >
@@ -395,7 +408,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
                         )}
                         <button
                             className="hover:text-gray-300 transition-colors px-2 py-1"
-                            onClick={goToNext}
+                            onClick={e => {
+                                // Clarity tag: clicked_next
+                                tagButtonClick(e);
+                                goToNext();
+                            }}
                             aria-label="next sample"
                             disabled={isTransitioning}
                         >

@@ -54,7 +54,7 @@ const projectsData = {
     "lilguy": {
         title: "LILGUY",
         description:
-            "Inspired by the nostalgia of early 2000s virtual pets, LilGuy is a Next.js app + Chrome extension that gamifies goal-setting with a lovable virtual companion who helps you optimize your productivity in real time.",
+            "LilGuy is your browser productivity companion, gamifying goal-setting with an adorable virtual pet that reacts to your productivity habits in real time. This Next.js app + Chrome extension transforms mundane desktop productivity tracking into a delightful experience reminiscent of the 2000s.",
         year: "2025",
         role: "Front-end Development, UX/UI Design, Project Manager",
         client: "NextJS | Hackathon",

@@ -2,6 +2,7 @@ import React from "react"
 import { useState } from "react"
 import { motion } from "motion/react"
 import { HeaderNav } from "../../components/Navigation/Navigation"
+import { tagButtonClick } from '../../utils/clarityTag';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -76,7 +77,11 @@ export default function Contact() {
               <p className="text-xl">Thank you for reaching out. I'll get back to you soon.</p>
 
               <button
-                onClick={() => setIsSubmitted(false)}
+                onClick={(e) => {
+                  // Clarity tag: clicked_Send_Another_Message
+                  tagButtonClick(e);
+                  setIsSubmitted(false)
+                }}
                 className="mt-8 bg-white text-black hover:bg-gray-200"
                 data-cursor-hover
               >
@@ -158,6 +163,10 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
+                  onClick={(e) => {
+                    // Clarity tag: clicked_Send_Message
+                    tagButtonClick(e);
+                  }}
                   className={`mt-8 relative overflow-hidden group ${
                     isSubmitting ? "bg-gray-800" : "bg-white text-black hover:bg-gray-200"
                   }`}

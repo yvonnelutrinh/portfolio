@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import { tagButtonClick } from '../../utils/clarityTag';
 
 export default function Banner() {
   const [isVisible, setIsVisible] = useState(true);
@@ -27,7 +28,11 @@ export default function Banner() {
           &#9888; please excuse the mess while we renovate &#9888;
         </p>
         <button 
-          onClick={handleDismiss}
+          onClick={e => {
+            // Clarity tag: clicked_Close_banner
+            tagButtonClick(e);
+            handleDismiss();
+          }}
           className="w-8 text-white hover:text-gray-300 transition-colors" 
           aria-label="Close banner"
         >

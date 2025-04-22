@@ -189,9 +189,9 @@ export default function PointillismPortrait() {
       setupCanvas();
     };
     
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleResize, { passive: true });
     };
   }, []);
   
@@ -211,13 +211,13 @@ export default function PointillismPortrait() {
       setMouse({ x: -100, y: -100 });
     };
     
-    window.addEventListener("mousemove", updateMouse);
+    window.addEventListener("mousemove", updateMouse, { passive: true });
     if (canvasRef.current) {
       canvasRef.current.addEventListener("mouseleave", handleMouseLeave);
     }
     
     return () => {
-      window.removeEventListener("mousemove", updateMouse);
+      window.removeEventListener("mousemove", updateMouse, { passive: true });
       if (canvasRef.current) {
         canvasRef.current.removeEventListener("mouseleave", handleMouseLeave);
       }

@@ -178,7 +178,7 @@ export default function PointillismPortraitV3() {
     resizeCanvas();
 
     // Add resize listener
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('resize', resizeCanvas, { passive: true });
     
     // Animation function
     const animate = () => {
@@ -305,7 +305,7 @@ export default function PointillismPortraitV3() {
       setMouse({ x: -100, y: -100 });
     };
     
-    window.addEventListener("mousemove", updateMouse);
+    window.addEventListener("mousemove", updateMouse, { passive: true });
     if (canvasRef.current) {
       canvasRef.current.addEventListener("mouseleave", handleMouseLeave);
     }

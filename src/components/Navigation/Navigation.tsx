@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
 import ScrollToAnchor from "../ScrollToAnchor/ScrollToAnchor";
+import { tagButtonClick, tagFeatureUsage } from '../../utils/clarityTag';
 
 function HeaderNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +50,13 @@ function HeaderNav() {
       >
         <motion.button
           className="font-mono text-white hover:text-gray-300 transition-colors text-xl leading-none p-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
-          onClick={toggleMenu}
+          onClick={e => {
+            // Clarity tag: clicked_menu_button
+            tagButtonClick(e);
+            // Clarity tag: used_menu_toggle
+            tagFeatureUsage('menu_toggle');
+            toggleMenu();
+          }}
           data-cursor-hover
           aria-label={isOpen ? "Close menu" : "Open menu"}
         >

@@ -133,7 +133,7 @@ export const ProjectEmbed = ({
         };
 
         updateViewportDimensions();
-        window.addEventListener('resize', updateViewportDimensions);
+        window.addEventListener('resize', updateViewportDimensions, { passive: true });
         return () => window.removeEventListener('resize', updateViewportDimensions);
     }, [slug, fixedDesktopRatio, isMobile, isTablet, title, customWidth, isPokemonValentine]);
 
