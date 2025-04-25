@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { Link } from "react-router-dom"
 
 export default function Process() {
@@ -17,7 +17,7 @@ export default function Process() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <div>
             <p className="text-gray-300 mb-6">
-              I don't just hand off wireframes or code. I'm in it from rough sketches to launch day and beyond. This end-to-end involvement is about crafting coherent experiences where each decision builds on the last. My process integrates strategic research, thoughtful project management, and technical execution, finding those unexpected connections between user needs and business goals. The most elegant solutions often emerge from constraints, and the best work happens when we balance bold vision with practical delivery.
+              I don't drop off wireframes and disappear. I'm there from the first rough sketch to launch day and beyond. Why? Because coherent experiences happen when someone tracks the entire journey. My approach weaves together research that actually matters, thoughtful project planning, and hands-on execution. I'm constantly searching for those unexpected connections—where user needs and business goals overlap in ways nobody saw coming. Truth is, constraints often lead to the most elegant solutions. The best work emerges when we balance ambitious vision with practical reality.
             </p>
             <h3 className="text-xl font-bold mt-8 mb-4">LIFE BEYOND THE SCREEN</h3>
             <div className="text-gray-300 mb-6">
@@ -38,7 +38,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.1 }}
               >
                 <h3 className="font-display text-lg mb-1">01. RESEARCH</h3>
-                {/* <p className="text-gray-300 text-xs">Deep dive into user needs, technical constraints, and competitor analysis</p> */}
+                <p className="text-gray-300 text-xs">Digging into real user needs—not just assumptions. What problems actually need solving?</p>
               </motion.div>
               
               <motion.div 
@@ -48,7 +48,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.2 }}
               >
                 <h3 className="font-display text-lg mb-1">02. STRATEGY</h3>
-                {/* <p className="text-gray-300 text-xs">Define goals, audience, and project scope to guide the creative process</p> */}
+                <p className="text-gray-300 text-xs">Mapping the route before writing a line of code. Clear goals, defined scope, realistic timelines.</p>
               </motion.div>
               
               <motion.div 
@@ -58,7 +58,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.3 }}
               >
                 <h3 className="font-display text-lg mb-1">03. CONCEPT</h3>
-                {/* <p className="text-gray-300 text-xs">Develop core ideas through wireframes and establish visual direction</p> */}
+                <p className="text-gray-300 text-xs">Rapid prototyping to test ideas early. Finding the core concepts that will drive everything else.</p>
               </motion.div>
               
               <motion.div 
@@ -68,7 +68,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.4 }}
               >
                 <h3 className="font-display text-lg mb-1">04. EXECUTE</h3>
-                {/* <p className="text-gray-300 text-xs">Craft intuitive interactions and deliver pixel-perfect implementation</p> */}
+                <p className="text-gray-300 text-xs">Bringing designs to life with clean code and thoughtful interactions. Details matter here.</p>
               </motion.div>
               
               <motion.div 
@@ -78,7 +78,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.5 }}
               >
                 <h3 className="font-display text-lg mb-1">05. TEST</h3>
-                {/* <p className="text-gray-300 text-xs">Validate with users, ensure accessibility and optimize performance</p> */}
+                <p className="text-gray-300 text-xs">Real users, real feedback. Accessibility isn't optional. Performance matters to everyone.</p>
               </motion.div>
               
               <motion.div 
@@ -88,7 +88,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.6 }}
               >
                 <h3 className="font-display text-lg mb-1">06. DEPLOY</h3>
-                {/* <p className="text-gray-300 text-xs">Launch with confidence through carefully orchestrated implementation</p> */}
+                <p className="text-gray-300 text-xs">Launching with confidence because we've done the work. No surprises, just smooth implementation.</p>
               </motion.div>
               
               <motion.div 

@@ -25,10 +25,10 @@ export default function About() {
                             <div className="h-px w-full bg-white mb-8" />
 
                             <p className="text-xl mb-4">
-                                I blend design and code to build experiences that matter. What drives me isn't just making things look good—it's creating digital spaces where storytelling meets functionality. The sweet spot? When users don't even notice the technology because the experience feels so intuitive.
+                                I build at the intersection of design and code. Why? Because that's where digital experiences transform from functional to meaningful. It's not just about clean lines or clever animations—it's about creating spaces where stories unfold naturally and technology serves a clear purpose. Ever used something that just "clicked" from the first moment? That's what I'm after.
                             </p>
                             <p className="text-xl mb-4">
-                                My 7+ years across marketing, communications, and creative technology have taught me something crucial: beautiful design without purpose is just decoration. Working in arts, nonprofits, and government shaped my belief that technology should amplify human potential, not replace it—creating connections that serve real community needs.
+                                Seven years across marketing, creative tech, and communications taught me this: purpose trumps pretty every time. My work in arts organizations, nonprofits, and government shaped how I approach every project. Tech should amplify what makes us human, not replace it. Can code build community? Absolutely—when it connects to genuine needs and creates space for real interaction.
                             </p>
                         </motion.div>
 
