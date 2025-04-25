@@ -38,7 +38,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.1 }}
               >
                 <h3 className="font-display text-lg mb-1">01. RESEARCH</h3>
-                <p className="text-gray-300 text-xs">Digging into real user needs—not just assumptions. What problems actually need solving?</p>
+                {/* <p className="text-gray-300 text-xs">Digging into real user needs—not just assumptions. What problems actually need solving?</p> */}
               </motion.div>
               
               <motion.div 
@@ -48,7 +48,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.2 }}
               >
                 <h3 className="font-display text-lg mb-1">02. STRATEGY</h3>
-                <p className="text-gray-300 text-xs">Mapping the route before writing a line of code. Clear goals, defined scope, realistic timelines.</p>
+                {/* <p className="text-gray-300 text-xs">Mapping the route before writing a line of code. Clear goals, defined scope, realistic timelines.</p> */}
               </motion.div>
               
               <motion.div 
@@ -58,7 +58,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.3 }}
               >
                 <h3 className="font-display text-lg mb-1">03. CONCEPT</h3>
-                <p className="text-gray-300 text-xs">Rapid prototyping to test ideas early. Finding the core concepts that will drive everything else.</p>
+                {/* <p className="text-gray-300 text-xs">Rapid prototyping to test ideas early. Finding the core concepts that will drive everything else.</p> */}
               </motion.div>
               
               <motion.div 
@@ -68,7 +68,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.4 }}
               >
                 <h3 className="font-display text-lg mb-1">04. EXECUTE</h3>
-                <p className="text-gray-300 text-xs">Bringing designs to life with clean code and thoughtful interactions. Details matter here.</p>
+                {/* <p className="text-gray-300 text-xs">Bringing designs to life with clean code and thoughtful interactions. Details matter here.</p> */}
               </motion.div>
               
               <motion.div 
@@ -78,7 +78,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.5 }}
               >
                 <h3 className="font-display text-lg mb-1">05. TEST</h3>
-                <p className="text-gray-300 text-xs">Real users, real feedback. Accessibility isn't optional. Performance matters to everyone.</p>
+                {/* <p className="text-gray-300 text-xs">Real users, real feedback. Accessibility isn't optional. Performance matters to everyone.</p> */}
               </motion.div>
               
               <motion.div 
@@ -88,7 +88,7 @@ export default function Process() {
                 transition={{ duration: 0.4, delay: 0.6 }}
               >
                 <h3 className="font-display text-lg mb-1">06. DEPLOY</h3>
-                <p className="text-gray-300 text-xs">Launching with confidence because we've done the work. No surprises, just smooth implementation.</p>
+                {/* <p className="text-gray-300 text-xs">Launching with confidence because we've done the work. No surprises, just smooth implementation.</p> */}
               </motion.div>
               
               <motion.div 
