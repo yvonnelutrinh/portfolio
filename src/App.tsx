@@ -3,6 +3,7 @@ import AboutPage from './pages/AboutPage/AboutPage'
 import WorkPage from './pages/WorkPage/WorkPage'
 import ErrorPage from './pages/ErrorPage/ErrorPage'
 import ProjectPage from "./components/ProjectManager/ProjectManager"
+import PasswordGate from "./components/PasswordGate/PasswordGate"
 import { Routes, Route, useLocation } from 'react-router-dom'
 import "./App.css"
 import ScrollToTop from './components/ScrollToTop/ScrollToTop'
@@ -78,7 +79,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <PasswordGate>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -87,6 +88,6 @@ export default function App() {
         <Route path="/work/:id" element={<ProjectPage />} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
-    </>
+    </PasswordGate>
   )
 }

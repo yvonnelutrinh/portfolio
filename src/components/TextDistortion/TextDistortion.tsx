@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react"
-import { motion } from "motion/react"
+import { motion, type Variants } from "motion/react"
 
 interface TextDistortionProps {
   text: string
@@ -14,7 +14,7 @@ export default function TextDistortion({ text, className = "", tag = "h1" }: Tex
 
   const Tag = tag
 
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
@@ -22,7 +22,7 @@ export default function TextDistortion({ text, className = "", tag = "h1" }: Tex
     }),
   }
 
-  const child = {
+  const child: Variants = {
     visible: {
       opacity: 1,
       y: 0,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Window from '../Window/Window';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { tagButtonClick } from '../../utils/clarityTag';
 
@@ -20,6 +20,16 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
     const [isTransitioning, setIsTransitioning] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
+    const prefersReducedMotion = useReducedMotion();
+
+    // store image size info
+    const updateImageDetails = (width: number, height: number) => {
+        setImageDetails({
+            width,
+            height,
+            aspectRatio: width / height
+        });
+    };
 
     // fallback to defaults if no images provided
     const sliderImages = images || [
@@ -76,15 +86,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
         updateCurrentImage();
     }, [currentIndex, sliderImages]);
 
-    // store image size info
-    const updateImageDetails = (width: number, height: number) => {
-        setImageDetails({
-            width,
-            height,
-            aspectRatio: width / height
-        });
-    };
-
     // navigation functions simplified to a single implementation
     const navigateToIndex = (newIndex: number) => {
         if (isTransitioning) return;
@@ -111,14 +112,16 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
     const goToPrev = () => navigateToIndex(currentIndex - 1);
     const goToNext = () => navigateToIndex(currentIndex + 1);
 
-    // auto-rotate slides
+    // auto-rotate slides — disabled when the user prefers reduced motion (WCAG 2.2.2)
     useEffect(() => {
+        if (prefersReducedMotion) return;
+
         const timer = setTimeout(() => {
             navigateToIndex(currentIndex + 1);
-        }, 15000); 
-        
+        }, 15000);
+
         return () => clearTimeout(timer);
-    }, [currentIndex]);
+    }, [currentIndex, prefersReducedMotion]);
 
     // swipe gestures for touch devices - updated to use unified navigation
     const handleTouchStart = (e: React.TouchEvent) => {
@@ -166,8 +169,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
     const getWindowDimensions = () => {
         // const mobileAspectRatio = 9/16; 
         
-        let windowWidth = 'auto';
-        let windowHeight = 'auto';
+        const windowWidth = 'auto';
+        const windowHeight = 'auto';
         let maxWidth = '100%';
         let maxHeight = '60vh';
         
@@ -216,7 +219,16 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, slug }) => {
     const windowDimensions = getWindowDimensions();
 
     return (
-        <div className="w-full max-w-screen-xl flex flex-col items-center justify-center py-4 mx-auto">
+        <div
+            className="w-full max-w-screen-xl flex flex-col items-center justify-center py-4 mx-auto"
+            role="group"
+            aria-roledescription="carousel"
+            aria-label="Project image gallery"
+        >
+            {/* announce slide changes to screen readers */}
+            <p className="sr-only" aria-live="polite">
+                Sample {currentIndex + 1} of {sliderImages.length}: {sliderImages[currentIndex].alt}
+            </p>
             {/* Desktop layout with side navigation */}
             {!isMobile && !isTablet && (
                 <div className="relative w-full min-w-[400px]" style={{minWidth: 0}}>

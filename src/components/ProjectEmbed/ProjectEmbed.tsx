@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Window from "../Window/Window";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";

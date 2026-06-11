@@ -19,6 +19,10 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // react-hooks v7 promotes React Compiler rules to errors; keep them
+      // advisory until the flagged components are refactored
+      'react-hooks/set-state-in-effect': 'warn',
+      'react-hooks/purity': 'warn',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },

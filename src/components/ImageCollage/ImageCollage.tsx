@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 
 interface ImageData {
   src: string;
@@ -18,14 +18,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
 }) => {
   // tracks which image is being hovered
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  
-  // forces recalculation on mount
-  const [refreshKey, setRefreshKey] = useState(Date.now());
-  
-  useEffect(() => {
-    setRefreshKey(Date.now());
-  }, []);
-  
+
   // handle single image vs array
   const imageArray = useMemo(() => {
     return Array.isArray(images) ? images : [images];
@@ -179,7 +172,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
     return positions;
   };
 
-  const positions = useMemo(() => createCollagePositions(), [limitedImages.length, refreshKey]);
+  const positions = createCollagePositions();
   
   // puts hovered image on top
   const getZIndex = (index: number): number => {
@@ -207,7 +200,7 @@ const ImageCollage: React.FC<ImageCollageProps> = ({
         
         return (
           <div
-            key={`${refreshKey}-${index}`}
+            key={index}
             className="absolute shadow-md transition-all duration-300 hover:shadow-xl overflow-hidden"
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}

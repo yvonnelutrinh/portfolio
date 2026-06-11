@@ -59,7 +59,7 @@ const DEBUG = true;
 /**
  * Debug logging helper
  */
-function debug(message: string, object: any = null): void {
+function debug(message: string, object: unknown = null): void {
   if (DEBUG) {
     if (object) {
       console.log(`[DEBUG] ${message}`, object);
