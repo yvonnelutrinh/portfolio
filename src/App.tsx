@@ -5,10 +5,33 @@ import ErrorPage from './pages/ErrorPage/ErrorPage'
 import ProjectPage from "./components/ProjectManager/ProjectManager"
 import PasswordGate from "./components/PasswordGate/PasswordGate"
 import { Routes, Route, useLocation } from 'react-router-dom'
+import { MotionConfig } from 'motion/react'
 import "./App.css"
 import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 import { useEffect } from 'react';
 import { tagPageView, tagRageClick, tagFeatureUsage } from './utils/clarityTag';
+
+// skip link must move focus manually — a plain #main-content href would
+// collide with HashRouter's routing hash
+function SkipLink() {
+  return (
+    <a
+      href="#main-content"
+      className="skip-link"
+      onClick={(e) => {
+        e.preventDefault()
+        const main = document.getElementById('main-content')
+        if (main) {
+          main.setAttribute('tabindex', '-1')
+          main.focus()
+          main.scrollIntoView()
+        }
+      }}
+    >
+      Skip to main content
+    </a>
+  )
+}
 
 export default function App() {
   const location = useLocation();
@@ -79,15 +102,18 @@ export default function App() {
   }, []);
 
   return (
-    <PasswordGate>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/work" element={<WorkPage />} />
-        <Route path="/work/:id" element={<ProjectPage />} />
-        <Route path="/*" element={<ErrorPage />} />
-      </Routes>
-    </PasswordGate>
+    <MotionConfig reducedMotion="user">
+      <PasswordGate>
+        <SkipLink />
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/work" element={<WorkPage />} />
+          <Route path="/work/:id" element={<ProjectPage />} />
+          <Route path="/*" element={<ErrorPage />} />
+        </Routes>
+      </PasswordGate>
+    </MotionConfig>
   )
 }

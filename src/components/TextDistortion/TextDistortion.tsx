@@ -81,18 +81,28 @@ export default function TextDistortion({ text, className = "", tag = "h1" }: Tex
       }}
       data-cursor-hover
     >
-      <motion.div className="flex flex-wrap" variants={container} initial="hidden" animate="visible">
-        {letters.map((letter, index) => (
-          <motion.span
-            key={index}
-            variants={child}
-            className={`letter inline-block transition-transform duration-300 ${letter === " " ? "w-4" : ""}`}
-            style={{ transformOrigin: "center center" }}
-          >
-            <Tag className="inline-block">{letter === " " ? "\u00A0" : letter}</Tag>
-          </motion.span>
-        ))}
-      </motion.div>
+      {/* one semantic element with readable text; animated letters are decorative */}
+      <Tag>
+        <span className="sr-only">{text}</span>
+        <motion.span
+          className="flex flex-wrap"
+          aria-hidden="true"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+        >
+          {letters.map((letter, index) => (
+            <motion.span
+              key={index}
+              variants={child}
+              className={`letter inline-block transition-transform duration-300 ${letter === " " ? "w-4" : ""}`}
+              style={{ transformOrigin: "center center" }}
+            >
+              {letter === " " ? "\u00A0" : letter}
+            </motion.span>
+          ))}
+        </motion.span>
+      </Tag>
     </div>
   )
 }

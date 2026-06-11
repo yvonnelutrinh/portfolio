@@ -39,6 +39,17 @@ function HeaderNav() {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  // close menu with Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
   return (
     <>
     <ScrollToAnchor />
@@ -59,6 +70,8 @@ function HeaderNav() {
           }}
           data-cursor-hover
           aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
+          aria-controls="site-menu"
         >
           {isOpen ? <X className="h-7 w-7 text-white hover:text-gray-300" /> : menuSymbol}
         </motion.button>
@@ -74,6 +87,8 @@ function HeaderNav() {
             transition={{ duration: 0.5 }}
           >
             <motion.nav
+              id="site-menu"
+              aria-label="Main navigation"
               className="flex flex-col items-center justify-center space-y-8"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -91,7 +106,8 @@ function HeaderNav() {
                 >
                   <Link
                     to={route.path}
-                    className={`font-display text-5xl md:text-8xl tracking-wider hover:text-gray-400 transition-colors duration-300 ${pathname === route.path ? "text-white" : "text-gray-600"}`}
+                    className={`font-display text-5xl md:text-8xl tracking-wider hover:text-gray-300 transition-colors duration-300 ${pathname === route.path ? "text-white" : "text-gray-400"}`}
+                    aria-current={pathname === route.path ? "page" : undefined}
                     onClick={() => setIsOpen(false)}
                   >
                     {route.label}

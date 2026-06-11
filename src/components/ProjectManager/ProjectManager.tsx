@@ -117,36 +117,38 @@ export default function ProjectPage() {
                             <div>
                                 <p className="text-xl md:text-2xl mb-8">{project.description}</p>
 
-                                <div className="grid grid-cols-2 gap-8 text-sm font-mono">
+                                <dl className="grid grid-cols-2 gap-8 text-sm font-mono">
                                     <div>
-                                        <h2 className="text-gray-400 mb-1">YEAR</h2>
-                                        <p>{project.year}</p>
+                                        <dt className="text-gray-400 mb-1">YEAR</dt>
+                                        <dd>{project.year}</dd>
                                     </div>
                                     <div>
-                                        <h2 className="text-gray-400 mb-1">ROLE</h2>
-                                        <p>{project.role}</p>
+                                        <dt className="text-gray-400 mb-1">ROLE</dt>
+                                        <dd>{project.role}</dd>
                                     </div>
                                     <div>
-                                        <h2 className="text-gray-400 mb-1">CLIENT</h2>
-                                        <p>{project.client}</p>
+                                        <dt className="text-gray-400 mb-1">CLIENT</dt>
+                                        <dd>{project.client}</dd>
                                     </div>
 
                                     {project.tech && (<div>
-                                        <h2 className="text-gray-400 mb-1">TECH STACK</h2>
-                                        <div className="grid grid-cols-2 gap-x-4">
-                                            {project.tech.map((item: string, key: number) => (<p className=" text-nowrap" key={key} >{item}</p>))
-                                            }
-                                        </div>
+                                        <dt className="text-gray-400 mb-1">TECH STACK</dt>
+                                        <dd>
+                                            <div className="grid grid-cols-2 gap-x-4">
+                                                {project.tech.map((item: string, key: number) => (<p className=" text-nowrap" key={key} >{item}</p>))
+                                                }
+                                            </div>
+                                        </dd>
                                     </div>)}
                                     {project.tags && (<div>
-                                        <h2 className="text-gray-400 mb-1">DISCIPLINES</h2>
-                                        <p className="uppercase">{project.tags.join(", ")}</p>
+                                        <dt className="text-gray-400 mb-1">DISCIPLINES</dt>
+                                        <dd className="uppercase">{project.tags.join(", ")}</dd>
                                     </div>)}
                                     {project.credit && (<div>
-                                        <h2 className="text-gray-400 mb-1">CREDIT</h2>
-                                        <p>{project.credit}</p>
+                                        <dt className="text-gray-400 mb-1">CREDIT</dt>
+                                        <dd>{project.credit}</dd>
                                     </div>)}
-                                </div>
+                                </dl>
                             </div>
 
                             {project.images?.feature && (

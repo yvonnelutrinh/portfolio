@@ -20,7 +20,7 @@ export default function Home() {
       <ScrollToAnchor />
       <HeaderNav />
       <div className="min-h-screen bg-black text-white overflow-hidden">
-        <main className="relative">
+        <main id="main-content" className="relative">
 
           {/* hero section */}
           <section className="h-screen flex flex-col justify-center items-center px-4">

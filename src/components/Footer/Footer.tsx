@@ -9,6 +9,7 @@ export default function Footer() {
                 speed={15} />
             
             {/* contact section */}
+            <h2 className="sr-only">Contact</h2>
             <div id="contact" className="px-8 mt-24 grid grid-cols-1 md:flex md:justify-between gap-8 transition-all duration-1000 delay-600 translate-y-0 opacity-100">
                 <div>
                     <h3 className="text-xl mb-4">
@@ -34,10 +35,10 @@ export default function Footer() {
                     </h3>
                     <div className="space-y-2">
                         <a href="https://www.linkedin.com/in/yvonnelutrinh/"  className="block hover:text-gray-400 transition-colors duration-300 text-white" target="_blank" rel="noopener noreferrer">
-                            LinkedIn ↗ 
+                            LinkedIn <span aria-hidden="true">↗</span><span className="sr-only">(opens in new tab)</span>
                         </a>
                         <a href="http://github.com/yvonnelutrinh/" className="block hover:text-gray-400 transition-colors duration-300 text-white" target="_blank" rel="noopener noreferrer">
-                            GitHub ↗ 
+                            GitHub <span aria-hidden="true">↗</span><span className="sr-only">(opens in new tab)</span>
                         </a>
                     </div>
                 </div>

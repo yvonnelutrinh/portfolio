@@ -31,7 +31,9 @@ export default function TextBanner({ text, className = "", speed = 20, repeat = 
 
   return (
     <div ref={marqueeRef} className={`marquee overflow-hidden ${className}`}>
-      <div ref={contentRef} className="marquee-content inline-block" data-cursor-hover>
+      {/* read the text once to screen readers; the moving repeats are decorative */}
+      <span className="sr-only">{text}</span>
+      <div ref={contentRef} className="marquee-content inline-block" aria-hidden="true" data-cursor-hover>
         {repeatedText}
       </div>
     </div>

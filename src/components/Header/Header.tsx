@@ -18,8 +18,8 @@ export default function Header() {
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         BACK TO WORK
                     </Link>)
-                    : (<Link to="/" >
-                        <TextDistortion text="YVONNE LU TRINH" className="fixed top-0 left-0 z-30 h-24 px-8 flex items-center text-sm font-display hover:text-gray-400 transition-colors text-white" />
+                    : (<Link to="/" aria-label="Yvonne Lu Trinh — home">
+                        <TextDistortion text="YVONNE LU TRINH" tag="span" className="fixed top-0 left-0 z-30 h-24 px-8 flex items-center text-sm font-display hover:text-gray-400 transition-colors text-white" />
                     </Link>
                     )}
                 <HeaderNav />

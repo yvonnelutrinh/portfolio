@@ -10,7 +10,7 @@ export default function About() {
         <>
             <Header />
             <div className="min-h-screen bg-black text-white">
-                <main className="container mx-auto px-4 pt-32 pb-16">
+                <main id="main-content" className="container mx-auto px-4 pt-32 pb-16">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center font-display text-6xl lg:text-8xl">
                         <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
                             <motion.h1
