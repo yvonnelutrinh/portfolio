@@ -9,6 +9,7 @@ const defaultSteps = [
     "TEST",
     "DEPLOY",
     "TRACK",
+    "ITERATE",
 ]
 
 interface ProcessStepsProps {
@@ -16,12 +17,20 @@ interface ProcessStepsProps {
 }
 
 export default function ProcessSteps({ steps = defaultSteps }: ProcessStepsProps) {
+    const midpoint = Math.ceil(steps.length / 2)
+
     return (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-12 list-none">
+        // one ordered list, visually split into two flowing columns:
+        // 01–04 on the left, 05–08 continuing on the right
+        <ol className="mt-12 grid grid-cols-1 gap-3 md:grid-cols-2 md:grid-rows-4 md:grid-flow-col md:gap-x-16 list-none">
             {steps.map((step, index) => (
                 <motion.li
                     key={step}
-                    className="border border-blue-400/40 p-4 hover:border-blue-400/70 transition-colors"
+                    className={`border p-4 transition-colors hover:border-blue-400/80 ${
+                        index === midpoint ? "mt-6 md:mt-0" : ""
+                    }`}
+                    // border brightens step by step for a sense of forward flow
+                    style={{ borderColor: `rgba(96, 165, 250, ${0.25 + index * 0.06})` }}
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -32,6 +41,6 @@ export default function ProcessSteps({ steps = defaultSteps }: ProcessStepsProps
                     </h3>
                 </motion.li>
             ))}
-        </ul>
+        </ol>
     )
 }
