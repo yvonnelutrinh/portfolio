@@ -13,7 +13,7 @@ const projects: { id: number; title: string; slug: string; tags: ProjectTag[] }[
   { id: 5, title: "LILGUY", slug: "lilguy", tags: ["design", "development"] },
   { id: 6, title: "CREATIVE WORLD", slug: "creative-world", tags: ["design", "development"] },
   { id: 7, title: "POKÉMON VALENTINE", slug: "pokemon-valentine", tags: ["development"] },
-  { id: 8, title: "BIZBOT", slug: "bizbot", tags: ["design", "development"] },
+  // archived: { id: 8, title: "BIZBOT", slug: "bizbot", tags: ["design", "development"] },
   { id: 9, title: "RESPONSIVE DEVELOPMENT", slug: "development", tags: ["development"] },
 ]
 

@@ -184,6 +184,8 @@ export const projectsData: Record<string, Project> = {
             process: [{ src: "images/pokemon-valentine-process.jpg", alt: "Pokemon Valentine design process artifact" }, { src: "images/pokemon-valentine-process-2.jpg", alt: "Pokemon Valentine design process artifact" }, { src: "images/pokemon-valentine-process-3.jpg", alt: "Pokemon Valentine design process artifact" }]
         }
     },
+    // archived — not listed on the Work page, kept for future reference
+    // (still reachable directly at /work/bizbot)
     "bizbot": {
         title: "BIZBOT",
         description:
