@@ -25,6 +25,9 @@ export interface Project {
     tech?: string[]
     credit?: string
     placeholder?: boolean
+    // gated behind the design-portfolio password and hidden from the Work list
+    // until unlocked
+    protected?: boolean
     embed?: ProjectEmbedConfig
     details?: { subheader: string; process: string; impact: string }
     images?: {
@@ -45,6 +48,7 @@ export const projectsData: Record<string, Project> = {
         role: "Data Visualization Design, Front-end Development",
         client: "Independent | AI Governance Research",
         tags: ["design", "development"],
+        protected: true,
         tech: ["React", "JavaScript", "Plotly.js", "PapaParse", "Lodash", "Vite", "CSS"],
         details: {
             subheader: "PROCESS",
@@ -70,6 +74,7 @@ export const projectsData: Record<string, Project> = {
         role: "Learning Experience Design, UX/UI Design",
         client: "TNO",
         tags: ["design"],
+        protected: true,
         placeholder: true,
     },
     "technicalities": {
@@ -80,6 +85,7 @@ export const projectsData: Record<string, Project> = {
         role: "UX/UI Design",
         client: "Independent",
         tags: ["design"],
+        protected: true,
         placeholder: true,
     },
     "wander": {

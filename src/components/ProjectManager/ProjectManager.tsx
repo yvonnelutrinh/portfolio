@@ -8,7 +8,15 @@ import { ProjectEmbed } from "../ProjectEmbed/ProjectEmbed"
 import ImageCollage from "../ImageCollage/ImageCollage"
 import ImageSlider from "../ImageSlider/ImageSlider"
 import ProcessSteps from "../ProcessSteps/ProcessSteps"
+import PasswordGate from "../PasswordGate/PasswordGate"
 import { projectsData, type Project } from "../../data/projects"
+
+// Gates a project's content behind the design-portfolio password when the
+// project is marked `protected`; otherwise renders it directly.
+function ProtectedSection({ project, children }: { project: Project; children: React.ReactNode }) {
+    if (!project.protected) return <>{children}</>
+    return <PasswordGate heading={project.title}>{children}</PasswordGate>
+}
 
 function SubfeatureImage({ src, alt }: { src: string; alt: string }) {
     const isGif = src.endsWith('.gif');
@@ -96,6 +104,7 @@ export default function ProjectPage() {
         <>
             <Header />
             {project && (<div className="min-h-screen bg-black text-white">
+                <ProtectedSection project={project}>
                 <main id="main-content">
                     {/* hero section */}
                     <section className="h-screen flex flex-col justify-center relative overflow-hidden">
@@ -249,6 +258,7 @@ export default function ProjectPage() {
                         {isDesignProject && <ProcessSteps />}
                     </section>
                 </main>
+                </ProtectedSection>
             </div >)}
             <Footer />
         </>

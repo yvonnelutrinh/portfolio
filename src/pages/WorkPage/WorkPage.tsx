@@ -3,12 +3,13 @@ import { motion } from "motion/react"
 import ProjectCard from "../../components/ProjectCard/ProjectCard"
 import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
+import { useDesignGate } from "../../context/DesignGateContext"
 import type { ProjectTag } from "../../data/projects"
 
-const projects: { id: number; title: string; slug: string; tags: ProjectTag[] }[] = [
-  { id: 1, title: "AI SAFETY DATA VIS", slug: "ai-safety-data-vis", tags: ["design", "development"] },
-  { id: 2, title: "TNO ELEARNING MODULE", slug: "tno-elearning", tags: ["design"] },
-  { id: 3, title: "TECHNICALITIES", slug: "technicalities", tags: ["design"] },
+const projects: { id: number; title: string; slug: string; tags: ProjectTag[]; protected?: boolean }[] = [
+  { id: 1, title: "AI SAFETY DATA VIS", slug: "ai-safety-data-vis", tags: ["design", "development"], protected: true },
+  { id: 2, title: "TNO ELEARNING MODULE", slug: "tno-elearning", tags: ["design"], protected: true },
+  { id: 3, title: "TECHNICALITIES", slug: "technicalities", tags: ["design"], protected: true },
   { id: 4, title: "WANDER", slug: "wander", tags: ["design", "development"] },
   { id: 5, title: "LILGUY", slug: "lilguy", tags: ["design", "development"] },
   { id: 6, title: "CREATIVE WORLD", slug: "creative-world", tags: ["design", "development"] },
@@ -27,11 +28,12 @@ type Filter = (typeof filters)[number]["value"]
 
 export default function Work() {
   const [activeFilter, setActiveFilter] = useState<Filter>("all")
+  const { unlocked } = useDesignGate()
 
-  const visibleProjects =
-    activeFilter === "all"
-      ? projects
-      : projects.filter((project) => project.tags.includes(activeFilter))
+  // gated design-portfolio projects stay hidden from the list until unlocked
+  const visibleProjects = projects
+    .filter((project) => unlocked || !project.protected)
+    .filter((project) => activeFilter === "all" || project.tags.includes(activeFilter))
 
   return (
     <>

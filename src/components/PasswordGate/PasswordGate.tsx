@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { motion } from "motion/react"
+import { useDesignGate } from "../../context/DesignGateContext"
 
-// SHA-256 hash of the site password — the plaintext never ships in the bundle.
+// SHA-256 hash of the section password — the plaintext never ships in the bundle.
 // Generate a new hash with:
 //   node -e "crypto.subtle.digest('SHA-256', new TextEncoder().encode('your-password')).then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))"
 // Override at build time with VITE_SITE_PASSWORD_HASH.
@@ -9,16 +10,24 @@ const PASSWORD_HASH =
     import.meta.env.VITE_SITE_PASSWORD_HASH ||
     "d7af17b1fbb6969d29147b27685f1340437dc5e3daf4c3268e855c7384247fc5"
 
-const STORAGE_KEY = "site-unlocked"
-
 async function hashPassword(value: string): Promise<string> {
     const data = new TextEncoder().encode(value)
     const digest = await crypto.subtle.digest("SHA-256", data)
     return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("")
 }
 
-export default function PasswordGate({ children }: { children: React.ReactNode }) {
-    const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem(STORAGE_KEY) === "true")
+interface PasswordGateProps {
+    children: React.ReactNode
+    heading?: string
+    description?: React.ReactNode
+}
+
+export default function PasswordGate({
+    children,
+    heading = "DESIGN PORTFOLIO",
+    description,
+}: PasswordGateProps) {
+    const { unlocked, unlock } = useDesignGate()
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const [checking, setChecking] = useState(false)
@@ -40,8 +49,7 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
         const hash = await hashPassword(password)
         setChecking(false)
         if (hash === PASSWORD_HASH) {
-            sessionStorage.setItem(STORAGE_KEY, "true")
-            setUnlocked(true)
+            unlock()
         } else {
             setError("Incorrect password. Please try again.")
             setPassword("")
@@ -52,21 +60,27 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
     return (
         <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
             <motion.main
+                id="main-content"
                 className="w-full max-w-md"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <h1 className="font-display text-4xl md:text-6xl mb-4">YVONNE LU TRINH</h1>
+                <h1 className="font-display text-4xl md:text-6xl mb-4">{heading}</h1>
                 <p className="font-mono text-sm text-gray-300 mb-8">
-                    This portfolio is password protected. Enter the password to continue, or{" "}
-                    <a
-                        href="mailto:yvonnelutrinh@gmail.com"
-                        className="text-white underline hover:text-gray-400 transition-colors"
-                    >
-                        email me
-                    </a>{" "}
-                    to request access.
+                    {description ?? (
+                        <>
+                            This section of my portfolio is password protected. Enter the password to
+                            continue, or{" "}
+                            <a
+                                href="mailto:yvonnelutrinh@gmail.com"
+                                className="text-white underline hover:text-gray-400 transition-colors"
+                            >
+                                email me
+                            </a>{" "}
+                            to request access.
+                        </>
+                    )}
                 </p>
 
                 <form onSubmit={handleSubmit} noValidate>
